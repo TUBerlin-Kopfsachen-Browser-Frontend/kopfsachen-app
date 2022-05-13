@@ -58,9 +58,9 @@ export default function Sidebar() {
                     }}
                 />
                 
-                <NavItem navSize={navSize} icon={FiHome} title="Home" description="This is the description for the dashboard." active/>
+                <NavItem navSize={navSize} icon={FiHome} title="Home" description="This is the description for the dashboard." routeto="/"/>
                 <NavItem navSize={navSize} icon={FiCalendar} title="Calendar" />
-                <NavItem navSize={navSize} icon={FiBookOpen} title="Wiki" />
+                <NavItem navSize={navSize} icon={FiBookOpen} title="Wiki" routeto="/wiki" />
                 <NavItem navSize={navSize} icon={FiArrowUpCircle} title="Reinforcer" />
                 <NavItem navSize={navSize} icon={FiShield} title="Emergency" />
                 <NavItem navSize={navSize} icon={FiSettings} title="Settings" />

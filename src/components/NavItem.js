@@ -14,7 +14,7 @@ import {
 } from '@chakra-ui/react'
 import NavHoverBox from '../components/NavHoverBox'
 
-export default function NavItem({ icon, title, description, active, navSize }) {
+export default function NavItem({ icon, title, description, active, navSize, routeto }) {
     return (
         <Flex
             mt={30}
@@ -29,6 +29,7 @@ export default function NavItem({ icon, title, description, active, navSize }) {
                     borderRadius={8}
                     _hover={{ textDecor: 'none', backgroundColor: "#AEC8CA" }}
                     w={navSize === "large" && "100%"}
+                    href={routeto}
                 >
                     <MenuButton w="100%">
                         <Flex>
