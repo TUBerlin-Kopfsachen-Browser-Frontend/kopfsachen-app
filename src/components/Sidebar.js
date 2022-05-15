@@ -90,7 +90,7 @@ export default function Sidebar() {
                 <Flex mt={4} align="center">
                     <Avatar size="sm" src="avatar-1.jpg" />
                     <Flex flexDir="column" ml={4} display={navSize === "small" ? "none" : "flex"}>
-                        <Heading as="h3" size="sm">Max Musterman</Heading>
+                        <Heading as="h3" size="sm">Maxi Mustermensch</Heading>
                         <Text color="gray">Username</Text>
                     </Flex>
                 </Flex>
