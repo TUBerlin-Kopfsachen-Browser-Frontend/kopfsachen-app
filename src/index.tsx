@@ -5,8 +5,12 @@ import { App } from "./App"
 import reportWebVitals from "./reportWebVitals"
 import * as serviceWorker from "./serviceWorker"
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Testpage from "./routes/testpage";
-import Wiki from "./routes/wiki";
+import Testpage from "./routes/Testpage";
+import Wiki from "./routes/Wiki";
+import MoodDiary from "./routes/MoodDiary";
+import Resources from "./routes/Resources";
+import EmergencyNumbers from "./routes/EmergencyNumbers";
+import Settings from "./routes/Settings";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -15,7 +19,11 @@ ReactDOM.render(
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="testpage" element={<Testpage />} />
+        <Route path="mooddiary" element={<MoodDiary />} />
         <Route path="wiki" element={<Wiki />} />
+        <Route path="resources" element={<Resources />} />
+        <Route path="emergencynumbers" element={<EmergencyNumbers />} />
+        <Route path="settings" element={<Settings />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,

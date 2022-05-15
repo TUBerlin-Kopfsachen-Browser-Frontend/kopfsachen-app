@@ -34,7 +34,7 @@ export default function Sidebar() {
             marginTop="2.5vh"
             boxShadow="0 4px 12px 0 rgba(0, 0, 0, 0.05)"
             borderRadius={navSize === "small" ? "15px" : "30px"}
-            w={navSize === "small" ? "75px" : "200px"}
+            w={navSize === "small" ? "75px" : "250px"}
             flexDir="column"
             justifyContent="space-between"
         >
@@ -59,11 +59,11 @@ export default function Sidebar() {
                 />
                 
                 <NavItem navSize={navSize} icon={FiHome} title="Home" description="This is the description for the dashboard." routeto="/"/>
-                <NavItem navSize={navSize} icon={FiCalendar} title="Calendar" />
+                <NavItem navSize={navSize} icon={FiCalendar} title="Mood Diary" routeto="/mooddiary"/>
                 <NavItem navSize={navSize} icon={FiBookOpen} title="Wiki" routeto="/wiki" />
-                <NavItem navSize={navSize} icon={FiArrowUpCircle} title="Reinforcer" />
-                <NavItem navSize={navSize} icon={FiShield} title="Emergency" />
-                <NavItem navSize={navSize} icon={FiSettings} title="Settings" />
+                <NavItem navSize={navSize} icon={FiArrowUpCircle} title="Resources" routeto="/resources"/>
+                <NavItem navSize={navSize} icon={FiShield} title="Emergency numbers" routeto="/emergencynumbers"/>
+                <NavItem navSize={navSize} icon={FiSettings} title="Settings" routeto="/settings"/>
             </Flex>
 
             
