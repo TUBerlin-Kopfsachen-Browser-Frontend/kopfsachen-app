@@ -12,6 +12,7 @@ import {
     Center,
     Button,
     Spacer,
+    Heading,
 } from "@chakra-ui/react"
 import Sidebar from "../components/Sidebar"
 
@@ -29,12 +30,35 @@ interface IEntryPageProps {
     entry: IEntry;
 }
 
+interface IContent {
+    type: string;
+    content: string;
+}
+
+const renderContentElement = (contentElement: IContent, index: number, contents: IContent[]) => {
+    if (contentElement.type === 'text') {
+        return (
+            <Link href={contents[index].content} color='teal.500' isExternal>
+                {contents[index].content.concat(' ')}
+            </Link>
+        );
+    }
+    return contents[index].content.concat(' ');
+}
+
 // should display entry that has been clicked
 function EntryPage(props: IEntryPageProps) {
     return (
-        <h1>
-            {props.entry.title}
-        </h1>
+        <Flex flexDirection='column'>
+            <Flex>
+                <Heading marginBottom={5}>
+                    {props.entry.title}
+                </Heading>
+            </Flex>
+            <Text>
+                {(props.entry.contents).map(renderContentElement)}
+            </Text>
+        </Flex>
     );
 }
 
@@ -70,18 +94,21 @@ function FrontPage() {
         setEntryToDisplay(entry);
     }
 
-    const renderEntry = (entry: IEntry, index: number, array: IEntry[]) => {
-        let printInitial = (index === 0 || array[index - 1].title[0]?.toLowerCase() !== array[index].title[0]?.toLowerCase());
+    const renderEntry = (entry: IEntry, index: number, entries: IEntry[]) => {
+        let displayInitial = (index === 0 || entries[index - 1].title[0]?.toLowerCase() !== entries[index].title[0]?.toLowerCase());
         return (
             <Flex key={entry.id} flexDirection='column'>
-                {printInitial && array[index].title[0]?.toUpperCase()}
-                <Button
+                <Heading  marginTop={4} size='md'>
+                    {displayInitial && entries[index].title[0]?.toUpperCase()}
+                </Heading>
+                <Link
                     marginLeft={2}
                     variant='link'
                     onClick={() => handleClickOnEntry(entry)}
+                    fontSize='md'
                 >
                     {entry.title}
-                </Button>
+                </Link>
             </Flex>
         );
     }
