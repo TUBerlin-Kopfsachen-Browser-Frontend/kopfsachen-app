@@ -50,7 +50,7 @@ export default function Wiki() {
             </Text>{' '}
         </Heading>
         <Text fontSize={{ base: 'md', lg: 'lg' }} color={'gray.500'}>
-            You have already gatherd so many Resources. If you want to work on your already existing ones, click on the button below.
+            You have already gatherd so many resources. If you want to work on your already existing ones, click on the button below.
         </Text>
         <Stack direction={{ base: 'column', md: 'row' }} spacing={4}>
             <Button
