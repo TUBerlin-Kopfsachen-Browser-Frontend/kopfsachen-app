@@ -11,6 +11,7 @@ import {
     Flex,
     Center,
     Button,
+    Spacer,
 } from "@chakra-ui/react"
 import Sidebar from "../components/Sidebar"
 
@@ -28,6 +29,7 @@ interface IEntryPageProps {
     entry: IEntry;
 }
 
+// should display entry that has been clicked
 function EntryPage(props: IEntryPageProps) {
     return (
         <h1>
@@ -36,9 +38,13 @@ function EntryPage(props: IEntryPageProps) {
     );
 }
 
+const sortEntriesByTitle = (x: IEntry, y: IEntry) => {
+    return x.title.localeCompare(y.title);
+}
+
 function FrontPage() {
     const [entryClicked, setEntryClicked] = useState(false);
-    const [entryToDisplay, setEntryToDisplay] = useState<number>();
+    const [entryToDisplay, setEntryToDisplay] = useState<IEntry>();
     const [entries, setEntries] = useState<IEntry[]>();
     // to fetch data everytime the front page is loaded
     useEffect(() => {
@@ -49,7 +55,7 @@ function FrontPage() {
             if (fetchEntries.ok) {
                 const entriesData = await fetchEntries.json();
                 if (entriesData.length > 0) {
-                    setEntries(entriesData);
+                    setEntries(entriesData.sort(sortEntriesByTitle)); // sort entries by title before storing
                 }
             } else {
                 console.log("Failed to fetch wiki entries.");
@@ -58,10 +64,28 @@ function FrontPage() {
         fetchEntriesWrapper();
 
     }, []);
-    const handleClickOnEntry = (index: number) => {
+
+    const handleClickOnEntry = (entry: IEntry) => {
         setEntryClicked(true);
-        setEntryToDisplay(index);
+        setEntryToDisplay(entry);
     }
+
+    const renderEntry = (entry: IEntry, index: number, array: IEntry[]) => {
+        let printInitial = (index === 0 || array[index - 1].title[0]?.toLowerCase() !== array[index].title[0]?.toLowerCase());
+        return (
+            <Flex key={entry.id} flexDirection='column'>
+                {printInitial && array[index].title[0]?.toUpperCase()}
+                <Button
+                    marginLeft={2}
+                    variant='link'
+                    onClick={() => handleClickOnEntry(entry)}
+                >
+                    {entry.title}
+                </Button>
+            </Flex>
+        );
+    }
+
     if (!entryClicked) {
         return (
             <Flex>
@@ -71,17 +95,7 @@ function FrontPage() {
                     alignItems='flex-start'
                     flexDirection='column'
                 >
-                    {entries && <>
-                        {entries.map(({ id, title }, index) => (
-                            <Button
-                                key={id}
-                                variant='link'
-                                onClick={() => handleClickOnEntry(index)}
-                            >
-                                {title}
-                            </Button>
-                        ))}
-                    </>}
+                    {entries && entries.map(renderEntry)}
                 </Center>
             </Flex>
 
@@ -96,7 +110,7 @@ function FrontPage() {
                     left="50%"
                     transform="translateY(-50%, -50%)"
                 >
-                    <EntryPage entry={entries[entryToDisplay]} />
+                    <EntryPage entry={entryToDisplay} />
                 </Center>
             </Flex>
         );
