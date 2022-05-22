@@ -11,8 +11,6 @@ import {
     Flex,
     Center,
     Button,
-    Spacer,
-    Heading,
 } from "@chakra-ui/react"
 import Sidebar from "../components/Sidebar"
 
@@ -30,45 +28,17 @@ interface IEntryPageProps {
     entry: IEntry;
 }
 
-interface IContent {
-    type: string;
-    content: string;
-}
-
-const renderContentElement = (contentElement: IContent, index: number, contents: IContent[]) => {
-    if (contentElement.type === 'text') {
-        return (
-            <Link href={contents[index].content} color='teal.500' isExternal>
-                {contents[index].content.concat(' ')}
-            </Link>
-        );
-    }
-    return contents[index].content.concat(' ');
-}
-
-// should display entry that has been clicked
 function EntryPage(props: IEntryPageProps) {
     return (
-        <Flex flexDirection='column'>
-            <Flex>
-                <Heading marginBottom={5}>
-                    {props.entry.title}
-                </Heading>
-            </Flex>
-            <Text>
-                {(props.entry.contents).map(renderContentElement)}
-            </Text>
-        </Flex>
+        <h1>
+            {props.entry.title}
+        </h1>
     );
-}
-
-const sortEntriesByTitle = (x: IEntry, y: IEntry) => {
-    return x.title.localeCompare(y.title);
 }
 
 function FrontPage() {
     const [entryClicked, setEntryClicked] = useState(false);
-    const [entryToDisplay, setEntryToDisplay] = useState<IEntry>();
+    const [entryToDisplay, setEntryToDisplay] = useState<number>();
     const [entries, setEntries] = useState<IEntry[]>();
     // to fetch data everytime the front page is loaded
     useEffect(() => {
@@ -79,7 +49,7 @@ function FrontPage() {
             if (fetchEntries.ok) {
                 const entriesData = await fetchEntries.json();
                 if (entriesData.length > 0) {
-                    setEntries(entriesData.sort(sortEntriesByTitle)); // sort entries by title before storing
+                    setEntries(entriesData);
                 }
             } else {
                 console.log("Failed to fetch wiki entries.");
@@ -88,31 +58,10 @@ function FrontPage() {
         fetchEntriesWrapper();
 
     }, []);
-
-    const handleClickOnEntry = (entry: IEntry) => {
+    const handleClickOnEntry = (index: number) => {
         setEntryClicked(true);
-        setEntryToDisplay(entry);
+        setEntryToDisplay(index);
     }
-
-    const renderEntry = (entry: IEntry, index: number, entries: IEntry[]) => {
-        let displayInitial = (index === 0 || entries[index - 1].title[0]?.toLowerCase() !== entries[index].title[0]?.toLowerCase());
-        return (
-            <Flex key={entry.id} flexDirection='column'>
-                <Heading  marginTop={4} size='md'>
-                    {displayInitial && entries[index].title[0]?.toUpperCase()}
-                </Heading>
-                <Link
-                    marginLeft={2}
-                    variant='link'
-                    onClick={() => handleClickOnEntry(entry)}
-                    fontSize='md'
-                >
-                    {entry.title}
-                </Link>
-            </Flex>
-        );
-    }
-
     if (!entryClicked) {
         return (
             <Flex>
@@ -122,7 +71,17 @@ function FrontPage() {
                     alignItems='flex-start'
                     flexDirection='column'
                 >
-                    {entries && entries.map(renderEntry)}
+                    {entries && <>
+                        {entries.map(({ id, title }, index) => (
+                            <Button
+                                key={id}
+                                variant='link'
+                                onClick={() => handleClickOnEntry(index)}
+                            >
+                                {title}
+                            </Button>
+                        ))}
+                    </>}
                 </Center>
             </Flex>
 
@@ -137,7 +96,7 @@ function FrontPage() {
                     left="50%"
                     transform="translateY(-50%, -50%)"
                 >
-                    <EntryPage entry={entryToDisplay} />
+                    <EntryPage entry={entries[entryToDisplay]} />
                 </Center>
             </Flex>
         );

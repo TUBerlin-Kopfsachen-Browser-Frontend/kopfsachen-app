@@ -59,18 +59,3 @@ export default function Wiki() {
         </ChakraProvider>
     );
 }
-
-const ReactCalendar = () => {
-    const [date, setDate] = useState (new Date());
-    const onChange = () => {
-        setDate(date)
-    };
-    return (
-        <div>
-            <Calendar onChange={onChange} value = {date}/>
-        </div>
-    );
-};
-render (<ReactCalendar />, document.querySelector('#root'));
-
-
