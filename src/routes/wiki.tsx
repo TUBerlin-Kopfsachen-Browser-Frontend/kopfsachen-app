@@ -79,7 +79,7 @@ function FrontPage() {
         const baseUrl = "http://127.0.0.1:4010"; // localhost + port as base url
         const wikiEntryId = "Lorem ipsum"; // random entry id
         const fetchEntriesWrapper = async () => {
-            const fetchEntries = await fetch(`${baseUrl}/wiki/:${wikiEntryId}`);
+            const fetchEntries = await fetch(`${baseUrl}/wiki/${wikiEntryId}`);
             if (fetchEntries.ok) {
                 const entriesData = await fetchEntries.json();
                 if (entriesData.length > 0) {
@@ -124,7 +124,7 @@ function FrontPage() {
                 <Flex
                     flexDirection='column'
                     position='absolute'
-                    top='20vh'
+                    top='10vh'
                     left='50vw'
                     transform="translate(-50%, -0%)"
                     maxWidth='800px'
@@ -151,7 +151,7 @@ function FrontPage() {
                 <Flex
                     fontSize='large'
                     position='absolute'
-                    top='20vh'
+                    top='10vh'
                     left='50vw'
                     transform="translate(-50%, -0%)"
                     maxWidth='800px'
