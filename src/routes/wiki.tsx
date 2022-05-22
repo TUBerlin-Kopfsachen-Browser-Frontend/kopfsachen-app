@@ -102,7 +102,7 @@ function FrontPage() {
         let displayInitial = (index === 0 || entries[index - 1].title[0]?.toLowerCase() !== entries[index].title[0]?.toLowerCase());
         return (
             <Flex key={entry.id} flexDirection='column'>
-                <Heading  marginTop={4} size='I'>
+                <Heading marginTop={4} size='I'>
                     {displayInitial && entries[index].title[0]?.toUpperCase()}
                 </Heading>
                 <Link
@@ -125,21 +125,21 @@ function FrontPage() {
                     flexDirection='column'
                     position='absolute'
                     top='20vh'
-                    left='45vw'
-                    transform="translateY(-50%, -0%)"
+                    left='50vw'
+                    transform="translate(-50%, -0%)"
                     maxWidth='800px'
                 >
-                <Heading marginBottom={10}> Wiki </Heading>
-                <img src={bookshelf} alt='book shelf' width='400px'></img>
-                <Flex 
-                    fontSize='xl'
-                    alignItems='flex-start'
-                    flexDirection='column'
-                    paddingBottom={100}
+                    <Heading marginBottom={10}> Wiki </Heading>
+                    <img src={bookshelf} alt='book shelf' width='400px'></img>
+                    <Flex
+                        fontSize='xl'
+                        alignItems='flex-start'
+                        flexDirection='column'
+                        paddingBottom={100}
                     // paddingLeft={130}
-                >
-                    {entries && entries.map(renderEntry)}
-                </Flex>
+                    >
+                        {entries && entries.map(renderEntry)}
+                    </Flex>
                 </Flex>
             </Flex>
 
@@ -148,16 +148,16 @@ function FrontPage() {
         return (
             <Flex>
                 <Sidebar />
-                <Flex 
+                <Flex
                     fontSize='large'
-                    position="absolute"
-                    top="20vh"
-                    left="70vh"
-                    transform="-50%, -0%"
+                    position='absolute'
+                    top='20vh'
+                    left='50vw'
+                    transform="translate(-50%, -0%)"
                     maxWidth='800px'
                 >
-                        <EntryPage entry={entryToDisplay} />
-                    </Flex>
+                    <EntryPage entry={entryToDisplay} />
+                </Flex>
             </Flex>
         );
     } else {
