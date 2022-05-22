@@ -13,8 +13,11 @@ import {
     Button,
     Spacer,
     Heading,
+    Image,
+    Stack,
 } from "@chakra-ui/react"
 import Sidebar from "../components/Sidebar"
+import bookshelf from "../bookshelf.png"
 
 // api response format as interface
 interface IEntry {
@@ -50,8 +53,9 @@ const renderContentElement = (contentElement: IContent, index: number, contents:
 function EntryPage(props: IEntryPageProps) {
     return (
         <Flex flexDirection='column'>
+            <img src={bookshelf} alt='book shelf' width='400px'></img>
             <Flex>
-                <Heading marginBottom={5}>
+                <Heading marginBottom={5} fontSize='3xl'>
                     {props.entry.title}
                 </Heading>
             </Flex>
@@ -98,7 +102,7 @@ function FrontPage() {
         let displayInitial = (index === 0 || entries[index - 1].title[0]?.toLowerCase() !== entries[index].title[0]?.toLowerCase());
         return (
             <Flex key={entry.id} flexDirection='column'>
-                <Heading  marginTop={4} size='md'>
+                <Heading  marginTop={4} size='I'>
                     {displayInitial && entries[index].title[0]?.toUpperCase()}
                 </Heading>
                 <Link
@@ -117,13 +121,26 @@ function FrontPage() {
         return (
             <Flex>
                 <Sidebar />
-                <Center fontSize="xl"
-                    margin='auto'
+                <Flex
+                    flexDirection='column'
+                    position='absolute'
+                    top='20vh'
+                    left='45vw'
+                    transform="translateY(-50%, -0%)"
+                    maxWidth='800px'
+                >
+                <Heading marginBottom={10}> Wiki </Heading>
+                <img src={bookshelf} alt='book shelf' width='400px'></img>
+                <Flex 
+                    fontSize='xl'
                     alignItems='flex-start'
                     flexDirection='column'
+                    paddingBottom={100}
+                    // paddingLeft={130}
                 >
                     {entries && entries.map(renderEntry)}
-                </Center>
+                </Flex>
+                </Flex>
             </Flex>
 
         );
@@ -131,14 +148,16 @@ function FrontPage() {
         return (
             <Flex>
                 <Sidebar />
-                <Center fontSize="xl"
+                <Flex 
+                    fontSize='large'
                     position="absolute"
-                    top="50%"
-                    left="50%"
-                    transform="translateY(-50%, -50%)"
+                    top="20vh"
+                    left="70vh"
+                    transform="-50%, -0%"
+                    maxWidth='800px'
                 >
-                    <EntryPage entry={entryToDisplay} />
-                </Center>
+                        <EntryPage entry={entryToDisplay} />
+                    </Flex>
             </Flex>
         );
     } else {
