@@ -1,21 +1,6 @@
 import { useEffect, useState } from "react"
-import {
-    ChakraProvider,
-    Box,
-    Text,
-    Link,
-    VStack,
-    Code,
-    Grid,
-    theme,
-    Flex,
-    Center,
-    Button,
-    Spacer,
-    Heading,
-    Image,
-    Stack,
-} from "@chakra-ui/react"
+import { ChakraProvider, Text, Link, theme, Flex, Heading, Input, InputGroup, InputLeftElement, } from "@chakra-ui/react"
+import { SearchIcon } from "@chakra-ui/icons"
 import Sidebar from "../components/Sidebar"
 import bookshelf from "../bookshelf.png"
 
@@ -74,6 +59,7 @@ function FrontPage() {
     const [entryClicked, setEntryClicked] = useState(false);
     const [entryToDisplay, setEntryToDisplay] = useState<IEntry>();
     const [entries, setEntries] = useState<IEntry[]>();
+    const [searchInput, setSearchInput] = useState<string>('');
     // to fetch data everytime the front page is loaded
     useEffect(() => {
         const baseUrl = "http://127.0.0.1:4010"; // localhost + port as base url
@@ -117,6 +103,15 @@ function FrontPage() {
         );
     }
 
+    const filterEntry = (entry: IEntry) => {
+        return entry.title.toLowerCase().includes(searchInput.trim().toLowerCase());
+    }
+
+    function handleInput(e: React.ChangeEvent<HTMLInputElement>) {
+        setSearchInput(e.target.value);
+
+    }
+
     if (!entryClicked) {
         return (
             <Flex>
@@ -131,14 +126,23 @@ function FrontPage() {
                 >
                     <Heading marginBottom={10}> Wiki </Heading>
                     <img src={bookshelf} alt='book shelf' width='400px'></img>
+                    <InputGroup>
+                        <InputLeftElement
+                            pointerEvents='none'
+                            children={<SearchIcon color='gray.300' />} />
+                        <Input
+                            placeholder="Search for entries"
+                            focusBorderColor="teal.400"
+                            onChange={handleInput}
+                        />
+                    </InputGroup>
                     <Flex
                         fontSize='xl'
                         alignItems='flex-start'
                         flexDirection='column'
                         paddingBottom={100}
-                    // paddingLeft={130}
                     >
-                        {entries && entries.map(renderEntry)}
+                        {entries && entries.filter(filterEntry).map(renderEntry)}
                     </Flex>
                 </Flex>
             </Flex>
