@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
-import { ChakraProvider, Text, Link, theme, Flex, Heading, Input, InputGroup, InputLeftElement, } from "@chakra-ui/react"
-import { SearchIcon } from "@chakra-ui/icons"
+import { ChakraProvider, Text, Link, theme, Flex, Heading, Input, InputGroup, InputLeftElement, Button, Skeleton, } from "@chakra-ui/react"
+import { ArrowBackIcon, SearchIcon } from "@chakra-ui/icons"
 import Sidebar from "../components/Sidebar"
 import bookshelf from "../bookshelf.png"
 
@@ -56,9 +56,8 @@ const sortEntriesByTitle = (x: IEntry, y: IEntry) => {
 }
 
 function FrontPage() {
-    const [entryClicked, setEntryClicked] = useState(false);
     const [entryToDisplay, setEntryToDisplay] = useState<IEntry>();
-    const [entries, setEntries] = useState<IEntry[]>();
+    const [entries, setEntries] = useState<IEntry[]>([]);
     const [searchInput, setSearchInput] = useState<string>('');
     // to fetch data everytime the front page is loaded
     useEffect(() => {
@@ -80,7 +79,6 @@ function FrontPage() {
     }, []);
 
     const handleClickOnEntry = (entry: IEntry) => {
-        setEntryClicked(true);
         setEntryToDisplay(entry);
     }
 
@@ -112,7 +110,7 @@ function FrontPage() {
 
     }
 
-    if (!entryClicked) {
+    if (typeof entryToDisplay === 'undefined') { // front page
         return (
             <Flex>
                 <Sidebar />
@@ -142,32 +140,39 @@ function FrontPage() {
                         flexDirection='column'
                         paddingBottom={100}
                     >
-                        {entries && entries.filter(filterEntry).map(renderEntry)}
+                        {entries.filter(filterEntry).map(renderEntry)}
+                        {entries.length === 0 && Array.apply(null, new Array(5)).map((_, i) => <Skeleton height='20px' width='100%' marginTop='10px' key={-i} />)}
                     </Flex>
                 </Flex>
             </Flex>
 
         );
-    } else if (typeof entries !== 'undefined' && typeof entryToDisplay !== 'undefined') {
+    } else { // entry page
         return (
             <Flex>
                 <Sidebar />
-                <Flex
-                    fontSize='large'
-                    position='absolute'
-                    top='10vh'
-                    left='50vw'
-                    transform="translate(-50%, -0%)"
-                    maxWidth='800px'
-                >
-                    <EntryPage entry={entryToDisplay} />
+                <Flex>
+                    <Flex
+                        fontSize='large'
+                        position='absolute'
+                        top='10vh'
+                        left='50vw'
+                        transform="translate(-50%, -0%)"
+                        maxWidth='800px'
+                    >
+                        <Button 
+                            variant='ghost'
+                            flexShrink={0}
+                            marginRight={5}
+                            colorScheme='blackAlpha'
+                            leftIcon={<ArrowBackIcon/>}
+                            onClick={() => setEntryToDisplay(undefined)}
+                        >
+                            Back
+                        </Button>
+                        <EntryPage entry={entryToDisplay} />
+                    </Flex>
                 </Flex>
-            </Flex>
-        );
-    } else {
-        return (
-            <Flex>
-                <Sidebar />
             </Flex>
         );
     }
