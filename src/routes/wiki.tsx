@@ -111,6 +111,7 @@ function FrontPage() {
     }
 
     if (typeof entryToDisplay === 'undefined') { // front page
+        let filteredEntries = entries.filter(filterEntry).map(renderEntry);
         return (
             <Flex>
                 <Sidebar />
@@ -140,7 +141,8 @@ function FrontPage() {
                         flexDirection='column'
                         paddingBottom={100}
                     >
-                        {entries.filter(filterEntry).map(renderEntry)}
+                        {filteredEntries}
+                        {filteredEntries.length === 0 && <Text marginTop={5} fontSize='md'> No entries found. </Text>}
                         {entries.length === 0 && Array.apply(null, new Array(5)).map((_, i) => <Skeleton height='20px' width='100%' marginTop='10px' key={-i} />)}
                     </Flex>
                 </Flex>
