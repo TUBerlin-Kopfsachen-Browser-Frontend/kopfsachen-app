@@ -5,12 +5,12 @@ import { App } from "./App"
 import reportWebVitals from "./reportWebVitals"
 import * as serviceWorker from "./serviceWorker"
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Testpage from "./routes/Testpage";
+import Testpage from "./routes/testpage";
 import Wiki from "./routes/Wiki";
 import MoodDiary from "./routes/MoodDiary";
 import Resources from "./routes/Resources";
 import EmergencyNumbers from "./routes/EmergencyNumbers";
-import Settings from "./routes/Settings";
+import SafetyNet from "./routes/safetyNet";
 
 
 ReactDOM.render(
@@ -24,7 +24,7 @@ ReactDOM.render(
         <Route path="wiki" element={<Wiki />} />
         <Route path="resources" element={<Resources />} />
         <Route path="emergencynumbers" element={<EmergencyNumbers />} />
-        <Route path="settings" element={<Settings />} />
+        <Route path="settings" element={<SafetyNet />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,
