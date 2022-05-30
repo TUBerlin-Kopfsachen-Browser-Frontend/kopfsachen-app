@@ -17,16 +17,7 @@ import {
   Stack,
   useBreakpointValue,
 } from "@chakra-ui/react"
-import {
-    FiMenu,
-    FiCheck,
-    FiHome,
-    FiCalendar,
-    FiBookOpen,
-    FiArrowUpCircle,
-    FiShield,
-    FiSettings
-} from 'react-icons/fi'
+
 import Sidebar from "../components/Sidebar"
 import meditation from '../../src/meditation.jpg'
 import { useNavigate } from "react-router-dom";
@@ -65,10 +56,10 @@ export default function Wiki() {
 
                         <Stack direction={{ base: 'column', md: 'row' }} spacing={4}>
                             
-                           
+                        
                             
                             <Button
-                            isFullWidth textAlign="left"
+                            textAlign="left"
                             rounded={'full'}
                             bg={'green.400'}
                             color={'white'}

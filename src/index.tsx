@@ -13,6 +13,7 @@ import EmergencyNumbers from "./routes/EmergencyNumbers";
 import Settings from "./routes/Settings";
 import NewResources from "./routes/NewResources";
 import Reframing from "./routes/Reframing";
+import Reframing1 from "./routes/Reframing1";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -28,6 +29,7 @@ ReactDOM.render(
         <Route path="settings" element={<Settings />} />
         <Route path="newresources" element={<NewResources />} />
         <Route path="reframing" element={<Reframing />} />
+        <Route path="reframing1" element={<Reframing1 />} />
 
       </Routes>
     </BrowserRouter>

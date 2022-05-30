@@ -14,12 +14,7 @@ HStack,
 Radio,
 Button, ButtonGroup
 } from "@chakra-ui/react"
-import {
-FormControl,
-FormLabel,
-FormErrorMessage,
-FormHelperText,
-} from '@chakra-ui/react'
+
 import { useNavigate } from "react-router-dom";
 import Sidebar from "../components/Sidebar"
 import { AspectRatio } from '@chakra-ui/react'
@@ -74,7 +69,8 @@ export default function New() {
     Choose another strategy
 
   </Button>
-  <Button colorScheme='teal' variant='outline' size='lg'>
+  <Button colorScheme='teal' variant='outline' size='lg'
+            onClick={() => navigate('/reframing1')}>
     I want to practice that
   </Button>
         
