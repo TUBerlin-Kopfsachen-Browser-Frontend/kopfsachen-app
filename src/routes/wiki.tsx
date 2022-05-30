@@ -59,6 +59,7 @@ function FrontPage() {
     const [entryToDisplay, setEntryToDisplay] = useState<IEntry>();
     const [entries, setEntries] = useState<IEntry[]>([]);
     const [searchInput, setSearchInput] = useState<string>('');
+    const [searchIsActive, setSearchIsActive] = useState(false);
     // to fetch data everytime the front page is loaded
     useEffect(() => {
         const baseUrl = "http://127.0.0.1:4010"; // localhost + port as base url
@@ -107,6 +108,7 @@ function FrontPage() {
 
     function handleInput(e: React.ChangeEvent<HTMLInputElement>) {
         setSearchInput(e.target.value);
+        setSearchIsActive(true);
 
     }
 
@@ -142,7 +144,7 @@ function FrontPage() {
                         paddingBottom={100}
                     >
                         {filteredEntries}
-                        {filteredEntries.length === 0 && <Text marginTop={5} fontSize='md'> No entries found. </Text>}
+                        {searchIsActive && filteredEntries.length === 0 && <Text marginTop={5} fontSize='md'> No entries found. </Text>}
                         {entries.length === 0 && Array.apply(null, new Array(5)).map((_, i) => <Skeleton height='20px' width='100%' marginTop='10px' key={-i} />)}
                     </Flex>
                 </Flex>
