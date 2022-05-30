@@ -18,6 +18,7 @@ import {
 import Sidebar from "../components/Sidebar"
 import Logoo from "../public/net.png"
 
+
 import { Input } from '@chakra-ui/react'
 import { Stack, HStack} from '@chakra-ui/react'
 import { stringify } from "querystring"
@@ -115,6 +116,24 @@ function FrontPage() {
     //         </Flex>
     //     );
     // }
+    async function postData(){
+        
+        await axios.post(`http://127.0.0.1:4010/safetyNet/1`,{
+            "name": "nail",
+            "type": "pet",
+            "strategies": [
+              "string"
+            ],
+            "feedback": [
+              {
+                "itHelped": true,
+                "comment": "string",
+                "timestamp": "2022-05-29T17:29:03.758Z"
+              }
+            ]
+          })
+        
+        }
 
     if(entries){
         console.log(entries.at(1)?.name)
@@ -127,11 +146,13 @@ function FrontPage() {
                     flexDirection='column'
                 >
                     {/* {entries && entries.map(renderEntry)} */}
-                    {entries.at(1)?.name}
-                    <InputBox />
-                    <Box mt = {6} mx = "auto" alignItems = 'center' as='button' borderRadius='md' bg='turquoise' color='white' px={50} h={8}>
-                       Let's go!
+                    <Box mt = {4}>
+                    Trage 3 Wege ein, auf denen dir <br></br> {entries.at(1)?.name} gerade helfen kann.
                     </Box>
+                    <InputBox />
+                    <Button onClick={postData} mt = {6} mx = "auto" alignItems = 'center' as='button' borderRadius='md' bg='turquoise' color='white' px={50} h={8}>
+                       Let's go!
+                    </Button>
                     
                     
                 </Center>
@@ -143,6 +164,7 @@ function FrontPage() {
         console.log("NO ENTRIES");
         return(
         <Flex>
+            <VStack w="100%" h="100px" bg="gray.200"></VStack>
                 <Sidebar />
             </Flex>
         )
@@ -152,24 +174,6 @@ function FrontPage() {
 
 
 function InputBox(){
-    async function postData(){
-        
-    await axios.post(`http://127.0.0.1:4010/safetyNet/1`,{
-        "name": "nail",
-        "type": "pet",
-        "strategies": [
-          "string"
-        ],
-        "feedback": [
-          {
-            "itHelped": true,
-            "comment": "string",
-            "timestamp": "2022-05-29T17:29:03.758Z"
-          }
-        ]
-      })
-    
-    }
 
     return(
        
@@ -177,16 +181,15 @@ function InputBox(){
        <Input borderWidth = '2px' borderColor = 'grey' focusBorderColor='pink.400' placeholder='...' size='md' />
        <Input borderWidth = '2px' borderColor = 'grey' focusBorderColor='pink.400' placeholder='...' size='md' />
        <Input borderWidth = '2px' borderColor = 'grey' focusBorderColor='pink.400' placeholder='...' size='md' />
-       <Input borderWidth = '2px' borderColor = 'grey' focusBorderColor='pink.400' placeholder='...' size='md' />
+        
        
        <Box>
         <Image borderRadius='full'
                    boxSize='150px' 
                 //    src='https://bit.ly/dan-abramov' 
-                   src = 'net.png'
-                   alt='Dan Abramov' />
+                   src = 'net.png'/>
                    
-                   <Button onClick={postData}>+</Button>
+                   <Button>+</Button>
 
         </Box>
         
@@ -200,8 +203,7 @@ function InputBox(){
 export default function SafetyNet() {
     return (
         <ChakraProvider theme={theme}>
-            <FrontPage />
-            
+            <FrontPage />            
         </ChakraProvider>
     );
 }

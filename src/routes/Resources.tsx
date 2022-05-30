@@ -18,8 +18,12 @@ import {
 } from "@chakra-ui/react"
 import Sidebar from "../components/Sidebar"
 import meditation from '../../src/meditation.jpg'
+import { useNavigate } from "react-router-dom";
+
 
 export default function Wiki() {
+    const navigate = useNavigate();
+
     return (
         <ChakraProvider theme={theme}>
             
@@ -53,7 +57,7 @@ export default function Wiki() {
             You have already gatherd so many resources. If you want to work on your already existing ones, click on the button below.
         </Text>
         <Stack direction={{ base: 'column', md: 'row' }} spacing={4}>
-            <Button
+            <Button onClick={() => navigate('/Wiki')}
             rounded={'full'}
             bg={'green.400'}
             color={'white'}
