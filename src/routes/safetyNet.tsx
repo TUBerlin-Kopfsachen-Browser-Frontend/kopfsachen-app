@@ -170,7 +170,7 @@ function FrontPage() {
                         Which persons or activities make you happy and give you drive in your everyday life?
                     </Text>}
                     {!addItemClicked && <Text fontSize={11} marginBottom={5}>
-                        {items.map((item: ISafteyNetItem, index, items: ISafteyNetItem[]) => <li> {items[index].name} </li>)}
+                        {items.map((item: ISafteyNetItem, index, items: ISafteyNetItem[]) => <li key={item.name}> {items[index].name} </li>)}
                     </Text>}
                     {/* <Box marginTop={5}>
                         <Image
