@@ -6,7 +6,7 @@ import reportWebVitals from "./reportWebVitals"
 import * as serviceWorker from "./serviceWorker"
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Testpage from "./routes/testpage";
-import Wiki from "./routes/Wiki";
+import Wiki from "./routes/wiki";
 import MoodDiary from "./routes/MoodDiary";
 import Resources from "./routes/Resources";
 import EmergencyNumbers from "./routes/EmergencyNumbers";
@@ -24,7 +24,7 @@ ReactDOM.render(
         <Route path="wiki" element={<Wiki />} />
         <Route path="resources" element={<Resources />} />
         <Route path="emergencynumbers" element={<EmergencyNumbers />} />
-        <Route path="settings" element={<SafetyNet />} />
+        <Route path="safetynet" element={<SafetyNet />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,

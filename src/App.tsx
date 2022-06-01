@@ -11,7 +11,7 @@ import {
   Flex,
   Center,
 } from "@chakra-ui/react"
-import { Logo } from "./Logo"
+// import { Logo } from "./Logo"
 import Sidebar from "./components/Sidebar"
 
 export const App = () => (
@@ -30,7 +30,7 @@ export const App = () => (
         <Grid minH="100vh" p={300}>
           
           <VStack spacing={8}>
-            <Logo h="40vmin" pointerEvents="none" />
+            {/* <Logo h="40vmin" pointerEvents="none" /> */}
             <Text>
               Edit <Code fontSize="xl">src/App.tsx</Code> and save to reload.
             </Text>
