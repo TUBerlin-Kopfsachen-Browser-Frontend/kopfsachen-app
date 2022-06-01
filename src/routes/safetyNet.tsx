@@ -15,12 +15,12 @@ import { RadioGroup } from "@chakra-ui/react"
 import { Radio } from "@chakra-ui/react"
 
 
-// api response format for get request
+// api get/post request format
 interface ISafteyNetItem {
     name: string;
     type: string;
     strategies: string[];
-    feedback: {
+    feedback?: {
         timestamp: string;
         itHelped: boolean;
         comment: string;
@@ -29,7 +29,11 @@ interface ISafteyNetItem {
 
 function AddItemView() {
     const [itemInput, setItemInput] = useState<string>('');
+    const [strategyInput1, setStrategyInput1] = useState<string>('');
+    const [strategyInput2, setStrategyInput2] = useState<string>('');
+    const [strategyInput3, setStrategyInput3] = useState<string>('');
     const [category, setCategory] = useState('people');
+    const [continueClicked, setContinueClicked] = useState(false);
     const handleItemInput = (e: React.ChangeEvent<HTMLInputElement>) => {
         setItemInput(e.target.value);
     };
@@ -39,20 +43,64 @@ function AddItemView() {
             <Input
                 focusBorderColor="green.400"
                 onChange={handleItemInput}
+                isDisabled={continueClicked}
             />
             <Text marginTop={7} marginBottom={5}> To which category does this resource belong? </Text>
-            <RadioGroup onChange={setCategory} value={category} colorScheme='green'>
+            <RadioGroup onChange={setCategory} value={category} colorScheme='green' isDisabled={continueClicked}>
                 <Stack direction='row'>
-                    <Radio value='people'>people</Radio>
-                    <Radio value='hobbies'>hobbies</Radio>
+                    <Radio value='people'>people </Radio>
+                    <Radio value='hactivities'>activities</Radio>
                     <Radio value='pets'>pets</Radio>
                     <Radio value='other'>other</Radio>
                 </Stack>
             </RadioGroup>
-            <Flex marginTop={10}>
-                <Button marginRight={3} colorScheme='green'> Add another resource </Button>
-                <Button colorScheme='green'> These are all resources </Button>
+            <Button 
+                marginTop={7}
+                marginBottom={5}
+                colorScheme='green'
+                width={20} size='xs'
+                onClick={() => setContinueClicked(true)}
+                isDisabled={itemInput.trim() === ''}
+            > 
+                continue
+            </Button>
+            {continueClicked && <Flex flexDirection='column'>
+                <Text marginTop={2} marginBottom={5}> Think about three ways in which {itemInput} can help you right now: </Text>
+                <Stack spacing={3}>
+                    <Input
+                        placeholder='first'
+                        focusBorderColor="green.400"
+                        onChange={(e: any) => setStrategyInput1(e.target.value)}
+                    />
+                    <Input
+                        placeholder='second'
+                        focusBorderColor="green.400"
+                        onChange={(e: any) => setStrategyInput2(e.target.value)}
+                    />
+                    <Input
+                        placeholder='third'
+                        focusBorderColor="green.400"
+                        onChange={(e: any) => setStrategyInput3(e.target.value)}
+                    />
+                </Stack>
+                <Flex marginTop={10}>
+                    <Button 
+                        marginRight={3}
+                        colorScheme='green'
+                        isDisabled={(strategyInput1.trim() === '') || (strategyInput2.trim() === '') || (strategyInput3.trim() === '')}
+                    > 
+                        Add another resource
+                    </Button>
+                    <Button 
+                        marginRight={3}
+                        colorScheme='green'
+                        isDisabled={(strategyInput1.trim() === '') || (strategyInput2.trim() === '') || (strategyInput3.trim() === '')}
+                    > 
+                        These are all resources
+                    </Button>
+                </Flex>
             </Flex>
+            }
         </Flex>
     )
 }
@@ -126,24 +174,24 @@ function FrontPage() {
     //         </Flex>
     //     );
     // }
-    async function postData(){
-        
-        await axios.post(`http://127.0.0.1:4010/safetyNet/1`,{
+    async function postData() {
+
+        await axios.post(`http://127.0.0.1:4010/safetyNet/1`, {
             "name": "nail",
             "type": "pet",
             "strategies": [
-              "string"
+                "string"
             ],
             "feedback": [
-              {
-                "itHelped": true,
-                "comment": "string",
-                "timestamp": "2022-05-29T17:29:03.758Z"
-              }
+                {
+                    "itHelped": true,
+                    "comment": "string",
+                    "timestamp": "2022-05-29T17:29:03.758Z"
+                }
             ]
-          })
-        
-        }
+        })
+
+    }
 
     if (items) {
         // console.log(items.at(1)?.name)
