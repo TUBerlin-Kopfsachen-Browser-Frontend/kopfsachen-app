@@ -4,6 +4,8 @@ import {
 } from "@chakra-ui/react"
 import Sidebar from "../components/Sidebar"
 import Logoo from "../public/net.png"
+
+
 import { stringify } from "querystring"
 import { networkInterfaces } from "os"
 import axios from "axios"
@@ -124,6 +126,24 @@ function FrontPage() {
     //         </Flex>
     //     );
     // }
+    async function postData(){
+        
+        await axios.post(`http://127.0.0.1:4010/safetyNet/1`,{
+            "name": "nail",
+            "type": "pet",
+            "strategies": [
+              "string"
+            ],
+            "feedback": [
+              {
+                "itHelped": true,
+                "comment": "string",
+                "timestamp": "2022-05-29T17:29:03.758Z"
+              }
+            ]
+          })
+        
+        }
 
     if (items) {
         // console.log(items.at(1)?.name)
