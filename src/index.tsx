@@ -11,6 +11,7 @@ import MoodDiary from "./routes/MoodDiary";
 import Resources from "./routes/Resources";
 import EmergencyNumbers from "./routes/EmergencyNumbers";
 import Settings from "./routes/Settings";
+import Profile from "./routes/Profile";
 
 
 ReactDOM.render(
@@ -25,6 +26,7 @@ ReactDOM.render(
         <Route path="resources" element={<Resources />} />
         <Route path="emergencynumbers" element={<EmergencyNumbers />} />
         <Route path="settings" element={<Settings />} />
+        <Route path="profile" element={<Profile />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,
