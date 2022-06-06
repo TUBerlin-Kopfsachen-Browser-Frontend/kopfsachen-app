@@ -5,7 +5,7 @@ import {
 import Sidebar from "../components/Sidebar"
 import Logoo from "../public/net.png"
 
-
+import { useForm, SubmitHandler } from "react-hook-form";
 import { stringify } from "querystring"
 import { networkInterfaces } from "os"
 import axios from "axios"
@@ -37,23 +37,29 @@ function AddItemView() {
     const handleItemInput = (e: React.ChangeEvent<HTMLInputElement>) => {
         setItemInput(e.target.value);
     };
+
+    const { register, handleSubmit, setValue} = useForm<ISafteyNetItem>();
+    const onSubmit: SubmitHandler<ISafteyNetItem> = data => axios.post(`http://127.0.0.1:4010/safetyNet/1`, data)
     return (
         <Flex flexDirection='column'>
             <Text marginTop={2} marginBottom={5}> This is what makes me happy: </Text>
+            <form onSubmit={handleSubmit(onSubmit)}>
             <Input
                 focusBorderColor="green.400"
+                {...register('name')}
                 onChange={handleItemInput}
                 isDisabled={continueClicked}
             />
             <Text marginTop={7} marginBottom={5}> To which category does this resource belong? </Text>
-            <RadioGroup onChange={setCategory} value={category} colorScheme='green' isDisabled={continueClicked}>
+            <RadioGroup {...register('type')} onChange={setCategory} value={category} colorScheme='green' isDisabled={continueClicked}>
                 <Stack direction='row'>
-                    <Radio value='people'>people </Radio>
-                    <Radio value='hactivities'>activities</Radio>
-                    <Radio value='pets'>pets</Radio>
+                    <Radio value='situationControl'>people </Radio>
+                    <Radio value='relaxation'>activities</Radio>
+                    <Radio value='pet'>pets</Radio>
                     <Radio value='other'>other</Radio>
                 </Stack>
             </RadioGroup>
+            
             <Button 
                 marginTop={7}
                 marginBottom={5}
@@ -64,15 +70,19 @@ function AddItemView() {
             > 
                 continue
             </Button>
+            </form>
             {continueClicked && <Flex flexDirection='column'>
                 <Text marginTop={2} marginBottom={5}> Think about three ways in which {itemInput} can help you right now: </Text>
                 <Stack spacing={3}>
+                <form onSubmit={handleSubmit(onSubmit)}>
                     <Input
+                        {...register(`strategies.${0}`)}
                         placeholder='first'
                         focusBorderColor="green.400"
-                        onChange={(e: any) => setStrategyInput1(e.target.value)}
+                        onChange={(e: any) => setStrategyInput1(e.target.value)}                      
                     />
                     <Input
+                        {...register(`strategies.${1}`)}
                         placeholder='second'
                         focusBorderColor="green.400"
                         onChange={(e: any) => setStrategyInput2(e.target.value)}
@@ -82,6 +92,10 @@ function AddItemView() {
                         focusBorderColor="green.400"
                         onChange={(e: any) => setStrategyInput3(e.target.value)}
                     />
+                    <Input onClick={()=>{ setValue(`feedback.${0}.itHelped`, true);
+                                           
+                                        }} type="submit"/>
+                </form>
                 </Stack>
                 <Flex marginTop={10}>
                     <Button 
@@ -108,10 +122,7 @@ function AddItemView() {
 function FrontPage() {
     const [addItemClicked, setAddItemClicked] = useState(false);
     const [items, setItems] = useState<ISafteyNetItem[]>([]);
-
-    // const [name1, setName1] = useState("");
-    // const [name2, setName2] = useState("");
-    // const [name3, setName3] = useState("");
+    
 
     // to fetch data everytime the front page is loaded
     useEffect(() => {
