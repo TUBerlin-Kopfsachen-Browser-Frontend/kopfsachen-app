@@ -4,7 +4,7 @@ import moment from 'moment';
 import "react-calendar/dist/Calendar.css";
 import "./../assets/css/Calendar.css";
 import Sidebar from "../components/Sidebar"
-import HookForm from "../components/ChooseMood";
+import ChooseMoodForm from "../components/ChooseMood";
 
 import {
 ChakraProvider,
@@ -50,7 +50,7 @@ function SetMood() {
             <ModalHeader>How are you feeling today?</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-                <HookForm />
+                <ChooseMoodForm />
             </ModalBody>
             </ModalContent>
         </Modal>

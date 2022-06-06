@@ -11,7 +11,7 @@ import {
 } from '@chakra-ui/react'
 import { m } from 'framer-motion';
 
-export default function HookForm() {
+export default function ChooseMoodForm() {
   const {
     handleSubmit,
     register,
