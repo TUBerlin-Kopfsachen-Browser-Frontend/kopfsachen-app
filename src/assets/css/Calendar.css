@@ -59,6 +59,11 @@ abbr[title] {
   color: #1b2559;
 }
 .react-calendar__month-view__weekdays {
+  font-size: 16px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: clip;
   background-color: #f4f7fe;
   border-radius: 10px;
   margin-bottom: 6px;
