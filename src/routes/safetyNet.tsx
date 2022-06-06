@@ -78,25 +78,26 @@ function AddItemView() {
             {continueClicked && <Flex flexDirection='column' mt={5}>
                 <Text marginTop={2} marginBottom={5}> Think about three ways in which {nameInput} can help you right now: </Text>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <Stack spacing={3}>
-                        <Input
-                            {...register(`strategies.${0}`)}
-                            placeholder='first'
-                            focusBorderColor="green.400"
-                            onChange={(e: any) => setStrategyInput1(e.target.value)}
-                        />
-                        <Input
-                            {...register(`strategies.${1}`)}
-                            placeholder='second'
-                            focusBorderColor="green.400"
-                            onChange={(e: any) => setStrategyInput2(e.target.value)}
-                        />
-                        <Input
-                            placeholder='third'
-                            focusBorderColor="green.400"
-                            onChange={(e: any) => setStrategyInput3(e.target.value)}
-                        />
-                    </Stack>
+                <Stack spacing={3}>
+                    <Input
+                        {...register(`strategies.${0}`)}
+                        placeholder='first'
+                        focusBorderColor="green.400"
+                        onChange={(e: any) => setStrategyInput1(e.target.value)}                      
+                    />
+                    <Input
+                        {...register(`strategies.${1}`)}
+                        placeholder='second'
+                        focusBorderColor="green.400"
+                        onChange={(e: any) => setStrategyInput2(e.target.value)}
+                    />
+                    <Input
+                        {...register(`strategies.${2}`)}
+                        placeholder='third'
+                        focusBorderColor="green.400"
+                        onChange={(e: any) => setStrategyInput3(e.target.value)}
+                    />
+                           </Stack>             
                 </form>
                 <Flex marginTop={10}>
                     <Button
@@ -166,7 +167,7 @@ function AddItemView() {
                 </Flex>
             </Flex>
             }
-        </Flex>
+        </Flex>  
     )
 }
 
