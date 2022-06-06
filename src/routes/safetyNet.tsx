@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import {
-    ChakraProvider, Text, theme, Flex, Heading, Input, Stack, HStack
+    ChakraProvider, Text, theme, Flex, Heading, Input, Stack, HStack, AlertDialog, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, AlertDialogBody, AlertDialogFooter, useDisclosure, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay
 } from "@chakra-ui/react"
 import Sidebar from "../components/Sidebar"
 import Logoo from "../public/net.png"
@@ -13,6 +13,8 @@ import { Button, IconButton } from "@chakra-ui/button"
 import { AddIcon } from "@chakra-ui/icons"
 import { RadioGroup } from "@chakra-ui/react"
 import { Radio } from "@chakra-ui/react"
+import { FiFrown, FiMeh, FiSmile } from "react-icons/fi"
+import React from "react"
 
 
 // api get/post request format
@@ -28,90 +30,139 @@ interface ISafteyNetItem {
 }
 
 function AddItemView() {
-    const [itemInput, setItemInput] = useState<string>('');
+    const [nameInput, setNameInput] = useState<string>('');
     const [strategyInput1, setStrategyInput1] = useState<string>('');
     const [strategyInput2, setStrategyInput2] = useState<string>('');
     const [strategyInput3, setStrategyInput3] = useState<string>('');
-    const [category, setCategory] = useState('people');
+    const [categoryInput, setCategoryInput] = useState('situationControl');
     const [continueClicked, setContinueClicked] = useState(false);
+    const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
     const handleItemInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setItemInput(e.target.value);
+        setNameInput(e.target.value);
     };
 
-    const { register, handleSubmit, setValue} = useForm<ISafteyNetItem>();
+    const { register, handleSubmit, setValue } = useForm<ISafteyNetItem>();
     const onSubmit: SubmitHandler<ISafteyNetItem> = data => axios.post(`http://127.0.0.1:4010/safetyNet/1`, data)
+    const { isOpen, onOpen, onClose } = useDisclosure();
     return (
-        <Flex flexDirection='column'>
+        <Flex flexDirection='column' width={500}>
             <Text marginTop={2} marginBottom={5}> This is what makes me happy: </Text>
             <form onSubmit={handleSubmit(onSubmit)}>
-            <Input
-                focusBorderColor="green.400"
-                {...register('name')}
-                onChange={handleItemInput}
-                isDisabled={continueClicked}
-            />
-            <Text marginTop={7} marginBottom={5}> To which category does this resource belong? </Text>
-            <RadioGroup {...register('type')} onChange={setCategory} value={category} colorScheme='green' isDisabled={continueClicked}>
-                <Stack direction='row'>
-                    <Radio value='situationControl'>people </Radio>
-                    <Radio value='relaxation'>activities</Radio>
-                    <Radio value='pet'>pets</Radio>
-                    <Radio value='other'>other</Radio>
-                </Stack>
-            </RadioGroup>
-            
-            <Button 
-                marginTop={7}
-                marginBottom={5}
-                colorScheme='green'
-                width={20} size='xs'
-                onClick={() => setContinueClicked(true)}
-                isDisabled={itemInput.trim() === ''}
-            > 
-                continue
-            </Button>
+                <Input
+                    focusBorderColor="green.400"
+                    {...register('name')}
+                    onChange={handleItemInput}
+                    isDisabled={continueClicked}
+                />
+                <Text marginTop={7} marginBottom={5}> To which category does this resource belong? </Text>
+                <RadioGroup onChange={setCategoryInput} value={categoryInput} colorScheme='green' isDisabled={continueClicked}>
+                    <Stack direction='row'>
+                        <Radio {...register('type')} value='situationControl'>Situation Control</Radio>
+                        <Radio {...register('type')} value='relaxation'>Relaxation</Radio>
+                        <Radio {...register('type')} value='pet'>Pets</Radio>
+                        <Radio {...register('type')} value='other'>Other</Radio>
+                    </Stack>
+                </RadioGroup>
+
+                {!continueClicked && <Button
+                    marginTop={7}
+                    marginBottom={5}
+                    colorScheme='green'
+                    width={20} size='xs'
+                    onClick={() => setContinueClicked(true)}
+                    isDisabled={nameInput.trim() === ''}
+                >
+                    continue
+                </Button>}
             </form>
-            {continueClicked && <Flex flexDirection='column'>
-                <Text marginTop={2} marginBottom={5}> Think about three ways in which {itemInput} can help you right now: </Text>
-                <Stack spacing={3}>
+            {continueClicked && <Flex flexDirection='column' mt={5}>
+                <Text marginTop={2} marginBottom={5}> Think about three ways in which {nameInput} can help you right now: </Text>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <Input
-                        {...register(`strategies.${0}`)}
-                        placeholder='first'
-                        focusBorderColor="green.400"
-                        onChange={(e: any) => setStrategyInput1(e.target.value)}                      
-                    />
-                    <Input
-                        {...register(`strategies.${1}`)}
-                        placeholder='second'
-                        focusBorderColor="green.400"
-                        onChange={(e: any) => setStrategyInput2(e.target.value)}
-                    />
-                    <Input
-                        placeholder='third'
-                        focusBorderColor="green.400"
-                        onChange={(e: any) => setStrategyInput3(e.target.value)}
-                    />
-                    <Input onClick={()=>{ setValue(`feedback.${0}.itHelped`, true);
-                                           
-                                        }} type="submit"/>
+                    <Stack spacing={3}>
+                        <Input
+                            {...register(`strategies.${0}`)}
+                            placeholder='first'
+                            focusBorderColor="green.400"
+                            onChange={(e: any) => setStrategyInput1(e.target.value)}
+                        />
+                        <Input
+                            {...register(`strategies.${1}`)}
+                            placeholder='second'
+                            focusBorderColor="green.400"
+                            onChange={(e: any) => setStrategyInput2(e.target.value)}
+                        />
+                        <Input
+                            placeholder='third'
+                            focusBorderColor="green.400"
+                            onChange={(e: any) => setStrategyInput3(e.target.value)}
+                        />
+                    </Stack>
                 </form>
-                </Stack>
                 <Flex marginTop={10}>
-                    <Button 
+                    <Button
                         marginRight={3}
                         colorScheme='green'
                         isDisabled={(strategyInput1.trim() === '') || (strategyInput2.trim() === '') || (strategyInput3.trim() === '')}
-                    > 
+                    >
                         Add another resource
                     </Button>
-                    <Button 
+                    <Button
+                        onClick={onOpen}
                         marginRight={3}
                         colorScheme='green'
                         isDisabled={(strategyInput1.trim() === '') || (strategyInput2.trim() === '') || (strategyInput3.trim() === '')}
-                    > 
+                    >
                         These are all resources
                     </Button>
+                    <Modal
+                        isOpen={isOpen}
+                        onClose={onClose}
+                    >
+                        <ModalOverlay>
+                            <ModalContent>
+                                <form onSubmit={handleSubmit(onSubmit)}>
+                                    <ModalHeader fontSize='lg' fontWeight='bold'>
+                                        How did you like this exercise?
+                                    </ModalHeader>
+
+                                    <ModalBody>
+                                        <Stack direction='row' spacing={3}>
+                                            <IconButton
+                                                onClick={() => {
+                                                    setValue(`feedback.${0}.itHelped`, true);
+                                                    setIsSubmitDisabled(false);
+                                                }}
+                                                aria-label='positive'
+                                                variant='ghost'
+                                                icon={<FiSmile size={30} color='green' />}
+                                            />
+                                            <IconButton
+                                                onClick={() => {
+                                                    setValue(`feedback.${0}.itHelped`, false);
+                                                    setIsSubmitDisabled(false);
+                                                }}
+                                                aria-label='negative'
+                                                variant='ghost'
+                                                icon={<FiFrown size={30} color='red' />}
+                                            />
+                                        </Stack>
+                                    </ModalBody>
+
+                                    <ModalFooter>
+                                        <Button onClick={onClose} type='submit' isDisabled={isSubmitDisabled} mr={3} >
+                                            Submit
+                                        </Button>
+                                        <Button onClick={() => {
+                                            onClose();
+                                            setIsSubmitDisabled(true);
+                                        }}>
+                                            Cancel
+                                        </Button>
+                                    </ModalFooter>
+                                </form>
+                            </ModalContent>
+                        </ModalOverlay>
+                    </Modal>
                 </Flex>
             </Flex>
             }
@@ -122,7 +173,7 @@ function AddItemView() {
 function FrontPage() {
     const [addItemClicked, setAddItemClicked] = useState(false);
     const [items, setItems] = useState<ISafteyNetItem[]>([]);
-    
+
 
     // to fetch data everytime the front page is loaded
     useEffect(() => {
