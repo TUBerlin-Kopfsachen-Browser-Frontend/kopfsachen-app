@@ -38,6 +38,8 @@ function AddItemView() {
         setItemInput(e.target.value);
     };
 
+    const [continueClicked2, setContinueClicked2] = useState(false);
+
     const { register, handleSubmit, setValue} = useForm<ISafteyNetItem>();
     const onSubmit: SubmitHandler<ISafteyNetItem> = data => axios.post(`http://127.0.0.1:4010/safetyNet/1`, data)
     return (
@@ -51,12 +53,12 @@ function AddItemView() {
                 isDisabled={continueClicked}
             />
             <Text marginTop={7} marginBottom={5}> To which category does this resource belong? </Text>
-            <RadioGroup {...register('type')} onChange={setCategory} value={category} colorScheme='green' isDisabled={continueClicked}>
+            <RadioGroup onChange={setCategory} value={category} colorScheme='green' isDisabled={continueClicked}>
                 <Stack direction='row'>
-                    <Radio value='situationControl'>people </Radio>
-                    <Radio value='relaxation'>activities</Radio>
-                    <Radio value='pet'>pets</Radio>
-                    <Radio value='other'>other</Radio>
+                    <Radio {...register('type')} value='situationControl'>people </Radio>
+                    <Radio {...register('type')} value='relaxation'>activities</Radio>
+                    <Radio {...register('type')} value='pet'>pets</Radio>
+                    <Radio {...register('type')} value='other'>other</Radio>
                 </Stack>
             </RadioGroup>
             
@@ -88,13 +90,12 @@ function AddItemView() {
                         onChange={(e: any) => setStrategyInput2(e.target.value)}
                     />
                     <Input
+                        {...register(`strategies.${2}`)}
                         placeholder='third'
                         focusBorderColor="green.400"
                         onChange={(e: any) => setStrategyInput3(e.target.value)}
                     />
-                    <Input onClick={()=>{ setValue(`feedback.${0}.itHelped`, true);
-                                           
-                                        }} type="submit"/>
+                    
                 </form>
                 </Stack>
                 <Flex marginTop={10}>
@@ -106,17 +107,35 @@ function AddItemView() {
                         Add another resource
                     </Button>
                     <Button 
+                        onClick={()=>setContinueClicked2(true)}
                         marginRight={3}
                         colorScheme='green'
                         isDisabled={(strategyInput1.trim() === '') || (strategyInput2.trim() === '') || (strategyInput3.trim() === '')}
                     > 
                         These are all resources
                     </Button>
+                    
                 </Flex>
+                {continueClicked2 && <Flex flexDirection='column'>
+            <form onSubmit={handleSubmit(onSubmit)}>
+
+                <Button bg={'green'} onClick={()=>setValue(`feedback.${0}.itHelped`, true)}></Button>
+                <Button bg={'red'} onClick={()=>setValue(`feedback.${0}.itHelped`, false)}></Button>
+                <Input onClick={()=>{                                         
+                                        }} type="submit"/>
+
+            </form>
+                </Flex>}
             </Flex>
+            
+            
             }
+            
+
         </Flex>
+        
     )
+    
 }
 
 function FrontPage() {
