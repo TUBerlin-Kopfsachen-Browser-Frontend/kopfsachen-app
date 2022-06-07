@@ -10,7 +10,8 @@ import {
     IconButton,
     Divider,
     Avatar,
-    Heading
+    Heading,
+    Link,
 } from '@chakra-ui/react'
 import {
     FiMenu,
@@ -28,7 +29,7 @@ export default function Sidebar() {
     const [navSize, changeNavSize] = useState("large")
     return (
         <Flex
-            pos="sticky"
+            pos="fixed"
             left="5"
             h="95vh"
             marginTop="2.5vh"
@@ -90,7 +91,9 @@ export default function Sidebar() {
                 <Flex mt={4} align="center">
                     <Avatar size="sm" src="avatar-1.jpg" />
                     <Flex flexDir="column" ml={4} display={navSize === "small" ? "none" : "flex"}>
-                        <Heading as="h3" size="sm">Maxi Mustermensch</Heading>
+                        <Link href='profile'> 
+                            <Heading as="h3" size="sm">Maxi Mustermensch</Heading>
+                        </Link>
                         <Text color="gray">Username</Text>
                     </Flex>
                 </Flex>
