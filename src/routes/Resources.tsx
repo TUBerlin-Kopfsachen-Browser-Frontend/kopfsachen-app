@@ -21,6 +21,9 @@ import {
 import Sidebar from "../components/Sidebar"
 import meditation from '../../src/meditation.jpg'
 import { useNavigate } from "react-router-dom";
+import Logo from "../../src/net.png";
+import Logo1 from "../../src/situationskontrolle.png";
+
 interface IEntry {
     id: string ;
     type: string;
@@ -85,7 +88,7 @@ interface IContent {
                 <Stack minH={'100vh'} direction={{ base: 'column', md: 'row' }}>
                     <Flex p={5} flex={1} align={'center'} justify={'center'}>
                         <Stack spacing={10} w={'full'} maxW={'lg'}>
-                            <Center>
+                            
                                 <Heading fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}>
     
             
@@ -93,7 +96,7 @@ interface IContent {
                                     My Resources
                                     </Text>
                                 </Heading>
-                            </Center>
+                            
         
                                     <Text fontSize={{ base: 'md', lg: 'lg' }} color={'gray.500'}>
                                     You have already gatherd so many resources. If you want to work on your already existing ones, click on the button below.
@@ -104,7 +107,7 @@ interface IContent {
                         
                             
                                     <Button
-                                    textAlign="left"
+                                    textAlign="center"
                                     rounded={'full'}
                                     bg={'green.400'}
                                     color={'white'}
@@ -140,18 +143,25 @@ interface IContent {
                     <Stack spacing={8} direction='row' align='center'></Stack>
         <Center >
             
-        <Stack direction='row' spacing={20} pl={'180px'} pt={'80px'}>
-            <Button colorScheme='teal' variant='solid' size='lg'>
+        <Stack direction='row' spacing={20} pr={'400px'} pt={'400px'}>
+            <Button  variant='ghost' size='lg'>
                 Safety Net
+                <Image
+                            alt={'Logo'}
+                            objectFit={'cover'}
+                            src={Logo} />
+            </Button>
 
 
-  </Button>
-  <Button colorScheme='teal' variant='outline' size='lg'
-            onClick={() => navigate('/reframing1')}>
-    I want to practice that
-  </Button>
+            <Button colorScheme='teal' variant='ghost' >
+                Situtation control
+                <Image
+                            alt={'Logo1'}
+                            objectFit={'cover'}
+                            src={Logo1} />
+                </Button>
         
-      </Stack>
+        </Stack>
         </Center>
 
 
