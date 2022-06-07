@@ -1,4 +1,6 @@
+import { useEffect, useState } from "react"
 import * as React from "react"
+
 import {
 Icon,
 ChakraProvider,
@@ -25,8 +27,9 @@ import Sidebar from "../components/Sidebar"
 
 
 
-export default function New() {
-        const navigate = useNavigate();
+export default function Motivatiors() {
+
+    const navigate = useNavigate();
 
     return (
         <ChakraProvider theme={theme}>
@@ -94,4 +97,9 @@ export default function New() {
             
         </ChakraProvider>
     );
-    }
+
+
+
+
+    
+}

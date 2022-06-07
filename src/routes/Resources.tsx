@@ -1,5 +1,5 @@
 import * as React from "react"
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import {
   ChakraProvider,
   Box,
@@ -21,13 +21,58 @@ import {
 import Sidebar from "../components/Sidebar"
 import meditation from '../../src/meditation.jpg'
 import { useNavigate } from "react-router-dom";
+interface IEntry {
+    id: string ;
+    type: string;
+    headline: string;
+    description: string;
+    textContents: string [];
+    mediaContents: {
+        format: "string",
+        url: "string",
+    } [] ;
+    userInputForm: string;
+    motivatorId: string;
+    timestamp: string;
+    results: string [];
+    
+}
+
+interface IEntryPageProps {
+    entry: IEntry;
+}
+
+interface IContent {
+    format: string;
+    url: string;
+}
 
 
 
-
-export default function Wiki() {
+ function Motivator() {
     const [navSize, changeNavSize] = useState("large")
     const navigate = useNavigate();
+    const [entryToDisplay, setEntryToDisplay] = useState<IEntry>();
+    const [entries, setEntries] = useState<IEntry[]>([]);
+
+
+    useEffect(() => {
+        const baseUrl = "http://127.0.0.1:4010"; // localhost + port as base url
+        const userId = 1; // random entry id
+        const fetchEntriesWrapper = async () => {
+            const fetchEntries = await fetch(`${baseUrl}/motivator/${userId}`);
+            if (fetchEntries.ok) {
+                const entriesData = await fetchEntries.json();
+                if (entriesData.length > 0) {
+                    setEntries(entriesData); // sort entries by title before storing
+                }
+            } else {
+                console.log("Failed to fetch wiki entries.");
+            }
+        }
+        fetchEntriesWrapper();
+
+    }, []);
 
 
 
@@ -58,27 +103,27 @@ export default function Wiki() {
                             
                         
                             
-                            <Button
-                            textAlign="left"
-                            rounded={'full'}
-                            bg={'green.400'}
-                            color={'white'}
+                                    <Button
+                                    textAlign="left"
+                                    rounded={'full'}
+                                    bg={'green.400'}
+                                    color={'white'}
                             
-                            onClick={() => navigate('/newresources')}>
+                                    onClick={() => navigate('/newresources')}>
 
-                            Discover New Resources!
+                                    Discover New Resources!
 
-                            </Button>
+                                    </Button>
                             
                         </Stack>
                 </Stack>
             </Flex>
-    <Flex flex={1}>
-        <Image
-        alt={'Login Image'}
-        objectFit={'cover'}
-        src={meditation} />
-    </Flex>
+                    <Flex flex={1}>
+                        <Image
+                            alt={'Login Image'}
+                            objectFit={'cover'}
+                            src={meditation} />
+                    </Flex>
     </Stack>
                 <Center textAlign="center" fontSize="xl"
                     height="40px"
@@ -90,6 +135,29 @@ export default function Wiki() {
                 >
                     
                     <Grid minH="100vh" p={300}>
+
+
+                    <Stack spacing={8} direction='row' align='center'></Stack>
+        <Center >
+            
+        <Stack direction='row' spacing={20} pl={'180px'} pt={'80px'}>
+            <Button colorScheme='teal' variant='solid' size='lg'>
+                Safety Net
+
+
+  </Button>
+  <Button colorScheme='teal' variant='outline' size='lg'
+            onClick={() => navigate('/reframing1')}>
+    I want to practice that
+  </Button>
+        
+      </Stack>
+        </Center>
+
+
+
+
+
                         <VStack spacing={8}>
                             
                         </VStack>
@@ -100,3 +168,15 @@ export default function Wiki() {
         </ChakraProvider>
     );
 }
+
+
+export default function Resources() {
+
+    return(
+    <ChakraProvider theme={theme}>
+            <Motivator/>
+
+        </ChakraProvider>
+    );
+}
+
