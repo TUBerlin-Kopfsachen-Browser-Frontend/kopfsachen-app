@@ -6,7 +6,7 @@ import reportWebVitals from "./reportWebVitals"
 import * as serviceWorker from "./serviceWorker"
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Testpage from "./routes/Testpage";
-import Wiki from "./routes/Wiki";
+import Wiki from "./routes/wiki";
 import MoodDiary from "./routes/MoodDiary";
 import Resources from "./routes/Resources";
 import EmergencyNumbers from "./routes/EmergencyNumbers";
@@ -16,6 +16,8 @@ import NewResources from "./routes/NewResources";
 import Reframing from "./routes/Reframing";
 import Reframing1 from "./routes/Reframing1";
 import Profile from "./routes/Profile";
+import Register from "./routes/Register";
+import Login from "./routes/Login";
 
 
 ReactDOM.render(
@@ -34,7 +36,8 @@ ReactDOM.render(
         <Route path="newresources" element={<NewResources />} />
         <Route path="reframing" element={<Reframing />} />
         <Route path="reframing1" element={<Reframing1 />} />
-
+        <Route path="register" element={<Register />} />
+        <Route path="login" element={<Login />} />
         <Route path="profile" element={<Profile />} />
       </Routes>
     </BrowserRouter>
