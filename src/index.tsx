@@ -14,6 +14,8 @@ import Settings from "./routes/Settings";
 import NewResources from "./routes/NewResources";
 import Reframing from "./routes/Reframing";
 import Reframing1 from "./routes/Reframing1";
+import Profile from "./routes/Profile";
+
 
 ReactDOM.render(
   <React.StrictMode>
@@ -31,6 +33,7 @@ ReactDOM.render(
         <Route path="reframing" element={<Reframing />} />
         <Route path="reframing1" element={<Reframing1 />} />
 
+        <Route path="profile" element={<Profile />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,
