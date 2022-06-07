@@ -48,7 +48,7 @@ export default function Sidebar() {
             >
                 <IconButton
                     background="none"
-                    mt={5}
+                    mt={6}
                     _hover={{ background: 'none' }}
                     icon={<FiMenu />}
                     onClick={() => {
@@ -65,6 +65,8 @@ export default function Sidebar() {
                 <NavItem navSize={navSize} icon={FiArrowUpCircle} title="Resources" routeto="/resources"/>
                 <NavItem navSize={navSize} icon={FiShield} title="Emergency numbers" routeto="/emergencynumbers"/>
                 <NavItem navSize={navSize} icon={FiSettings} title="Settings" routeto="/settings"/>
+
+                
             </Flex>
 
             

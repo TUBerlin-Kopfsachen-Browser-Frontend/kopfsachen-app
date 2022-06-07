@@ -1,15 +1,15 @@
 import * as React from "react"
 import {
-  ChakraProvider,
-  Box,
-  Text,
-  Link,
-  VStack,
-  Code,
-  Grid,
-  theme,
-  Flex,
-  Center,
+    ChakraProvider,
+    Box,
+    Text,
+    Link,
+    VStack,
+    Code,
+    Grid,
+    theme,
+    Flex,
+    Center,
 } from "@chakra-ui/react"
 import Sidebar from "../components/Sidebar"
 
@@ -29,12 +29,12 @@ export default function Wiki() {
                     <Grid minH="100vh" p={300}>
                         <VStack spacing={8}>
                             <Text>
-                            The Settings will be here!
+                                The Settings will be here!
                             </Text>
                         </VStack>
-                        </Grid>
+                    </Grid>
                 </Center>
-            </Flex>  
+            </Flex>
         </ChakraProvider>
     );
 }
