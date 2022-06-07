@@ -1,5 +1,18 @@
 import { useEffect, useState } from "react"
-import { ChakraProvider, Text, Link, theme, Flex, Heading, Input, InputGroup, InputLeftElement, Button, Skeleton, } from "@chakra-ui/react"
+import {
+    ChakraProvider,
+    Box,
+    Text,
+    Link,
+    VStack,
+    Code,
+    Grid,
+    theme,
+    Flex,
+    Center,
+    Button,
+} from "@chakra-ui/react"
+import { Heading, Input, InputGroup, InputLeftElement, Skeleton, } from "@chakra-ui/react"
 import { ArrowBackIcon, SearchIcon } from "@chakra-ui/icons"
 import Sidebar from "../components/Sidebar"
 import bookshelf from "../bookshelf.png"
@@ -18,23 +31,6 @@ interface IEntryPageProps {
     entry: IEntry;
 }
 
-interface IContent {
-    type: string;
-    content: string;
-}
-
-const renderContentElement = (contentElement: IContent, index: number, contents: IContent[]) => {
-    if (contentElement.type === 'text') {
-        return (
-            <Link href={contents[index].content} color='teal.500' isExternal>
-                {contents[index].content.concat(' ')}
-            </Link>
-        );
-    }
-    return contents[index].content.concat(' ');
-}
-
-// should display entry that has been clicked
 function EntryPage(props: IEntryPageProps) {
     return (
         <Flex flexDirection='column'>
@@ -51,10 +47,6 @@ function EntryPage(props: IEntryPageProps) {
     );
 }
 
-const sortEntriesByTitle = (x: IEntry, y: IEntry) => {
-    return x.title.localeCompare(y.title);
-}
-
 function FrontPage() {
     const [entryToDisplay, setEntryToDisplay] = useState<IEntry>();
     const [entries, setEntries] = useState<IEntry[]>([]);
@@ -69,7 +61,7 @@ function FrontPage() {
             if (fetchEntries.ok) {
                 const entriesData = await fetchEntries.json();
                 if (entriesData.length > 0) {
-                    setEntries(entriesData.sort(sortEntriesByTitle)); // sort entries by title before storing
+                    setEntries(entriesData);
                 }
             } else {
                 console.log("Failed to fetch wiki entries.");
