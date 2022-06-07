@@ -3,8 +3,6 @@ import Calendar from 'react-calendar';
 import moment from 'moment';
 import "react-calendar/dist/Calendar.css";
 import "./../assets/css/Calendar.css";
-import Sidebar from "../components/Sidebar"
-import ChooseMoodForm from "../components/ChooseMood";
 
 import {
 ChakraProvider,
@@ -19,8 +17,20 @@ ModalContent,
 ModalHeader,
 ModalCloseButton,
 ModalBody,
-useDisclosure
+useDisclosure,
+ModalFooter,
+Stack,
+Input,
+FormControl,
+FormHelperText,
+FormLabel,
+HStack,
+Radio,
+RadioGroup
 } from "@chakra-ui/react"
+import Sidebar from "../components/Sidebar"
+import { FiBox } from "react-icons/fi";
+import { useForm } from "react-hook-form";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 
 interface IEntry {
@@ -37,9 +47,20 @@ const sortEntriesByDate = (x: IEntry, y: IEntry) => {
     return x.timestamp.localeCompare(y.timestamp);
 }
 
+const handleSubmit = () => {
+    console.log("Sumited");
+}
+
+type FormValues = {
+    type: string;
+};
+
 function SetMood() {
 
     const { isOpen, onOpen, onClose } = useDisclosure()
+    const { register, handleSubmit } = useForm();
+    const onSubmit = (data: FormValues, e: any) => console.log(data);
+    const onError = (errors: any, e: any) => console.log("Error occured");
     return (
         <>
         <Button onClick={onOpen}>Set Mood</Button>
@@ -50,7 +71,26 @@ function SetMood() {
             <ModalHeader>How are you feeling today?</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-                <ChooseMoodForm />
+                <form onSubmit={handleSubmit(onSubmit, onError)}>
+                    <FormControl as='fieldset'>
+                        <FormLabel as='legend'>Please select your mood</FormLabel>
+                        <RadioGroup defaultValue='Positive' name='type'>
+                            <HStack spacing='24px'>
+                                <Radio value='Positive' name='type'>Positive</Radio>
+                                <Radio value='Neutral' name='type'>Negative</Radio>
+                                <Radio value='Negative' name='type'>Neutral</Radio>
+                            </HStack>
+                        </RadioGroup>
+                            <Button
+                                mt={4}
+                                colorScheme='teal'
+                                // isLoading={props.isSubmitting}
+                                type='submit'
+                            >
+                                Submit
+                            </Button>
+                    </FormControl>
+                </form>
             </ModalBody>
             </ModalContent>
         </Modal>
@@ -69,7 +109,7 @@ var ReactCalendar = () => {
 
     useEffect(() => {
         const baseUrl = "http://127.0.0.1:4010"; // localhost + port as base url
-        const userId = 1; // random entry iid
+        const userId = 1; // random entry id
         const fetchEntriesWrapper = async () => {
             const fetchEntries = await fetch(`${baseUrl}/diary/${userId}`);
             if (fetchEntries.ok) {
@@ -94,6 +134,7 @@ var ReactCalendar = () => {
                 view={"month"} 
                 value = {date}
                 onClickDay={(value1, event) => {
+                    prompt("select mood")
                     console.log("clicked a day!")
                 }}
                 tileContent={({ date }) => {

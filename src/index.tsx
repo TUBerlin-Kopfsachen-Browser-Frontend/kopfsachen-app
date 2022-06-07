@@ -10,7 +10,15 @@ import Wiki from "./routes/wiki";
 import MoodDiary from "./routes/MoodDiary";
 import Resources from "./routes/Resources";
 import EmergencyNumbers from "./routes/EmergencyNumbers";
+<<<<<<< HEAD
 import SafetyNet from "./routes/safetyNet";
+=======
+import Settings from "./routes/Settings";
+import NewResources from "./routes/NewResources";
+import Reframing from "./routes/Reframing";
+import Reframing1 from "./routes/Reframing1";
+import Profile from "./routes/Profile";
+>>>>>>> wip-1
 
 
 ReactDOM.render(
@@ -25,6 +33,12 @@ ReactDOM.render(
         <Route path="resources" element={<Resources />} />
         <Route path="emergencynumbers" element={<EmergencyNumbers />} />
         <Route path="safetynet" element={<SafetyNet />} />
+        <Route path="settings" element={<Settings />} />
+        <Route path="newresources" element={<NewResources />} />
+        <Route path="reframing" element={<Reframing />} />
+        <Route path="reframing1" element={<Reframing1 />} />
+
+        <Route path="profile" element={<Profile />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,

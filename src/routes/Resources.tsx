@@ -1,4 +1,5 @@
 import * as React from "react"
+import { useState, useEffect } from 'react'
 import {
   ChakraProvider,
   Box,
@@ -16,66 +17,116 @@ import {
   Stack,
   useBreakpointValue,
 } from "@chakra-ui/react"
+
 import Sidebar from "../components/Sidebar"
 import meditation from '../../src/meditation.jpg'
 import { useNavigate } from "react-router-dom";
+import Logo from "../../src/net.png";
+import Logo1 from "../../src/situationskontrolle.png";
+
+interface IEntry {
+    id: string ;
+    type: string;
+    headline: string;
+    description: string;
+    textContents: string [];
+    mediaContents: {
+        format: "string",
+        url: "string",
+    } [] ;
+    userInputForm: string;
+    motivatorId: string;
+    timestamp: string;
+    results: string [];
+    
+}
+
+interface IEntryPageProps {
+    entry: IEntry;
+}
+
+interface IContent {
+    format: string;
+    url: string;
+}
 
 
-export default function Wiki() {
+
+ function Motivator() {
+    const [navSize, changeNavSize] = useState("large")
     const navigate = useNavigate();
+    const [entryToDisplay, setEntryToDisplay] = useState<IEntry>();
+    const [entries, setEntries] = useState<IEntry[]>([]);
+
+
+    useEffect(() => {
+        const baseUrl = "http://127.0.0.1:4010"; // localhost + port as base url
+        const userId = 1; // random entry id
+        const fetchEntriesWrapper = async () => {
+            const fetchEntries = await fetch(`${baseUrl}/motivator/${userId}`);
+            if (fetchEntries.ok) {
+                const entriesData = await fetchEntries.json();
+                if (entriesData.length > 0) {
+                    setEntries(entriesData); // sort entries by title before storing
+                }
+            } else {
+                console.log("Failed to fetch wiki entries.");
+            }
+        }
+        fetchEntriesWrapper();
+
+    }, []);
+
+
 
     return (
         <ChakraProvider theme={theme}>
             
             <Flex>
                 <Sidebar />
+                
                 <Stack minH={'100vh'} direction={{ base: 'column', md: 'row' }}>
-    <Flex p={8} flex={1} align={'center'} justify={'center'}>
-        <Stack spacing={6} w={'full'} maxW={'lg'}>
-        <Heading fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}>
-            <Text
-            as={'span'}
-            position={'relative'}
-            _after={{
-                content: "''",
-                width: 'full',
-                height: useBreakpointValue({ base: '20%', md: '30%' }),
-                position: 'absolute',
-                bottom: 1,
-                left: 0,
-                bg: 'green.400',
-                zIndex: -1,
-            }}>
-            Kopfsachen
-            </Text>
-            <br />{' '}
-            <Text color={'green.400'} as={'span'}>
-            Resources
-            </Text>{' '}
-        </Heading>
-        <Text fontSize={{ base: 'md', lg: 'lg' }} color={'gray.500'}>
-            You have already gatherd so many resources. If you want to work on your already existing ones, click on the button below.
-        </Text>
-        <Stack direction={{ base: 'column', md: 'row' }} spacing={4}>
-            <Button onClick={() => navigate('/Wiki')}
-            rounded={'full'}
-            bg={'green.400'}
-            color={'white'}
-            _hover={{
-                bg: 'green.500',
-            }}>
-            Security Net
-            </Button>
-            <Button rounded={'full'}>Situational Control</Button>
-        </Stack>
-        </Stack>
-    </Flex>
-    <Flex flex={1}>
-        <Image
-        alt={'Login Image'}
-        objectFit={'cover'}
-        src={meditation} />
-    </Flex>
+                    <Flex p={5} flex={1} align={'center'} justify={'center'}>
+                        <Stack spacing={10} w={'full'} maxW={'lg'}>
+                            
+                                <Heading fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}>
+    
+            
+                                    <Text color={'green.400'} as={'span'}>
+                                    My Resources
+                                    </Text>
+                                </Heading>
+                            
+        
+                                    <Text fontSize={{ base: 'md', lg: 'lg' }} color={'gray.500'}>
+                                    You have already gatherd so many resources. If you want to work on your already existing ones, click on the button below.
+                                    </Text>
+
+                        <Stack direction={{ base: 'column', md: 'row' }} spacing={4}>
+                            
+                        
+                            
+                                    <Button
+                                    textAlign="center"
+                                    rounded={'full'}
+                                    bg={'green.400'}
+                                    color={'white'}
+                            
+                                    onClick={() => navigate('/newresources')}>
+
+                                    Discover New Resources!
+
+                                    </Button>
+                            
+                        </Stack>
+                </Stack>
+            </Flex>
+                    <Flex flex={1}>
+                        <Image
+                            alt={'Login Image'}
+                            objectFit={'cover'}
+                            src={meditation} />
+                    </Flex>
     </Stack>
                 <Center textAlign="center" fontSize="xl"
                     height="40px"
@@ -87,6 +138,36 @@ export default function Wiki() {
                 >
                     
                     <Grid minH="100vh" p={300}>
+
+
+                    <Stack spacing={8} direction='row' align='center'></Stack>
+        <Center >
+            
+        <Stack direction='row' spacing={20} pr={'400px'} pt={'400px'}>
+            <Button  variant='ghost' size='lg'>
+                Safety Net
+                <Image
+                            alt={'Logo'}
+                            objectFit={'cover'}
+                            src={Logo} />
+            </Button>
+
+
+            <Button colorScheme='teal' variant='ghost' >
+                Situtation control
+                <Image
+                            alt={'Logo1'}
+                            objectFit={'cover'}
+                            src={Logo1} />
+                </Button>
+        
+        </Stack>
+        </Center>
+
+
+
+
+
                         <VStack spacing={8}>
                             
                         </VStack>
@@ -97,3 +178,15 @@ export default function Wiki() {
         </ChakraProvider>
     );
 }
+
+
+export default function Resources() {
+
+    return(
+    <ChakraProvider theme={theme}>
+            <Motivator/>
+
+        </ChakraProvider>
+    );
+}
+
