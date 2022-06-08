@@ -30,7 +30,7 @@ export default function New() {
             <Flex>
                 <Sidebar />
                 <Button colorScheme='teal' variant='ghost' onClick={() => navigate('/newresources')}>
-                    Back ←
+                  ← Back 
                     </Button>
                         <Stack>
                             <Box >

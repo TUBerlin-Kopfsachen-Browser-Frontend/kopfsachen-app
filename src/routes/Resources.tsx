@@ -88,90 +88,66 @@ interface IContent {
                 <Stack minH={'100vh'} direction={{ base: 'column', md: 'row' }}>
                     <Flex p={5} flex={1} align={'center'} justify={'center'}>
                         <Stack spacing={10} w={'full'} maxW={'lg'}>
-                            
-                                <Heading fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}>
-    
-            
-                                    <Text color={'green.400'} as={'span'}>
+                            <Heading fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}>           
+                                <Text color={'green.400'} as={'span'}>
                                     My Resources
-                                    </Text>
-                                </Heading>
+                                </Text>
+                            </Heading>
                             
-        
-                                    <Text fontSize={{ base: 'md', lg: 'lg' }} color={'gray.500'}>
+                                <Text fontSize={{ base: 'md', lg: 'lg' }} color={'gray.500'}>
                                     You have already gatherd so many resources. If you want to work on your already existing ones, click on the button below.
-                                    </Text>
-
-                        <Stack direction={{ base: 'column', md: 'row' }} spacing={4}>
-                            
+                                </Text>
                         
-                            
-                                    <Button
+                            <Stack direction={{ base: 'column', md: 'row' }} spacing={4}>
+                                                    
+                                <Button
                                     textAlign="center"
                                     rounded={'full'}
                                     bg={'green.400'}
                                     color={'white'}
-                            
                                     onClick={() => navigate('/newresources')}>
-
-                                    Discover New Resources!
-
-                                    </Button>
+                                        Discover New Resources!
+                                </Button>
                             
+                            </Stack>
+
+
+                            <Stack direction='row'  pt={'80px'}>
+
+                                <Button  variant='ghost' size='lg'>
+                                    Safety Net
+                                        <Image width={20} height={16} alt={'Logo'} objectFit={'cover'} 
+                                                src={Logo} />
+                                </Button>
+
+
+                                <Button  variant='ghost' size='lg' >
+                                    Situtation control
+                                        <Image alt={'Logo1'} objectFit={'cover'} src={Logo1} />
+                                </Button>
+        
+                            </Stack>
                         </Stack>
-                </Stack>
-            </Flex>
-                    <Flex flex={1}>
-                        <Image
-                            alt={'Login Image'}
-                            objectFit={'cover'}
-                            src={meditation} />
-                    </Flex>
+                </Flex>
+            
+            <Flex flex={1}> <Image alt={'Login Image'}  objectFit={'cover'} src={meditation} /> </Flex>
+                    
     </Stack>
+
+    
                 <Center textAlign="center" fontSize="xl"
                     height="40px"
                     width="40px"
                     position="absolute"
                     top="50%"
                     left="50%"
-                    transform="translateY(-50%, -50%)"
-                >
+                    transform="translateY(-50%, -50%)" >
                     
+
                     <Grid minH="100vh" p={300}>
-
-
-                    <Stack spacing={8} direction='row' align='center'></Stack>
-        <Center >
-            
-        <Stack direction='row' spacing={20} pr={'400px'} pt={'400px'}>
-            <Button  variant='ghost' size='lg'>
-                Safety Net
-                <Image
-                            alt={'Logo'}
-                            objectFit={'cover'}
-                            src={Logo} />
-            </Button>
-
-
-            <Button colorScheme='teal' variant='ghost' >
-                Situtation control
-                <Image
-                            alt={'Logo1'}
-                            objectFit={'cover'}
-                            src={Logo1} />
-                </Button>
-        
-        </Stack>
-        </Center>
-
-
-
-
-
                         <VStack spacing={8}>
-                            
                         </VStack>
-                        </Grid>
+                    </Grid>
                 </Center>
             </Flex>  
             
@@ -189,4 +165,3 @@ export default function Resources() {
         </ChakraProvider>
     );
 }
-
