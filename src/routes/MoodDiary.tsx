@@ -10,8 +10,11 @@ import {
 ChakraProvider,
 theme,
 Stack,
+Box,
 Flex,
 Center,
+Square,
+Grid, GridItem,
 Text,
 Icon,
 Button,
@@ -22,6 +25,7 @@ ModalHeader,
 ModalCloseButton,
 ModalBody,
 useDisclosure,
+HStack,
 Heading
 } from "@chakra-ui/react"
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
@@ -45,7 +49,7 @@ function SetMood() {
     const { isOpen, onOpen, onClose } = useDisclosure()
     return (
         <>
-        <Button onClick={onOpen} bg={'green.400'}>Set Mood</Button>
+        <Button onClick={onOpen} size={'lg'} height='70px' width='350px' border='5px' bg={'green.400'}>Set Mood</Button>
 
         <Modal isOpen={isOpen} onClose={onClose} isCentered>
             <ModalOverlay />
@@ -65,6 +69,11 @@ function SetMood() {
 var ReactCalendar = () => {
     const [date, setDate] = useState (new Date());
     const [entries, setEntries] = useState<IEntry[]>();
+    const [sidebar, setSidebar] = useState(false);
+
+    
+
+
 
     const onChange = () => {
         setDate(date)
@@ -91,76 +100,83 @@ var ReactCalendar = () => {
     if (entries) {
         console.log(entries)
         return (
-            
-            <Flex
+
+
+           <Center>
+                <Flex
                     flexDirection='column'
+                    top='30vh'
                     position='absolute'
-                    top='10vh'
-                    left='50vw'
-                    transform="translate(-50%, -10%)"
-                    maxWidth='800px'
+                    
                 >
-            <Stack spacing={14} >
+                    <Stack spacing={20}>
+
+                            <Calendar 
+                                onChange={onChange} 
+                                view={"month"} 
+                                value = {date}
+                                onClickDay={(value1, event) => {
+                                console.log("clicked a day!")
+                                }}
+                                tileContent={({ date }) => {
+                                    for(let cur_entry of entries) {
+                                        if (cur_entry.timestamp.split('T')[0] === moment(date).format("YYYY-MM-DD")){
+                                            if(cur_entry.type === "positive") {
+                                                return  <p>😄</p>;
+                                            } else if (cur_entry.type === "neutral") {
+                                                return  <p>😐</p>;
+                                            } else {
+                                                return <p>😞</p>;
+                                            }
+                                        }
+                                    }
+                                    return null
+                                    }}
+                                    
+                                    prevLabel={<Icon as={MdChevronLeft} w='24px' h='24px' mt='4px' />}
+                                    nextLabel={<Icon as={MdChevronRight} w='24px' h='24px' mt='4px' />}
+                                    />
+
+               
                 
-                
-                <Heading fontSize={{ base: '3xl', md: '4xl', lg: '5xl' } }>           
-                    <Text color={'green.400'}  align={"center"}>
-                        Mood Diary
-                    </Text>
-                </Heading>
+                <SetMood />
                 
 
-                <Calendar 
-                onChange={onChange} 
-                view={"month"} 
-                value = {date}
-                onClickDay={(value1, event) => {
-                    console.log("clicked a day!")
-                }}
-                tileContent={({ date }) => {
-                    for(let cur_entry of entries) {
-                        if (cur_entry.timestamp.split('T')[0] === moment(date).format("YYYY-MM-DD")){
-                            if(cur_entry.type === "positive") {
-                                return  <p>😄</p>;
-                            } else if (cur_entry.type === "neutral") {
-                                return  <p>😐</p>;
-                            } else {
-                                return <p>😞</p>;
-                            }
-                        }
-                    }
-                    return null
-                }}
-                prevLabel={<Icon as={MdChevronLeft} w='24px' h='24px' mt='4px' />}
-                nextLabel={<Icon as={MdChevronRight} w='24px' h='24px' mt='4px' />}
-                />
-                <SetMood />
-            </Stack>
-            </Flex>
+                </Stack>
+                </Flex>
+                </Center>
+
         );
     } else {
         console.log("NO ENTRIES");
         return <div></div>
     }
 
-   
+
 };
+
 
 export default function MoodDiary() {
     
     return (
         <ChakraProvider theme={theme}>
-            <Flex>
+        
+        <Stack direction={['row']} spacing='275px'>
+            <Box >
                 <Sidebar />
-                <Center fontSize="xl"
-                    margin='auto'
-                    alignItems='flex-start'
-                    flexDirection='column'
-                >
-                    <ReactCalendar />
-                    
-                </Center>
-            </Flex>
+            </Box>
+
+            <Box w='100%' h='120px'  bg='green.400'>
+                <Text fontSize='40px' align='center' pt='50px' color='white'>   Mood Diary </Text>
+                <ReactCalendar />
+            </Box>
+            
+            
+           
+
+
+        </Stack>
+
         </ChakraProvider>
     );
 }

@@ -83,87 +83,7 @@ interface IContent {
         
             <ChakraProvider theme={theme}>
         
-            <Flex >
-                <Sidebar />
-                
-                <Flex
-                    flexDirection='column'
-                    top='0vh'
-                    position='absolute'
-                    left='48vw'
-                    transform="translate(-50%, -0%)"
-                    
-                >
-                
-                
-                <Stack minH={'80vh'}  direction={{ base: 'column', md: 'row' }}>
-                    <Flex p={5} flex={1} minWidth='max-content' align={'center'} justify={'center'}>
-                        <Stack spacing={12} pr={'60px'} w={'full'} maxW={'lg'}>
-                            <Heading fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}>           
-                                <Text color={'green.400'} as={'span'}>
-                                    My Resources
-                                </Text>
-                            </Heading>
-                            
-                                <Text fontSize={{ base: 'md', lg: 'lg' }} color={'gray.500'}>
-                                    You have already gatherd so many resources. If you want to work on your already existing ones, click on the button below.
-                                </Text>
-                        
-                            <Stack direction={{ base: 'column', md: 'row' }} spacing={2}>
-                                                    
-                                <Button
-                                    textAlign="center"
-                                    rounded={'full'}
-                                    bg={'green.400'}
-                                    color={'white'}
-                                    onClick={() => navigate('/newresources')}>
-                                        Discover New Resources!
-                                </Button>
-                            
-                            </Stack>
-
-
-                            <Stack direction='row' spacing={5}  pt={'70px'}>
-
-                                <Button onClick={() => navigate('/safetynet')}
-                                        variant='ghost' size='lg' pl={'1px'}> 
-                                    Safety Net
-                                        <Image width={20} height={14} alt={'Logo'} objectFit={'cover'} 
-                                                src={Logo} 
-                                            />
-                                </Button>
-
-
-                                <Button  variant='ghost' size='lg' >
-                                    Situtation control
-                                        <Image alt={'Logo1'} objectFit={'cover'} src={Logo1} />
-                                </Button>
-        
-                            </Stack>
-                        </Stack>
-                </Flex>
-            
-            <Image alt={'Login Image'}  objectFit={'cover'} width={450} height={650} src={meditation} /> 
-                    
-    </Stack>
-
-    
-                <Center textAlign="center" fontSize="xl"
-                    height="40px"
-                    width="40px"
-                    position="absolute"
-                    top="50%"
-                    left="50%"
-                    transform="translateY(-50%, -50%)" >
-                    
-
-                    <Grid minH="100vh" p={300}>
-                        <VStack spacing={8}> 
-                        </VStack>
-                    </Grid>
-                </Center>
-            </Flex>  
-            </Flex>
+         
             </ChakraProvider>
     
     );
@@ -172,9 +92,64 @@ interface IContent {
 
 export default function Resources() {
 
+        const navigate = useNavigate();
+
+
     return(
+    <ChakraProvider theme={theme}>
+        
+        <Stack direction={['row']} spacing='275px'>
+            <Box >
+                <Sidebar />
+            </Box>
+
+            <Box w='100%' h='120px'  bg='green.400'>
+                <Text fontSize='40px' align='center' pt='50px' color='white'> My Resources </Text>
+            
+            
+                <Text fontSize={'3xl'} align='center' pt='100px' color={'gray.600'}>
+                    You have already gatherd so many resources. If you want to work on your already existing ones, click on the button below.
+                </Text>
+
+                <Center>
+                <Button
+                    textAlign="center"
+                    rounded={'full'}
+                    bg={'green.400'}
+                    color={'white'}
+                    top='13vh'
+                    size="lg"
+                    onClick={() => navigate('/newresources')}
+                    >
+                    Discover New Resources!
+                </Button>
+                </Center>
+
+            <Center>
+                <Stack direction='row' spacing={28}  pt={'300px'}>
+
+                    <Button onClick={() => navigate('/safetynet')}
+                        variant='ghost' size='lg' > 
+                            Safety Net
+                        <Image width={40} height={32} alt={'Logo'} objectFit={'cover'} src={Logo} />
+                    </Button>
+
+
+                    <Button  variant='ghost' size='lg' >
+                        Situtation control
+                        <Image alt={'Logo1'} objectFit={'cover'} width={95} src={Logo1} />
+                    </Button>
+                </Stack>
+            </Center>
+        </Box>
+            
+        
+                    <Motivator/>
+
+        </Stack>
+
+        </ChakraProvider>
     
-            <Motivator/>
 
     
     );

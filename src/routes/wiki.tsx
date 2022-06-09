@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { ChakraProvider, Text, Link, theme, Flex, Heading, Input, InputGroup, InputLeftElement, Button, Skeleton, } from "@chakra-ui/react"
+import { ChakraProvider, Text, Link, theme, Flex, Heading, Input, InputGroup, InputLeftElement, Button, Skeleton, Stack, Box, } from "@chakra-ui/react"
 import { ArrowBackIcon, SearchIcon } from "@chakra-ui/icons"
 import Sidebar from "../components/Sidebar"
 import bookshelf from "../bookshelf.png"
@@ -115,17 +115,17 @@ function FrontPage() {
     if (typeof entryToDisplay === 'undefined') { // front page
         let filteredEntries = entries.filter(filterEntry).map(renderEntry);
         return (
-            <Flex>
-                <Sidebar />
+            <Flex direction={'row'}>
+            
                 <Flex
                     flexDirection='column'
                     position='absolute'
-                    top='10vh'
-                    left='50vw'
+                    top='28vh'
+                    left='57vw'
                     transform="translate(-50%, -0%)"
                     maxWidth='800px'
                 >
-                    <Heading marginBottom={10}> Wiki </Heading>
+                  
                     <img src={bookshelf} alt='book shelf' width='400px'></img>
                     <InputGroup>
                         <InputLeftElement
@@ -185,6 +185,15 @@ function FrontPage() {
 export default function Wiki() {
     return (
         <ChakraProvider theme={theme}>
+            <Stack direction={['row']} spacing='275px'>
+                    <Box >
+                        <Sidebar />
+                    </Box>
+
+                    <Box w='100%' h='120px'  bg='green.400'>
+                        <Text fontSize='40px' align='center' pt='50px' color='white'>Wiki </Text>
+                    </Box>
+            </Stack>
             <FrontPage />
         </ChakraProvider>
     );

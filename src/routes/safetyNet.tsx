@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react"
 import {
-    ChakraProvider, Text, theme, Flex, Heading, Input, Stack, HStack, AlertDialog, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, AlertDialogBody, AlertDialogFooter, useDisclosure, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay
+    ChakraProvider, Text, theme, Flex, Heading, Input, Stack, HStack, AlertDialog, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, AlertDialogBody, AlertDialogFooter, useDisclosure, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Box
 } from "@chakra-ui/react"
 import Sidebar from "../components/Sidebar"
 import Logoo from "../public/net.png"
@@ -260,7 +260,7 @@ function FrontPage() {
         // console.log(items.at(1)?.name)
         return (
             <Flex>
-                <Sidebar />
+                
                 <Flex
                     flexDirection='column'
                     position='absolute'
@@ -274,10 +274,8 @@ function FrontPage() {
                     {/* <Box mt = {6} mx = "auto" alignItems = 'center' as='button' borderRadius='md' bg='turquoise' color='white' px={50} h={8}>
                        Let's go!
                     </Box> */}
-                    <Heading marginBottom={5} fontSize='3xl'>
-                        My Safety Net
-                    </Heading>
-                    {!addItemClicked && <Text marginBottom={5}>
+                    
+                    {!addItemClicked && <Text pt ={'80px'} align={'center'} marginBottom={5}>
                         Which persons or activities make you happy and give you drive in your everyday life?
                     </Text>}
                     {!addItemClicked && <Text fontSize={11} marginBottom={5}>
@@ -368,8 +366,21 @@ function FrontPage() {
 export default function SafetyNet() {
     return (
         <ChakraProvider theme={theme}>
-            <FrontPage />
+            
+            <Stack direction={['row']} spacing='275px'>
+                    <Box >
+                        <Sidebar />
+                    </Box>
 
+                    <Box w='100%' h='120px'  bg='green.400'>
+                        <Text fontSize='40px' align='center' pt='50px' color='white'>Safety Net </Text>
+                    </Box>
+                    
+            </Stack>
+            <FrontPage />
         </ChakraProvider>
+            
+
+        
     );
 }

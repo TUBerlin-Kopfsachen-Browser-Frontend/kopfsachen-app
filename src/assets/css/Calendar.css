@@ -32,30 +32,30 @@ abbr[title] {
 
 .react-calendar__navigation__prev-button {
   background-color: #FF5964 !important;
-  border-radius: 50px;
-  min-width: 50px !important;
-  height: 50px !important;
+  border-radius: 70px;
+  min-width: 70px !important;
+  height: 70px !important;
   color: white;
 }
 
 .react-calendar__navigation__next-button {
   background-color: #FF5964 !important;
-  border-radius: 50px;
-  min-width: 50px !important;
-  width: 50px !important;
-  height: 50px !important;
+  border-radius: 70px;
+  min-width: 70px !important;
+  width: 70px !important;
+  height: 70px !important;
   color: white;
 }
 
 .react-calendar__navigation__label {
   font-weight: 700 !important;
-  font-size: 20px;
+  font-size: 30px;
 }
 
 .react-calendar__navigation__label:hover,
 .react-calendar__navigation__label:focus {
   background-color: unset !important;
-  border-radius: 40px;
+  border-radius: 70px;
 }
 
 .react-calendar__tile {
