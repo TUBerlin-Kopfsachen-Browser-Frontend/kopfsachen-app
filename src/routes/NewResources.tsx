@@ -35,6 +35,19 @@ export default function Motivatiors() {
         <ChakraProvider theme={theme}>
             <Flex>
                 <Sidebar />
+                    <Button  marginLeft={270} colorScheme='teal' variant='ghost' onClick={() => navigate('/resources')}>
+                        ← Back 
+                    </Button>
+
+                <Flex
+                    flexDirection='column'
+                    position='absolute'
+                    top='5vh'
+                    left='55vw'
+                    transform="translate(-50%, -10%)"
+                    maxWidth='800px'
+                >
+                    
                         <Stack>
                             <Box >
                                 <Heading fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}  >
@@ -53,18 +66,18 @@ export default function Motivatiors() {
                                 
                             <Box  width="100%" height={12}>
                                 <FormControl as='fieldset'    >
-                                    <RadioGroup defaultValue='Itachi'pt={'40px'} pl={'150px'} >
+                                    <RadioGroup defaultValue='Itachi'pt={'40px'}  >
                                         < HStack spacing='200px'>
 
-                                            <Radio value='Sasuke'> 
+                                            <Radio value='happy'> 
                                                 <Text fontSize={100}> 😄</Text>
                                             </Radio>
 
-                                            < Radio value='Nagato'> 
+                                            < Radio value='neutral'> 
                                                 <Text fontSize={100}> 😐</Text>
                                             </Radio>
 
-                                            <Radio value='Itachi'>
+                                            <Radio value='sad'>
                                                 <Text fontSize={100}> 😞</Text> 
                                             </Radio>
                                         </HStack>
@@ -72,7 +85,7 @@ export default function Motivatiors() {
                                 </FormControl>
                             </Box>
         
-        <Text pt={'180px'} fontSize={{ base: 'md', lg: '2xl' }} color={'gray.300'} align="center"  >
+        <Text pt={'160px'} fontSize={{ base: 'md', lg: '2xl' }} color={'gray.300'} align="center"  >
             Reframing is about checking your own assessment of the situation and, if necessary, coming to a different interpretation.
         </Text>
         
@@ -92,14 +105,10 @@ export default function Motivatiors() {
 
 </Stack>
 
-            
+            </Flex>
             </Flex>  
             
         </ChakraProvider>
     );
 
-
-
-
-    
 }

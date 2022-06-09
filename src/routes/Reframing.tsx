@@ -29,9 +29,22 @@ export default function New() {
         <ChakraProvider theme={theme}>
             <Flex>
                 <Sidebar />
-                <Button colorScheme='teal' variant='ghost' onClick={() => navigate('/newresources')}>
+
+                  <Button  marginLeft={270} colorScheme='teal' variant='ghost' onClick={() => navigate('/newresources')}>
                   ← Back 
                     </Button>
+
+                <Flex
+                    flexDirection='column'
+                    position='absolute'
+                    top='5vh'
+                    left='50vw'
+                    transform="translate(-50%, -10%)"
+                    maxWidth='800px'
+                >
+
+                
+                
                         <Stack>
                             <Box >
                                 <Heading fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}  >
@@ -79,8 +92,8 @@ export default function New() {
 
 </Stack>
 
-            
-            </Flex>  
+            </Flex>
+            </Flex>
             
         </ChakraProvider>
     );

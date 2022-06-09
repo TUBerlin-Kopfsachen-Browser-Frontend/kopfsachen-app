@@ -80,14 +80,25 @@ interface IContent {
 
 
     return (
-        <ChakraProvider theme={theme}>
-            
-            <Flex>
+        
+            <ChakraProvider theme={theme}>
+        
+            <Flex >
                 <Sidebar />
                 
-                <Stack minH={'100vh'} direction={{ base: 'column', md: 'row' }}>
-                    <Flex p={5} flex={1} align={'center'} justify={'center'}>
-                        <Stack spacing={10} w={'full'} maxW={'lg'}>
+                <Flex
+                    flexDirection='column'
+                    top='1vh'
+                    position='absolute'
+                    left='48vw'
+                    transform="translate(-50%, -0%)"
+                    
+                >
+                
+                
+                <Stack minH={'80vh'}  direction={{ base: 'column', md: 'row' }}>
+                    <Flex p={5} flex={1} minWidth='max-content' align={'center'} justify={'center'}>
+                        <Stack spacing={12} pr={'60px'} w={'full'} maxW={'lg'}>
                             <Heading fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}>           
                                 <Text color={'green.400'} as={'span'}>
                                     My Resources
@@ -98,7 +109,7 @@ interface IContent {
                                     You have already gatherd so many resources. If you want to work on your already existing ones, click on the button below.
                                 </Text>
                         
-                            <Stack direction={{ base: 'column', md: 'row' }} spacing={4}>
+                            <Stack direction={{ base: 'column', md: 'row' }} spacing={2}>
                                                     
                                 <Button
                                     textAlign="center"
@@ -112,11 +123,11 @@ interface IContent {
                             </Stack>
 
 
-                            <Stack direction='row'  pt={'80px'}>
+                            <Stack direction='row' spacing={5}  pt={'70px'}>
 
-                                <Button  variant='ghost' size='lg'>
+                                <Button  variant='ghost' size='lg' pl={'1px'}> 
                                     Safety Net
-                                        <Image width={20} height={16} alt={'Logo'} objectFit={'cover'} 
+                                        <Image width={20} height={14} alt={'Logo'} objectFit={'cover'} 
                                                 src={Logo} />
                                 </Button>
 
@@ -130,7 +141,7 @@ interface IContent {
                         </Stack>
                 </Flex>
             
-            <Flex flex={1}> <Image alt={'Login Image'}  objectFit={'cover'} src={meditation} /> </Flex>
+            <Image alt={'Login Image'}  objectFit={'cover'} width={450} height={600} src={meditation} /> 
                     
     </Stack>
 
@@ -145,13 +156,14 @@ interface IContent {
                     
 
                     <Grid minH="100vh" p={300}>
-                        <VStack spacing={8}>
+                        <VStack spacing={8}> 
                         </VStack>
                     </Grid>
                 </Center>
             </Flex>  
-            
-        </ChakraProvider>
+            </Flex>
+            </ChakraProvider>
+    
     );
 }
 
@@ -159,9 +171,9 @@ interface IContent {
 export default function Resources() {
 
     return(
-    <ChakraProvider theme={theme}>
+    
             <Motivator/>
 
-        </ChakraProvider>
+    
     );
 }

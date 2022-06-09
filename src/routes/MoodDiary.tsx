@@ -9,8 +9,10 @@ import ChooseMoodForm from "../components/ChooseMood";
 import {
 ChakraProvider,
 theme,
+Stack,
 Flex,
 Center,
+Text,
 Icon,
 Button,
 Modal,
@@ -19,7 +21,8 @@ ModalContent,
 ModalHeader,
 ModalCloseButton,
 ModalBody,
-useDisclosure
+useDisclosure,
+Heading
 } from "@chakra-ui/react"
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 
@@ -42,7 +45,7 @@ function SetMood() {
     const { isOpen, onOpen, onClose } = useDisclosure()
     return (
         <>
-        <Button onClick={onOpen}>Set Mood</Button>
+        <Button onClick={onOpen} bg={'green.400'}>Set Mood</Button>
 
         <Modal isOpen={isOpen} onClose={onClose} isCentered>
             <ModalOverlay />
@@ -88,7 +91,25 @@ var ReactCalendar = () => {
     if (entries) {
         console.log(entries)
         return (
-            <div>
+            
+            <Flex
+                    flexDirection='column'
+                    position='absolute'
+                    top='10vh'
+                    left='50vw'
+                    transform="translate(-50%, -10%)"
+                    maxWidth='800px'
+                >
+            <Stack spacing={14} >
+                
+                
+                <Heading fontSize={{ base: '3xl', md: '4xl', lg: '5xl' } }>           
+                    <Text color={'green.400'}  align={"center"}>
+                        Mood Diary
+                    </Text>
+                </Heading>
+                
+
                 <Calendar 
                 onChange={onChange} 
                 view={"month"} 
@@ -113,7 +134,9 @@ var ReactCalendar = () => {
                 prevLabel={<Icon as={MdChevronLeft} w='24px' h='24px' mt='4px' />}
                 nextLabel={<Icon as={MdChevronRight} w='24px' h='24px' mt='4px' />}
                 />
-            </div>
+                <SetMood />
+            </Stack>
+            </Flex>
         );
     } else {
         console.log("NO ENTRIES");
@@ -135,7 +158,7 @@ export default function MoodDiary() {
                     flexDirection='column'
                 >
                     <ReactCalendar />
-                    <SetMood />
+                    
                 </Center>
             </Flex>
         </ChakraProvider>

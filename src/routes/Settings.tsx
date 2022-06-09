@@ -18,22 +18,23 @@ export default function Wiki() {
         <ChakraProvider theme={theme}>
             <Flex>
                 <Sidebar />
-                <Center textAlign="center" fontSize="xl"
-                    height="40px"
-                    width="40px"
-                    position="absolute"
-                    top="50%"
-                    left="50%"
-                    transform="translateY(-50%, -50%)"
+                <Flex
+                    flexDirection='column'
+                    position='absolute'
+                    top='5vh'
+                    left='50vw'
+                    transform="translate(-50%, -10%)"
+                    maxWidth='800px'
                 >
-                    <Grid minH="100vh" p={300}>
+                    <Grid minH="50vh" p={300}>
                         <VStack spacing={8}>
                             <Text>
                                 The Settings will be here!
                             </Text>
                         </VStack>
                     </Grid>
-                </Center>
+                
+                </Flex>  
             </Flex>
         </ChakraProvider>
     );
