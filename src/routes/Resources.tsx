@@ -88,7 +88,7 @@ interface IContent {
                 
                 <Flex
                     flexDirection='column'
-                    top='1vh'
+                    top='0vh'
                     position='absolute'
                     left='48vw'
                     transform="translate(-50%, -0%)"
@@ -125,10 +125,12 @@ interface IContent {
 
                             <Stack direction='row' spacing={5}  pt={'70px'}>
 
-                                <Button  variant='ghost' size='lg' pl={'1px'}> 
+                                <Button onClick={() => navigate('/safetynet')}
+                                        variant='ghost' size='lg' pl={'1px'}> 
                                     Safety Net
                                         <Image width={20} height={14} alt={'Logo'} objectFit={'cover'} 
-                                                src={Logo} />
+                                                src={Logo} 
+                                            />
                                 </Button>
 
 
@@ -141,7 +143,7 @@ interface IContent {
                         </Stack>
                 </Flex>
             
-            <Image alt={'Login Image'}  objectFit={'cover'} width={450} height={600} src={meditation} /> 
+            <Image alt={'Login Image'}  objectFit={'cover'} width={450} height={650} src={meditation} /> 
                     
     </Stack>
 
