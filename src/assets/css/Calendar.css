@@ -59,7 +59,7 @@ abbr[title] {
 }
 
 .react-calendar__tile {
-  font-size: 30px;
+  font-size: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -69,7 +69,7 @@ abbr[title] {
 }
 
 .react-calendar__month-view__weekdays {
-  font-size: 20px;
+  font-size: 16px;
   text-align: center;
   white-space: nowrap;
   overflow: hidden;
