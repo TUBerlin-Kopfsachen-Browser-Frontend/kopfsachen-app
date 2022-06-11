@@ -12,6 +12,7 @@ import {
     Avatar,
     Heading,
     Link,
+    Select
 } from '@chakra-ui/react'
 import {
     FiMenu,
@@ -25,8 +26,32 @@ import {
 import NavItem from '../components/NavItem'
 import { ColorModeSwitcher } from "../components/ColorModeSwitcher"
 
+import i18n, { t } from "i18next";
+import { initReactI18next, useTranslation } from "react-i18next";
+import {translationsEn, translationsTr, translationsDe, translationsAl} from "../components/translationText"
+
+i18n
+    .use(initReactI18next)
+    .init({
+        resources: {
+            en: {translation: translationsEn},
+            tr: {translation: translationsTr},
+            de: {translation: translationsDe},
+            al: {translation: translationsAl}
+        },
+        lng: "en",
+        fallbackLng: "en",
+        interpolation: {escapeValue: false},
+    });
+
 export default function Sidebar() {
     const [navSize, changeNavSize] = useState("large")
+
+    const { t } = useTranslation();
+
+    const onChange = (event) => {
+        i18n.changeLanguage(event.target.value);
+    }
     return (
         <Flex
             pos="fixed"
@@ -59,12 +84,18 @@ export default function Sidebar() {
                     }}
                 />
                 
-                <NavItem navSize={navSize} icon={FiHome} title="Home" description="This is the description for the dashboard." routeto="/"/>
-                <NavItem navSize={navSize} icon={FiCalendar} title="Mood Diary" routeto="/mooddiary"/>
-                <NavItem navSize={navSize} icon={FiBookOpen} title="Wiki" routeto="/wiki" />
-                <NavItem navSize={navSize} icon={FiArrowUpCircle} title="Resources" routeto="/resources"/>
-                <NavItem navSize={navSize} icon={FiShield} title="Emergency numbers" routeto="/emergencynumbers"/>
-                <NavItem navSize={navSize} icon={FiSettings} title="Settings" routeto="/settings"/>
+                <NavItem navSize={navSize} icon={FiHome} title={t('home')} description="This is the description for the dashboard." routeto="/"/>
+                <NavItem navSize={navSize} icon={FiCalendar} title={t('moodDiary')} routeto="/mooddiary"/>
+                <NavItem navSize={navSize} icon={FiBookOpen} title={t('wiki')} routeto="/wiki" />
+                <NavItem navSize={navSize} icon={FiArrowUpCircle} title={t('resources')} routeto="/resources"/>
+                <NavItem navSize={navSize} icon={FiShield} title={t('emergencyNumbers')} routeto="/emergencynumbers"/>
+                <NavItem navSize={navSize} icon={FiSettings} title={t('settings')} routeto="/settings"/>
+                <Select onChange={onChange} padding={'10px'}>
+                        <option value='en'>🇬🇧 English</option>
+                        <option value='de'>🇩🇪 Deutsch</option>
+                        <option value='tr'>🇹🇷 Türkçe</option>
+                        <option value='al'>🇦🇱 Shqip</option>
+                    </Select>
 
                 
             </Flex>
@@ -96,7 +127,7 @@ export default function Sidebar() {
                         <Link href='profile'> 
                             <Heading as="h3" size="sm">Maxi Mustermensch</Heading>
                         </Link>
-                        <Text color="gray">Username</Text>
+                        <Text color="gray">{t('username')}</Text>
                     </Flex>
                 </Flex>
             </Flex>
