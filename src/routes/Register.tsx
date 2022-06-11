@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { ChakraProvider, Text, Link, theme, Flex, Heading, Input, InputGroup, InputLeftElement, Button, Skeleton, } from "@chakra-ui/react"
+import { ChakraProvider, Text, Link, theme, Flex, Heading, Input, InputGroup, InputLeftElement, Button, Skeleton, Stack, Box, useColorModeValue, FormControl, FormLabel, Checkbox } from "@chakra-ui/react"
 
 // api response format as interface
 interface RegisterBody {
@@ -66,6 +66,50 @@ export default function Register() {
                 Register! fetching flow id ...
                 <RegisterPage />
             </Text>
+            <Flex
+                minH={'100vh'}
+                align={'center'}
+                justify={'center'}
+                bg={useColorModeValue('gray.50', 'gray.800')}>
+                <Stack spacing={8} mx={'auto'} maxW={'lg'} py={12} px={6}>
+                    <Stack align={'center'}>
+                    <Heading fontSize={'4xl'}>Register</Heading>
+                    </Stack>
+                    <Box
+                    rounded={'lg'}
+                    bg={useColorModeValue('white', 'gray.700')}
+                    boxShadow={'lg'}
+                    p={8}>
+                    <Stack spacing={4}>
+                        {/* <FormControl id="email">
+                        <FormLabel>Email address</FormLabel>
+                        <Input type="email" />
+                        </FormControl>
+                        <FormControl id="password">
+                        <FormLabel>Password</FormLabel>
+                        <Input type="password" />
+                        </FormControl> */}
+                        <Stack spacing={0}>
+                        <Stack
+                            direction={{ base: 'column', sm: 'row' }}
+                            align={'start'}
+                            justify={'space-between'}>
+                            {/* <Checkbox>Remember me</Checkbox> */}
+                            {/* <Link color={'blue.400'}>Forgot identifier?</Link> */}
+                        </Stack>
+                        <Button
+                            bg={'green.400'}
+                            color={'white'}
+                            _hover={{
+                            bg: 'green.400',
+                            }}>
+                            Register Now!
+                        </Button>
+                        </Stack>
+                    </Stack>
+                    </Box>
+                </Stack>
+                </Flex>
         </ChakraProvider>
     );
 }
