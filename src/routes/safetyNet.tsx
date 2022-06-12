@@ -1,9 +1,11 @@
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState, Suspense } from "react"
 import {
-    ChakraProvider, Text, theme, Flex, Heading, Input, Stack, HStack, AlertDialog, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, AlertDialogBody, AlertDialogFooter, useDisclosure, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Box
+    ChakraProvider, Text, theme, Flex, Heading, Input, Stack, HStack, AlertDialog, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, AlertDialogBody, AlertDialogFooter, useDisclosure, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Box, Select
 } from "@chakra-ui/react"
 import Sidebar from "../components/Sidebar"
-import Logoo from "../public/net.png"
+
+import {translationsEn, translationsTr, translationsDe, translationsAl} from "../components/translationText"
+
 
 import { useForm, SubmitHandler } from "react-hook-form";
 import { stringify } from "querystring"
@@ -16,7 +18,23 @@ import { Radio } from "@chakra-ui/react"
 import { FiFrown, FiMeh, FiSmile } from "react-icons/fi"
 import React from "react"
 
+import i18n, { t } from "i18next";
+import { initReactI18next, useTranslation } from "react-i18next";
 
+
+i18n
+    .use(initReactI18next)
+    .init({
+        resources: {
+            en: {translation: translationsEn},
+            tr: {translation: translationsTr},
+            de: {translation: translationsDe},
+            al: {translation: translationsAl}
+        },
+        lng: "en",
+        fallbackLng: "en",
+        interpolation: {escapeValue: false},
+    });
 // api get/post request format
 interface ISafteyNetItem {
     name: string;
@@ -41,12 +59,14 @@ function AddItemView() {
         setNameInput(e.target.value);
     };
 
+    const { t } = useTranslation();
+
     const { register, handleSubmit, setValue } = useForm<ISafteyNetItem>();
     const onSubmit: SubmitHandler<ISafteyNetItem> = data => axios.post(`http://127.0.0.1:4010/safetyNet/1`, data)
     const { isOpen, onOpen, onClose } = useDisclosure();
     return (
         <Flex flexDirection='column' width={500}>
-            <Text marginTop={2} marginBottom={5}> This is what makes me happy: </Text>
+            <Text marginTop={12} marginBottom={5}> {t('happyMaker')} </Text>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Input
                     focusBorderColor="green.400"
@@ -54,13 +74,13 @@ function AddItemView() {
                     onChange={handleItemInput}
                     isDisabled={continueClicked}
                 />
-                <Text marginTop={7} marginBottom={5}> To which category does this resource belong? </Text>
+                <Text marginTop={7} marginBottom={5}> {t('chooseCategory')} </Text>
                 <RadioGroup onChange={setCategoryInput} value={categoryInput} colorScheme='green' isDisabled={continueClicked}>
                     <Stack direction='row'>
-                        <Radio {...register('type')} value='situationControl'>Situation Control</Radio>
-                        <Radio {...register('type')} value='relaxation'>Relaxation</Radio>
-                        <Radio {...register('type')} value='pet'>Pets</Radio>
-                        <Radio {...register('type')} value='other'>Other</Radio>
+                        <Radio {...register('type')} value='situationControl'>{t('situationControl')}</Radio>
+                        <Radio {...register('type')} value='relaxation'>{t('relaxation')}</Radio>
+                        <Radio {...register('type')} value='pet'>{t('pets')}</Radio>
+                        <Radio {...register('type')} value='other'>{t('other')}</Radio>
                     </Stack>
                 </RadioGroup>
 
@@ -72,11 +92,11 @@ function AddItemView() {
                     onClick={() => setContinueClicked(true)}
                     isDisabled={nameInput.trim() === ''}
                 >
-                    continue
+                    {t('continue')}
                 </Button>}
             </form>
             {continueClicked && <Flex flexDirection='column' mt={5}>
-                <Text marginTop={2} marginBottom={5}> Think about three ways in which {nameInput} can help you right now: </Text>
+                <Text marginTop={2} marginBottom={5}> {t('chooseWays')} </Text>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <Stack spacing={3}>
                         <Input
@@ -105,7 +125,7 @@ function AddItemView() {
                         colorScheme='green'
                         isDisabled={(strategyInput1.trim() === '') || (strategyInput2.trim() === '') || (strategyInput3.trim() === '')}
                     >
-                        Add another resource
+                        {t('addResource')}
                     </Button>
                     <Button
                         onClick={onOpen}
@@ -113,7 +133,7 @@ function AddItemView() {
                         colorScheme='green'
                         isDisabled={(strategyInput1.trim() === '') || (strategyInput2.trim() === '') || (strategyInput3.trim() === '')}
                     >
-                        These are all resources
+                        {t('allResources')}
                     </Button>
                     <Modal
                         isOpen={isOpen}
@@ -123,7 +143,7 @@ function AddItemView() {
                             <ModalContent>
                                 <form onSubmit={handleSubmit(onSubmit)}>
                                     <ModalHeader fontSize='lg' fontWeight='bold'>
-                                        How did you like this exercise?
+                                        {t('feedback')}
                                     </ModalHeader>
 
                                     <ModalBody>
@@ -151,13 +171,13 @@ function AddItemView() {
 
                                     <ModalFooter>
                                         <Button onClick={onClose} type='submit' isDisabled={isSubmitDisabled} mr={3} >
-                                            Submit
+                                            {t('submit')}
                                         </Button>
                                         <Button onClick={() => {
                                             onClose();
                                             setIsSubmitDisabled(true);
                                         }}>
-                                            Cancel
+                                            {t('cancel')}
                                         </Button>
                                     </ModalFooter>
                                 </form>
@@ -175,7 +195,7 @@ function FrontPage() {
     const [addItemClicked, setAddItemClicked] = useState(false);
     const [items, setItems] = useState<ISafteyNetItem[]>([]);
 
-
+    const { t } = useTranslation();
     // to fetch data everytime the front page is loaded
     useEffect(() => {
         const baseUrl = "http://127.0.0.1:4010"; // localhost + port as base url
@@ -196,69 +216,11 @@ function FrontPage() {
 
     }, []);
 
-
-
-    // useEffect(() => {
-    //     // POST request using fetch inside useEffect React hook
-    //     const requestOptions = {
-    //         method: 'POST',
-    //         headers: { 'Content-Type': 'application/json' },
-    //         body: JSON.stringify({ title: 'React Hooks POST Request Example' })
-    //     };
-    //     const baseUrl = "http://127.0.0.1:4010";
-    //     fetch(`${baseUrl}/safetyNet`, requestOptions)
-    //         .then(response => response.json())
-    //         .then(data => setItems(data.name));
-
-    // // empty dependency array means this effect will only run once (like componentDidMount in classes)
-    // }, []);
-
-
-
-
-    // const renderEntry = (entry: ISafteyNetItem, index: number, items: ISafteyNetItem[]) => {
-    //     // let displayInitial = (index === 0 || items[index - 1].type[0]?.toLowerCase() !== items[index].type[0]?.toLowerCase());
-    //     return (
-    //         <Flex key={entry.name} flexDirection='column'>
-    //             <Heading  marginTop={4} size='md'>
-    //                 My Safety Net
-    //                 {/* {displayInitial && items[index].name[0]?.toUpperCase()} */}
-    //                 {/* {items[0].strategies} */}
-    //             </Heading>
-    //             <Link
-    //                 marginLeft={2}
-    //                 variant='link'
-    //                 fontSize='md'
-    //             >
-
-
-    //             </Link>
-    //             {entry.name + '=====>' + entry.type}
-    //         </Flex>
-    //     );
-    // }
-    async function postData() {
-
-        await axios.post(`http://127.0.0.1:4010/safetyNet/1`, {
-            "name": "nail",
-            "type": "pet",
-            "strategies": [
-                "string"
-            ],
-            "feedback": [
-                {
-                    "itHelped": true,
-                    "comment": "string",
-                    "timestamp": "2022-05-29T17:29:03.758Z"
-                }
-            ]
-        })
-
-    }
+ 
 
     if (items) {
-        // console.log(items.at(1)?.name)
         return (
+            <Suspense fallback="Loading...">
             <Flex>
                 
                 <Flex
@@ -269,26 +231,14 @@ function FrontPage() {
                     transform="translate(-50%, -0%)"
                     maxWidth='800px'
                 >
-                    {/* {items.at(1)?.name} */}
-                    {/* <InputBox /> */}
-                    {/* <Box mt = {6} mx = "auto" alignItems = 'center' as='button' borderRadius='md' bg='turquoise' color='white' px={50} h={8}>
-                       Let's go!
-                    </Box> */}
+                   
                     
                     {!addItemClicked && <Text pt ={'80px'} align={'center'} marginBottom={5}>
-                        Which persons or activities make you happy and give you drive in your everyday life?
+                        {t('welcome')}
                     </Text>}
                     {!addItemClicked && <Text fontSize={11} marginBottom={5}>
                         {items.map((item: ISafteyNetItem, index, items: ISafteyNetItem[]) => <li key={item.name}> {items[index].name} </li>)}
                     </Text>}
-                    {/* <Box marginTop={5}>
-                        <Image
-                            borderRadius='full'
-                            boxSize='150px'
-                            src='net.png'
-                            alt='safety net' />
-                        <Button>+</Button>
-                    </Box> */}
                     {!addItemClicked &&
                         <IconButton
                             colorScheme='green'
@@ -302,7 +252,7 @@ function FrontPage() {
                     {addItemClicked && <AddItemView />}
                 </Flex>
             </Flex>
-
+            </Suspense>
         );
     }
     else {
@@ -316,54 +266,8 @@ function FrontPage() {
 
 }
 
-
-// function InputBox(){
-//     async function postData(){
-
-//     await axios.post(`http://127.0.0.1:4010/safetyNet/1`,{
-//         "name": "nail",
-//         "type": "pet",
-//         "strategies": [
-//           "string"
-//         ],
-//         "feedback": [
-//           {
-//             "itHelped": true,
-//             "comment": "string",
-//             "timestamp": "2022-05-29T17:29:03.758Z"
-//           }
-//         ]
-//       })
-
-//     }
-
-//     return(
-
-//        <Stack spacing={3}>
-//        <Input borderWidth = '2px' borderColor = 'grey' focusBorderColor='pink.400' placeholder='...' size='md' />
-//        <Input borderWidth = '2px' borderColor = 'grey' focusBorderColor='pink.400' placeholder='...' size='md' />
-//        <Input borderWidth = '2px' borderColor = 'grey' focusBorderColor='pink.400' placeholder='...' size='md' />
-//        <Input borderWidth = '2px' borderColor = 'grey' focusBorderColor='pink.400' placeholder='...' size='md' />
-
-//        <Box>
-//         <Image borderRadius='full'
-//                    boxSize='150px' 
-//                 //    src='https://bit.ly/dan-abramov' 
-//                    src = 'net.png'
-//                    alt='Dan Abramov' />
-
-//                    <Button onClick={postData}>+</Button>
-
-//         </Box>
-
-//        </Stack>
-
-
-
-//     )
-// }
-
 export default function SafetyNet() {
+    const { t } = useTranslation();
     return (
         <ChakraProvider theme={theme}>
             
@@ -373,7 +277,7 @@ export default function SafetyNet() {
                     </Box>
 
                     <Box w='100%' h='120px'  bg='green.400'>
-                        <Text fontSize='40px' align='center' pt='50px' color='white'>Safety Net </Text>
+                        <Text fontSize='40px' align='center' pt='50px' color='white'>{t('safetyNet')} </Text>
                     </Box>
                     
             </Stack>
