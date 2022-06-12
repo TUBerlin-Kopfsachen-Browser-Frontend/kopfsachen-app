@@ -1,3 +1,4 @@
+
 import * as React from "react"
 import {
   ChakraProvider,
@@ -8,31 +9,37 @@ import {
   Code,
   Grid,
   theme,
+  Flex,
+  Center,
+  Heading,
+  Image,
 } from "@chakra-ui/react"
-import { ColorModeSwitcher } from "./ColorModeSwitcher"
-import { Logo } from "./Logo"
+// import { Logo } from "./Logo"
+import Sidebar from "./components/Sidebar"
 
 export const App = () => (
   <ChakraProvider theme={theme}>
-    <Box textAlign="center" fontSize="xl">
-      <Grid minH="100vh" p={3}>
-        <ColorModeSwitcher justifySelf="flex-end" />
-        <VStack spacing={8}>
-          <Logo h="40vmin" pointerEvents="none" />
-          <Text>
-            Edit <Code fontSize="xl">src/App.tsx</Code> and save to reload.
-          </Text>
-          <Link
-            color="teal.500"
-            href="https://chakra-ui.com"
-            fontSize="2xl"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn Chakra
-          </Link>
-        </VStack>
-      </Grid>
-    </Box>
+    <Flex>
+      <Sidebar />
+
+      <Flex
+                    flexDirection='column'
+                    position='absolute'
+                    top='5vh'
+                    left='50vw'
+                    transform="translate(-50%, -10%)"
+                    maxWidth='800px'
+                >
+        <Grid minH="50vh" p={200}>
+          <VStack spacing={8}>
+            {/* <Logo h="40vmin" pointerEvents="none" /> */}
+            <Image src='/header.png' />
+            <Text fontSize="20">Welcome to the Kopsachen Web App!</Text>
+          </VStack>
+        </Grid>
+      </Flex>
+
+    </Flex>
+    
   </ChakraProvider>
 )
