@@ -90,7 +90,7 @@ export default function Sidebar() {
                 <NavItem navSize={navSize} icon={FiArrowUpCircle} title={t('resources')} routeto="/resources"/>
                 <NavItem navSize={navSize} icon={FiShield} title={t('emergencyNumbers')} routeto="/emergencynumbers"/>
                 <NavItem navSize={navSize} icon={FiSettings} title={t('settings')} routeto="/settings"/>
-                <Select onChange={onChange} padding={'10px'}>
+                <Select marginTop={30} onChange={onChange} padding={'10px'}>
                         <option value='en'>🇬🇧 English</option>
                         <option value='de'>🇩🇪 Deutsch</option>
                         <option value='tr'>🇹🇷 Türkçe</option>
@@ -106,7 +106,7 @@ export default function Sidebar() {
                 flexDir="column"
                 w="100%"
                 alignItems={navSize === "small" ? "center" : "flex-start"}
-                mb={4}
+                mb={1}
             >
                 <ColorModeSwitcher justifySelf="flex-end" />
             </Flex>
