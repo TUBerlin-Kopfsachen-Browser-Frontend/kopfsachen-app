@@ -107,7 +107,7 @@ export default function Resources() {
                 <Text fontSize='40px' align='center' pt='50px' color='white'> My Resources </Text>
             
             
-                <Text fontSize={'3xl'} align='center' pt='100px' color={'gray.600'}>
+                <Text fontSize={20} align='center' pt='100px' color={'gray.600'}>
                     You have already gatherd so many resources. If you want to work on your already existing ones, click on the button below.
                 </Text>
 
@@ -130,14 +130,14 @@ export default function Resources() {
 
                     <Button onClick={() => navigate('/safetynet')}
                         variant='ghost' size='lg' > 
-                            Safety Net
-                        <Image width={40} height={32} alt={'Logo'} objectFit={'cover'} src={Logo} />
+                            Safety Net  
+                        <Image margin={2} alt={'Logo'} objectFit={'cover'} src={Logo} />
                     </Button>
 
 
                     <Button  variant='ghost' size='lg' >
                         Situtation control
-                        <Image alt={'Logo1'} objectFit={'cover'} width={95} src={Logo1} />
+                        <Image margin={2} alt={'Logo1'} objectFit={'cover'} src={Logo1} />
                     </Button>
                 </Stack>
             </Center>

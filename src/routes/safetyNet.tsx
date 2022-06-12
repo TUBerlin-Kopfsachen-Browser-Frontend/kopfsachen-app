@@ -66,7 +66,7 @@ function AddItemView() {
     const { isOpen, onOpen, onClose } = useDisclosure();
     return (
         <Flex flexDirection='column' width={500}>
-            <Text marginTop={12} marginBottom={5}> {t('happyMaker')} </Text>
+            <Text fontSize={20} marginTop={12} marginBottom={5}> {t('happyMaker')} </Text>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Input
                     focusBorderColor="green.400"
@@ -74,7 +74,7 @@ function AddItemView() {
                     onChange={handleItemInput}
                     isDisabled={continueClicked}
                 />
-                <Text marginTop={7} marginBottom={5}> {t('chooseCategory')} </Text>
+                <Text fontSize={20} marginTop={7} marginBottom={5}> {t('chooseCategory')} </Text>
                 <RadioGroup onChange={setCategoryInput} value={categoryInput} colorScheme='green' isDisabled={continueClicked}>
                     <Stack direction='row'>
                         <Radio {...register('type')} value='situationControl'>{t('situationControl')}</Radio>
@@ -85,10 +85,9 @@ function AddItemView() {
                 </RadioGroup>
 
                 {!continueClicked && <Button
-                    marginTop={7}
+                    marginTop={10}
                     marginBottom={5}
                     colorScheme='green'
-                    width={20} size='xs'
                     onClick={() => setContinueClicked(true)}
                     isDisabled={nameInput.trim() === ''}
                 >
@@ -96,7 +95,7 @@ function AddItemView() {
                 </Button>}
             </form>
             {continueClicked && <Flex flexDirection='column' mt={5}>
-                <Text marginTop={2} marginBottom={5}> {t('chooseWays')} </Text>
+                <Text fontSize={20} marginTop={2} marginBottom={5}> {t('chooseWays')} </Text>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <Stack spacing={3}>
                         <Input
@@ -233,10 +232,10 @@ function FrontPage() {
                 >
                    
                     
-                    {!addItemClicked && <Text pt ={'80px'} align={'center'} marginBottom={5}>
+                    {!addItemClicked && <Text fontSize={20} pt ={'80px'} align={'center'} marginBottom={5}>
                         {t('welcome')}
                     </Text>}
-                    {!addItemClicked && <Text fontSize={11} marginBottom={5}>
+                    {!addItemClicked && <Text fontSize={20} marginBottom={5}>
                         {items.map((item: ISafteyNetItem, index, items: ISafteyNetItem[]) => <li key={item.name}> {items[index].name} </li>)}
                     </Text>}
                     {!addItemClicked &&

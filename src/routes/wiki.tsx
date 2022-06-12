@@ -154,12 +154,12 @@ function FrontPage() {
     } else { // entry page
         return (
             <Flex>
-                <Sidebar />
+                {/* <Sidebar /> */}
                 <Flex>
                     <Flex
                         fontSize='large'
                         position='absolute'
-                        top='10vh'
+                        top='20vh'
                         left='50vw'
                         transform="translate(-50%, -0%)"
                         maxWidth='800px'

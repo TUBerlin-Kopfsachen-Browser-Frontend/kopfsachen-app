@@ -1,6 +1,6 @@
 /* CODE BASE BY Gourav Singh
 https://codesandbox.io/s/peaceful-ride-9vemmq?file=/src/components/calendar/MiniCalendar.js:123-160 */
-@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,500;1,400;1,500;1,500&display=swap");
 /* LIGHT MODE + GENERAL */
 
 .react-calendar {
@@ -32,30 +32,30 @@ abbr[title] {
 
 .react-calendar__navigation__prev-button {
   background-color: #48bb78 !important;
-  border-radius: 70px;
-  min-width: 70px !important;
-  height: 70px !important;
+  border-radius: 50px;
+  min-width: 50px !important;
+  height: 50px !important;
   color: white;
 }
 
 .react-calendar__navigation__next-button {
   background-color: #48bb78 !important;
-  border-radius: 70px;
-  min-width: 70px !important;
-  width: 70px !important;
-  height: 70px !important;
+  border-radius: 50px;
+  min-width: 50px !important;
+  width: 50px !important;
+  height: 50px !important;
   color: white;
 }
 
 .react-calendar__navigation__label {
-  font-weight: 700 !important;
+  font-weight: 500 !important;
   font-size: 30px;
 }
 
 .react-calendar__navigation__label:hover,
 .react-calendar__navigation__label:focus {
   background-color: unset !important;
-  border-radius: 70px;
+  border-radius: 50px;
 }
 
 .react-calendar__tile {
