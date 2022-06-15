@@ -291,12 +291,7 @@ function FrontPage() {
                         {!addItemClicked && <Text fontSize={20} pt={'80px'} align={'center'} marginBottom={5}>
                             {t('welcome')}
                         </Text>}
-                        {/* {!addItemClicked && <Text fontSize={20} marginBottom={5}>
-                            {items.map((item: ISafteyNetItem, index, items: ISafteyNetItem[]) => <li key={item.name}> {items[index].name} </li>)}
-                        </Text>} */}
-                        <Center flexDirection='column'>
-                            {/* {!addItemClicked && 
-                                <Flex margin={20}><img src={safetyNet} alt='safety net' width='300px'></img></Flex>} */}
+                        {!addItemClicked && <Center flexDirection='column'>
                             <div className="container">
                                 {/* <img src={safetyNet} alt="Safety net"></img> */}
                                 <ul className="circle-container">
@@ -317,7 +312,7 @@ function FrontPage() {
                                     Add item
                                 </Button>
                             }
-                        </Center>
+                        </Center>}
                         {addItemClicked && <AddItemView
                         // onBackClick={() => setAddItemClicked(false)}
                         />}
