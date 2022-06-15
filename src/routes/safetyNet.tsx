@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState, Suspense } from "react"
 import {
-    ChakraProvider, Text, theme, Flex, Heading, Input, Stack, HStack, AlertDialog, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, AlertDialogBody, AlertDialogFooter, useDisclosure, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Box, Select
+    ChakraProvider, Text, theme, Flex, Heading, Input, Stack, HStack, AlertDialog, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, AlertDialogBody, AlertDialogFooter, useDisclosure, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Box, Select, Link, Center
 } from "@chakra-ui/react"
 import Sidebar from "../components/Sidebar"
 
-import {translationsEn, translationsTr, translationsDe, translationsAl} from "../components/translationText"
-
+import { translationsEn, translationsTr, translationsDe, translationsAl } from "../components/translationText"
+import { useNavigate } from "react-router-dom"
 
 import { useForm, SubmitHandler } from "react-hook-form";
 import { stringify } from "querystring"
@@ -21,19 +21,21 @@ import React from "react"
 import i18n, { t } from "i18next";
 import { initReactI18next, useTranslation } from "react-i18next";
 
+// import safetyNet from "../safetyNet.png";
+import "./../assets/css/safetyNet.scss";
 
 i18n
     .use(initReactI18next)
     .init({
         resources: {
-            en: {translation: translationsEn},
-            tr: {translation: translationsTr},
-            de: {translation: translationsDe},
-            al: {translation: translationsAl}
+            en: { translation: translationsEn },
+            tr: { translation: translationsTr },
+            de: { translation: translationsDe },
+            al: { translation: translationsAl }
         },
         lng: "en",
         fallbackLng: "en",
-        interpolation: {escapeValue: false},
+        interpolation: { escapeValue: false },
     });
 // api get/post request format
 interface ISafteyNetItem {
@@ -47,23 +49,47 @@ interface ISafteyNetItem {
     }[];
 }
 
-function AddItemView() {
+// interface IAddItemViewProps {
+//     onBackClick: () => void;
+// }
+
+function AddItemView(
+    // props: IAddItemViewProps
+) {
     const [nameInput, setNameInput] = useState<string>('');
     const [strategyInput1, setStrategyInput1] = useState<string>('');
     const [strategyInput2, setStrategyInput2] = useState<string>('');
     const [strategyInput3, setStrategyInput3] = useState<string>('');
     const [categoryInput, setCategoryInput] = useState('situationControl');
     const [continueClicked, setContinueClicked] = useState(false);
-    const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
+    const [itHelped, setItHelped] = useState<boolean | undefined>();
+    const navigate = useNavigate();
     const handleItemInput = (e: React.ChangeEvent<HTMLInputElement>) => {
         setNameInput(e.target.value);
     };
 
     const { t } = useTranslation();
 
-    const { register, handleSubmit, setValue } = useForm<ISafteyNetItem>();
-    const onSubmit: SubmitHandler<ISafteyNetItem> = data => axios.post(`http://127.0.0.1:4010/safetyNet/1`, data)
+    const { register, handleSubmit, setValue, reset } = useForm<ISafteyNetItem>();
+    const onSubmit: SubmitHandler<ISafteyNetItem> = data => {
+        console.log('submitting', data);
+        axios.post(`http://127.0.0.1:4010/safetyNet/1`, data);
+    }
     const { isOpen, onOpen, onClose } = useDisclosure();
+    const onModalClose = () => {
+        onClose();
+        setItHelped(undefined);
+    }
+    const clearInputs = () => {
+        reset();
+        setValue('type', 'situationControl');
+        setNameInput("");
+        setStrategyInput1("");
+        setStrategyInput2("");
+        setStrategyInput3("");
+        setCategoryInput('situationControl');
+        setContinueClicked(false);
+    }
     return (
         <Flex flexDirection='column' width={500}>
             <Text fontSize={20} marginTop={12} marginBottom={5}> {t('happyMaker')} </Text>
@@ -72,15 +98,16 @@ function AddItemView() {
                     focusBorderColor="green.400"
                     {...register('name')}
                     onChange={handleItemInput}
+                    value={nameInput}
                     isDisabled={continueClicked}
                 />
                 <Text fontSize={20} marginTop={7} marginBottom={5}> {t('chooseCategory')} </Text>
                 <RadioGroup onChange={setCategoryInput} value={categoryInput} colorScheme='green' isDisabled={continueClicked}>
-                    <Stack direction='row'>
-                        <Radio {...register('type')} value='situationControl'>{t('situationControl')}</Radio>
-                        <Radio {...register('type')} value='relaxation'>{t('relaxation')}</Radio>
-                        <Radio {...register('type')} value='pet'>{t('pets')}</Radio>
-                        <Radio {...register('type')} value='other'>{t('other')}</Radio>
+                    <Stack direction='row' spacing={10}>
+                        <Radio {...register('type')} value='situationControl'>{t('situationControl')}<Text fontSize={40}>🎚</Text></Radio>
+                        <Radio {...register('type')} value='relaxation'>{t('relaxation')}<Text fontSize={40}>🦥</Text></Radio>
+                        <Radio {...register('type')} value='pet'>{t('pets')}<Text fontSize={40}>🐾</Text> </Radio>
+                        <Radio {...register('type')} value='other'>{t('other')}<Text fontSize={40}>💭</Text></Radio>
                     </Stack>
                 </RadioGroup>
 
@@ -94,38 +121,50 @@ function AddItemView() {
                     {t('continue')}
                 </Button>}
             </form>
-            {continueClicked && <Flex flexDirection='column' mt={5}>
+            <Flex flexDirection='column' mt={5} display={continueClicked ? undefined : 'none'}>
                 <Text fontSize={20} marginTop={2} marginBottom={5}> {t('chooseWays')} </Text>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <Stack spacing={3}>
                         <Input
-                            {...register(`strategies.${0}`)}
+                            {...register(`strategies.0`)}
                             placeholder='first'
                             focusBorderColor="green.400"
+                            value={strategyInput1}
                             onChange={(e: any) => setStrategyInput1(e.target.value)}
                         />
                         <Input
-                            {...register(`strategies.${1}`)}
+                            {...register(`strategies.1`)}
                             placeholder='second'
                             focusBorderColor="green.400"
+                            value={strategyInput2}
                             onChange={(e: any) => setStrategyInput2(e.target.value)}
                         />
                         <Input
-                            {...register(`strategies.${2}`)}
+                            {...register(`strategies.2`)}
                             placeholder='third'
                             focusBorderColor="green.400"
+                            value={strategyInput3}
                             onChange={(e: any) => setStrategyInput3(e.target.value)}
                         />
                     </Stack>
                 </form>
                 <Flex marginTop={10}>
-                    <Button
-                        marginRight={3}
-                        colorScheme='green'
-                        isDisabled={(strategyInput1.trim() === '') || (strategyInput2.trim() === '') || (strategyInput3.trim() === '')}
-                    >
-                        {t('addResource')}
-                    </Button>
+                    <form onSubmit={handleSubmit(onSubmit)}>
+                        <Button
+                            type='submit'
+                            onClick={() => {
+                                // prevent react from clearing the inputs before the form submit is handled
+                                setTimeout(() => {
+                                    clearInputs();
+                                }, 0);
+                            }}
+                            marginRight={3}
+                            colorScheme='green'
+                            isDisabled={(strategyInput1.trim() === '') || (strategyInput2.trim() === '') || (strategyInput3.trim() === '')}
+                        >
+                            {t('addResource')}
+                        </Button>
+                    </form>
                     <Button
                         onClick={onOpen}
                         marginRight={3}
@@ -136,7 +175,7 @@ function AddItemView() {
                     </Button>
                     <Modal
                         isOpen={isOpen}
-                        onClose={onClose}
+                        onClose={onModalClose}
                     >
                         <ModalOverlay>
                             <ModalContent>
@@ -150,32 +189,42 @@ function AddItemView() {
                                             <IconButton
                                                 onClick={() => {
                                                     setValue(`feedback.${0}.itHelped`, true);
-                                                    setIsSubmitDisabled(false);
+                                                    setItHelped(true);
                                                 }}
                                                 aria-label='positive'
-                                                variant='ghost'
+                                                variant={itHelped === true ? 'solid' : 'ghost'}
                                                 icon={<FiSmile size={30} color='green' />}
                                             />
                                             <IconButton
                                                 onClick={() => {
                                                     setValue(`feedback.${0}.itHelped`, false);
-                                                    setIsSubmitDisabled(false);
+                                                    setItHelped(false);
                                                 }}
                                                 aria-label='negative'
-                                                variant='ghost'
+                                                variant={itHelped === false ? 'solid' : 'ghost'}
                                                 icon={<FiFrown size={30} color='red' />}
                                             />
                                         </Stack>
                                     </ModalBody>
 
                                     <ModalFooter>
-                                        <Button onClick={onClose} type='submit' isDisabled={isSubmitDisabled} mr={3} >
+                                        <Button
+                                            onClick={() => {
+                                                onModalClose();
+                                                // prevent react from clearing the inputs before the form submit is handled
+                                                setTimeout(() => {
+                                                    clearInputs();
+                                                    navigate('/resources');
+                                                }, 0);
+                                                // props.onBackClick();
+                                            }}
+                                            type='submit'
+                                            isDisabled={typeof itHelped === 'undefined'}
+                                            mr={3}
+                                        >
                                             {t('submit')}
                                         </Button>
-                                        <Button onClick={() => {
-                                            onClose();
-                                            setIsSubmitDisabled(true);
-                                        }}>
+                                        <Button onClick={onModalClose}>
                                             {t('cancel')}
                                         </Button>
                                     </ModalFooter>
@@ -185,7 +234,6 @@ function AddItemView() {
                     </Modal>
                 </Flex>
             </Flex>
-            }
         </Flex>
     )
 }
@@ -193,6 +241,14 @@ function AddItemView() {
 function FrontPage() {
     const [addItemClicked, setAddItemClicked] = useState(false);
     const [items, setItems] = useState<ISafteyNetItem[]>([]);
+    const displayIcon = (iconType: string) => {
+        return items.some(item => {
+            if (item.type === iconType) {
+                return true;
+            }
+            return false;
+        });
+    }
 
     const { t } = useTranslation();
     // to fetch data everytime the front page is loaded
@@ -215,42 +271,58 @@ function FrontPage() {
 
     }, []);
 
- 
+
 
     if (items) {
         return (
             <Suspense fallback="Loading...">
-            <Flex>
-                
-                <Flex
-                    flexDirection='column'
-                    position='absolute'
-                    top='10vh'
-                    left='50vw'
-                    transform="translate(-50%, -0%)"
-                    maxWidth='800px'
-                >
-                   
-                    
-                    {!addItemClicked && <Text fontSize={20} pt ={'80px'} align={'center'} marginBottom={5}>
-                        {t('welcome')}
-                    </Text>}
-                    {!addItemClicked && <Text fontSize={20} marginBottom={5}>
-                        {items.map((item: ISafteyNetItem, index, items: ISafteyNetItem[]) => <li key={item.name}> {items[index].name} </li>)}
-                    </Text>}
-                    {!addItemClicked &&
-                        <IconButton
-                            colorScheme='green'
-                            aria-label='Add item'
-                            icon={<AddIcon />}
-                            width={20}
-                            onClick={() => setAddItemClicked(true)}
-                        />
+                <Flex>
 
-                    }
-                    {addItemClicked && <AddItemView />}
+                    <Flex
+                        flexDirection='column'
+                        position='absolute'
+                        top='10vh'
+                        left='50vw'
+                        transform="translate(-50%, -0%)"
+                        maxWidth='800px'
+                    >
+
+
+                        {!addItemClicked && <Text fontSize={20} pt={'80px'} align={'center'} marginBottom={5}>
+                            {t('welcome')}
+                        </Text>}
+                        {/* {!addItemClicked && <Text fontSize={20} marginBottom={5}>
+                            {items.map((item: ISafteyNetItem, index, items: ISafteyNetItem[]) => <li key={item.name}> {items[index].name} </li>)}
+                        </Text>} */}
+                        <Center flexDirection='column'>
+                            {/* {!addItemClicked && 
+                                <Flex margin={20}><img src={safetyNet} alt='safety net' width='300px'></img></Flex>} */}
+                            <div className="container">
+                                {/* <img src={safetyNet} alt="Safety net"></img> */}
+                                <ul className="circle-container">
+                                    <li>{displayIcon('relaxation') && <button className="btn"><Text fontSize={40}>🦥</Text></button>}</li>
+                                    <li>{displayIcon('pet') &&<button className="btn"><Text fontSize={40}>🐾</Text></button>}</li>
+                                    <li>{displayIcon('other') &&<button className="btn"><Text fontSize={40}>💭</Text></button>}</li>
+                                    <li>{displayIcon('situationControl') &&<button className="btn"><Text fontSize={40}>🎚</Text></button>}</li>
+                                </ul>
+                            </div>
+                            {!addItemClicked &&
+                                <Button
+                                    mt={10}
+                                    colorScheme='green'
+                                    aria-label='Add item'
+                                    leftIcon={<AddIcon />}
+                                    onClick={() => setAddItemClicked(true)}
+                                >
+                                    Add item
+                                </Button>
+                            }
+                        </Center>
+                        {addItemClicked && <AddItemView
+                        // onBackClick={() => setAddItemClicked(false)}
+                        />}
+                    </Flex>
                 </Flex>
-            </Flex>
             </Suspense>
         );
     }
@@ -269,21 +341,21 @@ export default function SafetyNet() {
     const { t } = useTranslation();
     return (
         <ChakraProvider theme={theme}>
-            
-            <Stack direction={['row']} spacing='275px'>
-                    <Box >
-                        <Sidebar />
-                    </Box>
 
-                    <Box w='100%' h='120px'  bg='green.400'>
-                        <Text fontSize='40px' align='center' pt='50px' color='white'>{t('safetyNet')} </Text>
-                    </Box>
-                    
+            <Stack direction={['row']} spacing='275px'>
+                <Box >
+                    <Sidebar />
+                </Box>
+
+                <Box w='100%' h='120px' bg='green.400'>
+                    <Text fontSize='40px' align='center' pt='50px' color='white'>{t('safetyNet')} </Text>
+                </Box>
+
             </Stack>
             <FrontPage />
         </ChakraProvider>
-            
 
-        
+
+
     );
 }
