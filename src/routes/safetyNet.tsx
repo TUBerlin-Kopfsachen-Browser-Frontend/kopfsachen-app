@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, Suspense } from "react"
 import {
-    ChakraProvider, Text, theme, Flex, Heading, Input, Stack, HStack, AlertDialog, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, AlertDialogBody, AlertDialogFooter, useDisclosure, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Box, Select, Link, Center
+    ChakraProvider, Text, theme, Flex, Heading, Input, Stack, HStack, AlertDialog, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, AlertDialogBody, AlertDialogFooter, useDisclosure, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Box, Select, Link, Center, Portal
 } from "@chakra-ui/react"
 import Sidebar from "../components/Sidebar"
 
@@ -17,6 +17,10 @@ import { RadioGroup } from "@chakra-ui/react"
 import { Radio } from "@chakra-ui/react"
 import { FiFrown, FiMeh, FiSmile } from "react-icons/fi"
 import React from "react"
+
+import {
+    Popover, PopoverTrigger, PopoverContent, PopoverHeader, PopoverBody, PopoverFooter, PopoverArrow, PopoverCloseButton, PopoverAnchor,
+} from '@chakra-ui/react'
 
 import i18n, { t } from "i18next";
 import { initReactI18next, useTranslation } from "react-i18next";
@@ -249,6 +253,9 @@ function FrontPage() {
             return false;
         });
     }
+    // const displayNames = (iconType: string) => {
+    //     return 0;
+    // }
 
     const { t } = useTranslation();
     // to fetch data everytime the front page is loaded
@@ -295,10 +302,70 @@ function FrontPage() {
                             <div className="container">
                                 {/* <img src={safetyNet} alt="Safety net"></img> */}
                                 <ul className="circle-container">
-                                    <li>{displayIcon('relaxation') && <button className="btn"><Text fontSize={40}>🦥</Text></button>}</li>
-                                    <li>{displayIcon('pet') &&<button className="btn"><Text fontSize={40}>🐾</Text></button>}</li>
-                                    <li>{displayIcon('other') &&<button className="btn"><Text fontSize={40}>💭</Text></button>}</li>
-                                    <li>{displayIcon('situationControl') &&<button className="btn"><Text fontSize={40}>🎚</Text></button>}</li>
+                                    <li>{
+                                        displayIcon('relaxation') &&
+                                        <Popover>
+                                            <PopoverTrigger>
+                                                <button className="btn"><Text fontSize={40}>🦥</Text></button>
+                                            </PopoverTrigger>
+                                            <Portal>
+                                                <PopoverContent>
+                                                    <PopoverArrow />
+                                                    <PopoverCloseButton />
+                                                    <PopoverHeader>Relaxation</PopoverHeader>
+                                                    <PopoverBody>#list of items#</PopoverBody>
+                                                </PopoverContent>
+                                            </Portal>
+                                        </Popover>
+                                    }</li>
+                                    <li>{
+                                        displayIcon('pet') &&
+                                        <Popover>
+                                            <PopoverTrigger>
+                                                <button className="btn"><Text fontSize={40}>🐾</Text></button>
+                                            </PopoverTrigger>
+                                            <Portal>
+                                                <PopoverContent>
+                                                    <PopoverArrow />
+                                                    <PopoverCloseButton />
+                                                    <PopoverHeader>Pets</PopoverHeader>
+                                                    <PopoverBody> #list of items# </PopoverBody>
+                                                </PopoverContent>
+                                            </Portal>
+                                        </Popover>
+                                    }</li>
+                                    <li>{
+                                        displayIcon('situationControl') &&
+                                        <Popover>
+                                            <PopoverTrigger>
+                                                <button className="btn"><Text fontSize={40}>🎚</Text></button>
+                                            </PopoverTrigger>
+                                            <Portal>
+                                                <PopoverContent>
+                                                    <PopoverArrow />
+                                                    <PopoverCloseButton />
+                                                    <PopoverHeader>Situation Control</PopoverHeader>
+                                                    <PopoverBody>#list of items#</PopoverBody>
+                                                </PopoverContent>
+                                            </Portal>
+                                        </Popover>
+                                    }</li>
+                                    <li>{
+                                        displayIcon('other') &&
+                                        <Popover>
+                                            <PopoverTrigger>
+                                                <button className="btn"><Text fontSize={40}>💭</Text></button>
+                                            </PopoverTrigger>
+                                            <Portal>
+                                                <PopoverContent>
+                                                    <PopoverArrow />
+                                                    <PopoverCloseButton />
+                                                    <PopoverHeader>Other</PopoverHeader>
+                                                    <PopoverBody>#list of items#</PopoverBody>
+                                                </PopoverContent>
+                                            </Portal>
+                                        </Popover>
+                                    }</li>
                                 </ul>
                             </div>
                             {!addItemClicked &&
