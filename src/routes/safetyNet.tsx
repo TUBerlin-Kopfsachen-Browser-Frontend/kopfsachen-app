@@ -253,9 +253,9 @@ function FrontPage() {
             return false;
         });
     }
-    // const displayNames = (iconType: string) => {
-    //     return 0;
-    // }
+    const renderItem = (item: ISafteyNetItem) => {
+        return <Flex marginLeft={5}><li>{item.name}</li></Flex>
+    }
 
     const { t } = useTranslation();
     // to fetch data everytime the front page is loaded
@@ -299,8 +299,7 @@ function FrontPage() {
                             {t('welcome')}
                         </Text>}
                         {!addItemClicked && <Center flexDirection='column'>
-                            <div className="container">
-                                {/* <img src={safetyNet} alt="Safety net"></img> */}
+                            <Flex className="container" backgroundColor='white' borderRadius={170} paddingBottom={5}>
                                 <ul className="circle-container">
                                     <li>{
                                         displayIcon('relaxation') &&
@@ -309,11 +308,11 @@ function FrontPage() {
                                                 <button className="btn"><Text fontSize={40}>🦥</Text></button>
                                             </PopoverTrigger>
                                             <Portal>
-                                                <PopoverContent>
-                                                    <PopoverArrow />
-                                                    <PopoverCloseButton />
-                                                    <PopoverHeader>Relaxation</PopoverHeader>
-                                                    <PopoverBody>#list of items#</PopoverBody>
+                                                <PopoverContent bg='tomato' color='white'>
+                                                    <PopoverArrow bg='tomato'/>
+                                                    <PopoverCloseButton/>
+                                                    <PopoverHeader fontWeight='semibold'>Relaxation</PopoverHeader>
+                                                    <PopoverBody><Text>{items.filter(item => item.type === 'relaxation').map(renderItem)}</Text></PopoverBody>
                                                 </PopoverContent>
                                             </Portal>
                                         </Popover>
@@ -325,11 +324,11 @@ function FrontPage() {
                                                 <button className="btn"><Text fontSize={40}>🐾</Text></button>
                                             </PopoverTrigger>
                                             <Portal>
-                                                <PopoverContent>
-                                                    <PopoverArrow />
+                                                <PopoverContent bg='tomato' color='white'>
+                                                    <PopoverArrow bg='tomato'/>
                                                     <PopoverCloseButton />
                                                     <PopoverHeader>Pets</PopoverHeader>
-                                                    <PopoverBody> #list of items# </PopoverBody>
+                                                    <PopoverBody><Text>{items.filter(item => item.type === 'pet').map(renderItem)}</Text></PopoverBody>
                                                 </PopoverContent>
                                             </Portal>
                                         </Popover>
@@ -341,11 +340,11 @@ function FrontPage() {
                                                 <button className="btn"><Text fontSize={40}>🎚</Text></button>
                                             </PopoverTrigger>
                                             <Portal>
-                                                <PopoverContent>
-                                                    <PopoverArrow />
+                                                <PopoverContent bg='tomato' color='white'>
+                                                    <PopoverArrow bg='tomato'/>
                                                     <PopoverCloseButton />
                                                     <PopoverHeader>Situation Control</PopoverHeader>
-                                                    <PopoverBody>#list of items#</PopoverBody>
+                                                    <PopoverBody><Text>{items.filter(item => item.type === 'situationControl').map(renderItem)}</Text></PopoverBody>
                                                 </PopoverContent>
                                             </Portal>
                                         </Popover>
@@ -357,17 +356,17 @@ function FrontPage() {
                                                 <button className="btn"><Text fontSize={40}>💭</Text></button>
                                             </PopoverTrigger>
                                             <Portal>
-                                                <PopoverContent>
-                                                    <PopoverArrow />
+                                                <PopoverContent bg='tomato' color='white'>
+                                                    <PopoverArrow bg='tomato'/>
                                                     <PopoverCloseButton />
                                                     <PopoverHeader>Other</PopoverHeader>
-                                                    <PopoverBody>#list of items#</PopoverBody>
+                                                    <PopoverBody><Text>{items.filter(item => item.type === 'other').map(renderItem)}</Text></PopoverBody>
                                                 </PopoverContent>
                                             </Portal>
                                         </Popover>
                                     }</li>
                                 </ul>
-                            </div>
+                            </Flex>
                             {!addItemClicked &&
                                 <Button
                                     mt={10}

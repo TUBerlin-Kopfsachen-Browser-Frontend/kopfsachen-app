@@ -1,6 +1,10 @@
  .container img {
    width: 100%;
    height: auto;
+   
+   border-radius: 10px;
+   overflow: hidden;
+
  }
 
  // https://css-tricks.com/snippets/sass/placing-items-circle/
@@ -43,7 +47,6 @@
    background-repeat: no-repeat;
    background-position-x: 20%;
    background-position-y: 30%;
-   // padding-left: 30px;
 
    .btn {
      display: block;
