@@ -17,6 +17,7 @@ import Reframing1 from "./routes/Reframing1";
 import Profile from "./routes/Profile";
 import Register from "./routes/Register";
 import Login from "./routes/Login";
+import Neutral1 from "./routes/Neutral1";
 
 
 ReactDOM.render(
@@ -37,6 +38,7 @@ ReactDOM.render(
         <Route path="register" element={<Register />} />
         <Route path="login" element={<Login />} />
         <Route path="profile" element={<Profile />} />
+        <Route path="neutral1" element={<Neutral1 />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,
