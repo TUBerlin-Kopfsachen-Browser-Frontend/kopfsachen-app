@@ -14,6 +14,7 @@ import Settings from "./routes/Settings";
 import NewResources from "./routes/NewResources";
 import Reframing from "./routes/Reframing";
 import Reframing1 from "./routes/Reframing1";
+import Reframing2 from "./routes/Reframing2";
 import Profile from "./routes/Profile";
 import Register from "./routes/Register";
 import Login from "./routes/Login";
@@ -34,6 +35,7 @@ ReactDOM.render(
         <Route path="newresources" element={<NewResources />} />
         <Route path="reframing" element={<Reframing />} />
         <Route path="reframing1" element={<Reframing1 />} />
+        <Route path="reframing2" element={<Reframing2 />} />
         <Route path="register" element={<Register />} />
         <Route path="login" element={<Login />} />
         <Route path="profile" element={<Profile />} />

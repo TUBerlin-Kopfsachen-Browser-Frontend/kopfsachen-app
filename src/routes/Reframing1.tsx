@@ -20,11 +20,21 @@ import { useNavigate } from "react-router-dom";
 import Sidebar from "../components/Sidebar"
 import { AspectRatio } from '@chakra-ui/react'
 
+import { useForm, SubmitHandler } from "react-hook-form";
+import { stringify } from "querystring"
+import { networkInterfaces } from "os"
+import axios from "axios"
 
-
+interface IReframingItem {
+    situations: string[];
+}
 
 export default function New() {
         const navigate = useNavigate();
+
+        const { register, handleSubmit, setValue } = useForm<IReframingItem>();
+        const onSubmit: SubmitHandler<IReframingItem> = data => axios.post(`http://127.0.0.1:4010/safetyNet/1`, data)
+        
 
     return (
         <ChakraProvider theme={theme}>
@@ -64,27 +74,29 @@ export default function New() {
                                 </Center>
                             </Stack>
                         
+                            <form onSubmit={handleSubmit(onSubmit)}>
+                            <Stack spacing={3} pt={'1px'}>
 
-                            <Stack
-                                spacing={3} pt={'1px'}>
-                                <Input placeholder='Situation 1' size='lg' />
-                                <Input placeholder='Situation 2' size='lg' />
-                                <Input placeholder='Situation 3' size='lg' />
-                                <Input placeholder='Situation 4' size='lg' />
+                                <Input {...register(`situations.${0}`)} placeholder='Situation 1' size='lg' />
+                                <Input {...register(`situations.${1}`)} placeholder='Situation 2' size='lg' />
+                                <Input {...register(`situations.${2}`)} placeholder='Situation 3' size='lg' />
+                                <Input {...register(`situations.${3}`)} placeholder='Situation 4' size='lg' />
 
-        </Stack>
+                            </Stack>
+                            
         
         <Center >
             
         <Stack direction='row' spacing={20}  pt={'50px'}>
-    <Button colorScheme='teal' variant='solid' size='lg'>
+    <Button colorScheme='teal' variant='solid' size='lg' type='submit' onClick={()=>navigate('/Reframing2')}>
         These are all the situation that are bothering me at the moment
 
     </Button>
-
+    
         
     </Stack>
         </Center>
+        </form>
 
 </Stack>
 
