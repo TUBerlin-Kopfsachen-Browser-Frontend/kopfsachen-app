@@ -187,9 +187,9 @@ fetchEntriesWrapper().then(setEntries)
 export default function MoodDiary() {
     
     return (
-        <ChakraProvider theme={theme}>
+       
         
-        <Stack direction={['row']} spacing='275px'>
+        <Flex direction="column">
             <Box >
                 <Sidebar />
             </Box>
@@ -203,8 +203,7 @@ export default function MoodDiary() {
            
 
 
-        </Stack>
+        </Flex>
 
-        </ChakraProvider>
     );
 }
