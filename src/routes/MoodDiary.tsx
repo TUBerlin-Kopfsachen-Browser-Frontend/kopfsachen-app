@@ -29,6 +29,7 @@ HStack,
 Heading
 } from "@chakra-ui/react"
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
+import { FieldValues } from "react-hook-form";
 
 interface IEntry {
     type: string;
@@ -43,10 +44,27 @@ interface IEntryPageProps {
 const sortEntriesByDate = (x: IEntry, y: IEntry) => {
     return x.timestamp.localeCompare(y.timestamp);
 }
+async function onSubmit(values: FieldValues) {
+    const baseUrl = "http://127.0.0.1:4010"; // localhost + port as base url
+        const userId = 2; // random entry iid
+            const response = await fetch(`${baseUrl}/diary/${userId}`, {
+                method: "POST",
+                body: JSON.stringify(values, null, 2),
+                headers: { 'Content-Type': 'application/json' },
+            });
+            if (response.ok) {
+               console.log("Submitted diary entry!");
+            } else {
+                console.log("Failed to post diary entry.");
+            }
+        }
+  
 
-function SetMood() {
 
-    const { isOpen, onOpen, onClose } = useDisclosure()
+function SetMood({ onSubmit }: {onSubmit: (values: FieldValues) => void}) {
+
+
+    const { isOpen, onOpen, onClose ,onToggle} = useDisclosure()
     return (
         <>
         <Button onClick={onOpen} size={'lg'} height='70px' width='350px' border='5px' bg={'green.400'}>Set Mood</Button>
@@ -57,7 +75,10 @@ function SetMood() {
             <ModalHeader>How are you feeling today?</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-                <ChooseMoodForm />
+                <ChooseMoodForm onSubmit={(values: FieldValues) => {
+                    onSubmit(values)
+                    onToggle()
+                }} />
             </ModalBody>
             </ModalContent>
         </Modal>
@@ -65,6 +86,23 @@ function SetMood() {
     )
 }
 
+const fetchEntriesWrapper = async () => {
+    const baseUrl = "http://127.0.0.1:4010"; // localhost + port as base url
+    const userId = 1; // random entry iid
+  
+        const fetchEntries = await fetch(`${baseUrl}/diary/${userId}`);
+        if (fetchEntries.ok) {
+            const entriesData = await fetchEntries.json();
+            if (entriesData.length > 0) {
+                console.log(entriesData);
+                return (entriesData.sort(sortEntriesByDate));
+            }
+        } else {
+            console.log("Failed to fetch diary entries.");
+            return undefined
+        }
+    
+}
 
 var ReactCalendar = () => {
     const [date, setDate] = useState (new Date());
@@ -80,22 +118,8 @@ var ReactCalendar = () => {
     };
 
     useEffect(() => {
-        const baseUrl = "http://127.0.0.1:4010"; // localhost + port as base url
-        const userId = 1; // random entry iid
-        const fetchEntriesWrapper = async () => {
-            const fetchEntries = await fetch(`${baseUrl}/diary/${userId}`);
-            if (fetchEntries.ok) {
-                const entriesData = await fetchEntries.json();
-                if (entriesData.length > 0) {
-                    console.log(entriesData);
-                    setEntries(entriesData.sort(sortEntriesByDate));
-                }
-            } else {
-                console.log("Failed to fetch diary entries.");
-            }
-        }
-        fetchEntriesWrapper();
-    }, []);
+       
+        fetchEntriesWrapper().then(setEntries)    }, []);
 
     if (entries) {
         console.log(entries)
@@ -139,7 +163,11 @@ var ReactCalendar = () => {
 
                
                 
-                <SetMood />
+                <SetMood onSubmit={(values) => {
+                    onSubmit(values).then(() => {
+fetchEntriesWrapper().then(setEntries)
+                    })
+                }} />
                 
 
                 </Stack>

@@ -12,30 +12,16 @@ import {
 } from '@chakra-ui/react'
 import { m } from 'framer-motion';
 
-export default function ChooseMoodForm() {
+
+
+export default function ChooseMoodForm({ onSubmit }) {
   const {
     handleSubmit,
     register,
     formState: { errors, isSubmitting },
   } = useForm()
 
-  function onSubmit(values) {
-    const baseUrl = "http://127.0.0.1:4010"; // localhost + port as base url
-        const userId = 2; // random entry iid
-        const fetchEntriesWrapper = async () => {
-            const response = await fetch(`${baseUrl}/diary/${userId}`, {
-                method: "POST",
-                body: JSON.stringify(values, null, 2),
-                headers: { 'Content-Type': 'application/json' },
-            });
-            if (response.ok) {
-               console.log("Submitted diary entry!");
-            } else {
-                console.log("Failed to post diary entry.");
-            }
-        }
-    fetchEntriesWrapper();
-  }
+
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
