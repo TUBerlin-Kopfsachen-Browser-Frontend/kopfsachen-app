@@ -130,7 +130,7 @@ function AddItemView() {
     setContinueClicked(false);
   };
   return (
-    <Flex flexDirection="column" width={500}>
+    <Flex direction="column">
       <Text fontSize={20} marginTop={12} marginBottom={5}>
         {" "}
         {t("happyMaker")}{" "}
@@ -186,7 +186,7 @@ function AddItemView() {
         )}
       </form>
       <Flex
-        flexDirection="column"
+        direction="column"
         mt={5}
         display={continueClicked ? undefined : "none"}
       >
@@ -355,7 +355,7 @@ function FrontPage() {
       <Suspense fallback="Loading...">
         <Flex>
           <Flex
-            flexDirection="column"
+            direction="column"
             position="absolute"
             top="10vh"
             left="50vw"

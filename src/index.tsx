@@ -1,4 +1,4 @@
-import { ColorModeScript } from "@chakra-ui/react";
+import { ChakraProvider, ColorModeScript, theme } from "@chakra-ui/react";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import { App } from "./App";
@@ -22,26 +22,28 @@ import Neutral1 from "./routes/Neutral1";
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <ColorModeScript />
-      <Routes>
-        <Route path="/" element={<App />} />
-        <Route path="mooddiary" element={<MoodDiary />} />
-        <Route path="wiki" element={<Wiki />} />
-        <Route path="resources" element={<Resources />} />
-        <Route path="emergencynumbers" element={<EmergencyNumbers />} />
-        <Route path="safetynet" element={<SafetyNet />} />
-        <Route path="settings" element={<Settings />} />
-        <Route path="newresources" element={<NewResources />} />
-        <Route path="reframing" element={<Reframing />} />
-        <Route path="reframing1" element={<Reframing1 />} />
-        <Route path="reframing2" element={<Reframing2 />} />
-        <Route path="register" element={<Register />} />
-        <Route path="login" element={<Login />} />
-        <Route path="profile" element={<Profile />} />
-        <Route path="neutral1" element={<Neutral1 />} />
-      </Routes>
-    </BrowserRouter>
+    <ChakraProvider theme={theme}>
+      <BrowserRouter>
+        <ColorModeScript />
+        <Routes>
+          <Route path="/" element={<App />} />
+          <Route path="mooddiary" element={<MoodDiary />} />
+          <Route path="wiki" element={<Wiki />} />
+          <Route path="resources" element={<Resources />} />
+          <Route path="emergencynumbers" element={<EmergencyNumbers />} />
+          <Route path="safetynet" element={<SafetyNet />} />
+          <Route path="settings" element={<Settings />} />
+          <Route path="newresources" element={<NewResources />} />
+          <Route path="reframing" element={<Reframing />} />
+          <Route path="reframing1" element={<Reframing1 />} />
+          <Route path="reframing2" element={<Reframing2 />} />
+          <Route path="register" element={<Register />} />
+          <Route path="login" element={<Login />} />
+          <Route path="profile" element={<Profile />} />
+          <Route path="neutral1" element={<Neutral1 />} />
+        </Routes>
+      </BrowserRouter>
+    </ChakraProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

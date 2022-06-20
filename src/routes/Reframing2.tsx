@@ -61,95 +61,93 @@ export default function ReframingText() {
   const [isNavReady, setIsNavReady] = useState(false);
 
   return (
-    <ChakraProvider theme={theme}>
-      <Container maxW="100rem" centerContent>
-        <SimpleGrid>
-          <Stack direction={["row"]} spacing="25px">
-            <Box>
-              <Sidebar />
-            </Box>
-            <Box paddingTop={"40px"}>
-              <Card title={title} text={text} />
-              <br></br>
-              <Card title={title1} text={text1} />
-            </Box>
-            <Box paddingTop={"40px"}>
-              <Card title={title2} text={text2} />
-              <br></br>
-              <Card title={title3} text={text3} />
-            </Box>
-          </Stack>
-          <Center paddingTop={"30px"}>
-            <Button
-              onClick={onOpen}
-              h={"50px"}
-              w={"40%"}
-              display={"inline-block"}
-              colorScheme="teal"
-              variant="solid"
-              size="lg"
-            >
-              Ich bin zu einer neuen Bewertung der Situationen gekommen.
-            </Button>
-            <Modal isOpen={isOpen} onClose={onClose}>
-              <ModalOverlay>
-                <ModalContent>
-                  <form onSubmit={handleSubmit(onSubmit)}>
-                    <ModalHeader fontSize="lg" fontWeight="bold"></ModalHeader>
+    <Flex direction="column">
+      <SimpleGrid>
+        <Stack direction={["row"]} spacing="25px">
+          <Box>
+            <Sidebar />
+          </Box>
+          <Box paddingTop={"40px"}>
+            <Card title={title} text={text} />
+            <br></br>
+            <Card title={title1} text={text1} />
+          </Box>
+          <Box paddingTop={"40px"}>
+            <Card title={title2} text={text2} />
+            <br></br>
+            <Card title={title3} text={text3} />
+          </Box>
+        </Stack>
+        <Center paddingTop={"30px"}>
+          <Button
+            onClick={onOpen}
+            h={"50px"}
+            w={"40%"}
+            display={"inline-block"}
+            colorScheme="teal"
+            variant="solid"
+            size="lg"
+          >
+            Ich bin zu einer neuen Bewertung der Situationen gekommen.
+          </Button>
+          <Modal isOpen={isOpen} onClose={onClose}>
+            <ModalOverlay>
+              <ModalContent>
+                <form onSubmit={handleSubmit(onSubmit)}>
+                  <ModalHeader fontSize="lg" fontWeight="bold"></ModalHeader>
 
-                    <ModalBody>
-                      <Stack direction="row" spacing={3}>
-                        <IconButton
-                          onClick={() => {
-                            setValue("feedback", true);
-                            setIsSubmitDisabled(false);
-                          }}
-                          aria-label="positive"
-                          variant="ghost"
-                          icon={<FiSmile size={30} color="green" />}
-                        />
-                        <IconButton
-                          onClick={() => {
-                            setValue("feedback", false);
-                            setIsSubmitDisabled(false);
-                          }}
-                          aria-label="negative"
-                          variant="ghost"
-                          icon={<FiFrown size={30} color="red" />}
-                        />
-                      </Stack>
-                    </ModalBody>
+                  <ModalBody>
+                    <Stack direction="row" spacing={3}>
+                      <IconButton
+                        onClick={() => {
+                          setValue("feedback", true);
+                          setIsSubmitDisabled(false);
+                        }}
+                        aria-label="positive"
+                        variant="ghost"
+                        icon={<FiSmile size={30} color="green" />}
+                      />
+                      <IconButton
+                        onClick={() => {
+                          setValue("feedback", false);
+                          setIsSubmitDisabled(false);
+                        }}
+                        aria-label="negative"
+                        variant="ghost"
+                        icon={<FiFrown size={30} color="red" />}
+                      />
+                    </Stack>
+                  </ModalBody>
 
-                    <ModalFooter>
-                      <Button
-                        isDisabled={isSubmitDisabled}
-                        type="submit"
-                        mr={3}
-                        onClick={() => {
-                          onClose();
-                          // navigate('/Resources')
-                          setIsNavReady(true);
-                        }}
-                      >
-                        {t("submit")}
-                      </Button>
-                      <Button
-                        onClick={() => {
-                          onClose();
-                          setIsSubmitDisabled(true);
-                        }}
-                      >
-                        {t("cancel")}
-                      </Button>
-                    </ModalFooter>
-                  </form>
-                </ModalContent>
-              </ModalOverlay>
-            </Modal>
-          </Center>
-        </SimpleGrid>
-      </Container>
-    </ChakraProvider>
+                  <ModalFooter>
+                    <Button
+                      isDisabled={isSubmitDisabled}
+                      type="submit"
+                      mr={3}
+                      onClick={() => {
+                        onClose();
+                        // navigate('/Resources')
+                        setIsNavReady(true);
+                      }}
+                    >
+                      {t("submit")}
+                    </Button>
+                    <Button
+                      onClick={() => {
+                        onClose();
+                        setIsSubmitDisabled(true);
+                      }}
+                    >
+                      {t("cancel")}
+                    </Button>
+                  </ModalFooter>
+                </form>
+              </ModalContent>
+            </ModalOverlay>
+          </Modal>
+        </Center>
+      </SimpleGrid>
+    </Flex>
   );
 }
 

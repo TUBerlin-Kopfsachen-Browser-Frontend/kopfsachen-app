@@ -51,15 +51,13 @@ import "./../assets/css/neutral.css";
 
 export default function Neutral1() {
   return (
-    <ChakraProvider theme={theme}>
-      <Stack direction={["row"]} spacing="275px">
-        <Sidebar />
-        <Box className="container">
-          <Image src="logo192.png" alt="Snow"></Image>
-          <Button className="btn1">Button</Button>
-          <Button className="btn2">Button</Button>
-        </Box>
-      </Stack>
-    </ChakraProvider>
+    <Flex direction="column">
+      <Sidebar />
+      <Box className="container">
+        <Image src="logo192.png" alt="Snow"></Image>
+        <Button className="btn1">Button</Button>
+        <Button className="btn2">Button</Button>
+      </Box>
+    </Flex>
   );
 }
