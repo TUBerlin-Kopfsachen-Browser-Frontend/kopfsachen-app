@@ -1,13 +1,5 @@
 import { useEffect, useRef, useState, Suspense } from "react";
 import {
-<<<<<<< HEAD
-    ChakraProvider, Text, theme, Flex, Heading, Input, Stack, HStack, AlertDialog, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, AlertDialogBody, AlertDialogFooter, useDisclosure, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Box, Select, Link, Center, Portal
-} from "@chakra-ui/react"
-import Sidebar from "../components/Sidebar"
-
-import { translationsEn, translationsTr, translationsDe, translationsAl } from "../components/translationText"
-import { useNavigate } from "react-router-dom"
-=======
   ChakraProvider,
   Text,
   theme,
@@ -40,7 +32,6 @@ import {
   translationsDe,
   translationsAl,
 } from "../components/translationText";
->>>>>>> wip-1
 
 import { useForm, SubmitHandler } from "react-hook-form";
 import { stringify } from "querystring";
@@ -53,31 +44,9 @@ import { Radio } from "@chakra-ui/react";
 import { FiFrown, FiMeh, FiSmile } from "react-icons/fi";
 import React from "react";
 
-import {
-    Popover, PopoverTrigger, PopoverContent, PopoverHeader, PopoverBody, PopoverFooter, PopoverArrow, PopoverCloseButton, PopoverAnchor,
-} from '@chakra-ui/react'
-
 import i18n, { t } from "i18next";
 import { initReactI18next, useTranslation } from "react-i18next";
 
-<<<<<<< HEAD
-// import safetyNet from "../safetyNet.png";
-import "./../assets/css/safetyNet.scss";
-
-i18n
-    .use(initReactI18next)
-    .init({
-        resources: {
-            en: { translation: translationsEn },
-            tr: { translation: translationsTr },
-            de: { translation: translationsDe },
-            al: { translation: translationsAl }
-        },
-        lng: "en",
-        fallbackLng: "en",
-        interpolation: { escapeValue: false },
-    });
-=======
 i18n.use(initReactI18next).init({
   resources: {
     en: { translation: translationsEn },
@@ -89,7 +58,6 @@ i18n.use(initReactI18next).init({
   fallbackLng: "en",
   interpolation: { escapeValue: false },
 });
->>>>>>> wip-1
 // api get/post request format
 interface ISafteyNetItem {
   name: string;
