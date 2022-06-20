@@ -15,13 +15,14 @@ import {
 import NavHoverBox from '../components/NavHoverBox'
 import { Link } from "react-router-dom";
 
-export default function NavItem({ icon, title, description, active, navSize, routeto }) {
+export default function NavItem({ icon, title, description, active, navSize, routeto, ...props }) {
     return (
         <Flex
             mt={30}
             flexDir="column"
             w="100%"
             alignItems={navSize === "small" ? "center" : "flex-start"}
+            {...props}
         >
             <Menu placement="right">
                 <Link
