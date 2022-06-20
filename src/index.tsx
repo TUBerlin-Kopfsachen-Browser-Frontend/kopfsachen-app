@@ -1,4 +1,4 @@
-import { ColorModeScript } from "@chakra-ui/react"
+import { ChakraProvider, ColorModeScript, theme } from "@chakra-ui/react"
 import * as React from "react"
 import ReactDOM from "react-dom"
 import { App } from "./App"
@@ -21,7 +21,8 @@ import Login from "./routes/Login";
 
 ReactDOM.render(
   <React.StrictMode>
-    <BrowserRouter>
+     <ChakraProvider theme={theme}>
+     <BrowserRouter>
       <ColorModeScript />
       <Routes>
         <Route path="/" element={<App />} />
@@ -39,6 +40,8 @@ ReactDOM.render(
         <Route path="profile" element={<Profile />} />
       </Routes>
     </BrowserRouter>
+     </ChakraProvider>
+    
   </React.StrictMode>,
   document.getElementById("root"),
 )
