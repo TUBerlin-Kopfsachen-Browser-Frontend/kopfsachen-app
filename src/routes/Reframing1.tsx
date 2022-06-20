@@ -1,20 +1,21 @@
-import * as React from "react"
+import * as React from "react";
 import {
-Icon,
-ChakraProvider,
-Input,
-Box,
-Text,
-theme,
-Flex,
-Center,
-Heading,
-Stack,
-RadioGroup,
-HStack,
-Radio,
-Button, ButtonGroup
-} from "@chakra-ui/react"
+  Icon,
+  ChakraProvider,
+  Input,
+  Box,
+  Text,
+  theme,
+  Flex,
+  Center,
+  Heading,
+  Stack,
+  RadioGroup,
+  HStack,
+  Radio,
+  Button,
+  ButtonGroup,
+} from "@chakra-ui/react";
 
 import { useNavigate } from "react-router-dom";
 import Sidebar from "../components/Sidebar"
@@ -30,7 +31,7 @@ interface IReframingItem {
 }
 
 export default function New() {
-        const navigate = useNavigate();
+  const navigate = useNavigate();
 
         const { register, handleSubmit, setValue } = useForm<IReframingItem>();
         const onSubmit: SubmitHandler<IReframingItem> = data => axios.post(`http://127.0.0.1:4010/safetyNet/1`, data)
@@ -45,14 +46,22 @@ export default function New() {
                         ← Back 
                 </Button>
 
-                <Flex
-                    flexDirection='column'
-                    position='absolute'
-                    top='5vh'
-                    left='55vw'
-                    transform="translate(-50%, -10%)"
-                    maxWidth='800px'
-                >
+      <Flex
+        flexDirection="column"
+        position="absolute"
+        top="5vh"
+        left="55vw"
+        transform="translate(-50%, -10%)"
+        maxWidth="800px"
+      >
+        <Stack>
+          <Center>
+            <Heading fontSize={{ base: "3xl", md: "4xl", lg: "5xl" }}>
+              <Text color={"green.400"} pt={"50px"}>
+                Reframing
+              </Text>
+            </Heading>
+          </Center>
 
                         <Stack>
                             <Center>
