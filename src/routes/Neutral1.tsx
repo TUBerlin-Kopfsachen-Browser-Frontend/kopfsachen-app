@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, Suspense } from "react"
 import {
-   Image, ChakraProvider, Text, theme, Flex, Heading, Input, Stack, HStack, AlertDialog, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, AlertDialogBody, AlertDialogFooter, useDisclosure, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Box, Select
+   Image, Center, ChakraProvider, Text, theme, Flex, Heading, Input, Stack, HStack, AlertDialog, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, AlertDialogBody, AlertDialogFooter, useDisclosure, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Box, Select
 } from "@chakra-ui/react"
 import Sidebar from "../components/Sidebar"
 
@@ -27,12 +27,19 @@ export default function Neutral1(){
         <ChakraProvider theme={theme}>
         <Stack direction={['row']} spacing='275px'>
         <Sidebar />
-        <Box className="container">
-            
-        <Image src="logo192.png" alt="Snow"></Image>
-        <Button className="btn1">Button</Button>
-        <Button className="btn2">Button</Button>
-        </Box> 
+        <Box className="circle">
+          <Box className="circle1">
+            <Box className="circle2">
+              <Box className="circle3">
+                <Box className="circle4"></Box>
+              </Box>
+            </Box>
+          </Box>  
+        </Box>        
+        {/* <Image src="logo192.png" alt="Snow"></Image> */}
+        {/* <Button className="btn1">Button</Button>
+        <Button className="btn2">Button</Button> */}
+       
         </Stack>
         </ChakraProvider>
   )

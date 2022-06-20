@@ -1,21 +1,21 @@
 /* Container needed to position the button. Adjust the width as needed */
-.container {
+/* .container {
     position: relative;
     width: 50%;
   }
   
   /* Make the image responsive */
-  .container img {
+   .container img {
     width: 100%;
     height: auto;
   }
   
-  /* Style the button and place it in the middle of the container/image */
-  .container .btn1 {
+  Style the button and place it in the middle of the container/image
+  .circle .btn1 {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-0%, -50%);
     -ms-transform: translate(-50%, -50%);
     background-color: #555;
     color: white;
@@ -24,6 +24,7 @@
     border: none;
     cursor: pointer;
     border-radius: 5px;
+    border-radius: 50%;
   }
   
   .container .btn2 {
@@ -39,8 +40,60 @@
     border: none;
     cursor: pointer;
     border-radius: 5px;
-  }
+  } 
 
   .container .btn:hover {
     background-color: black;
+    border-radius: 50%;
+   
+  }  
+
+  .dot {
+    background: #385a94;
+    border-radius: 50%;
+    height: auto;
+    width:50%;
+    position: relative;
+    box-shadow: 0 0 0 40px black, 0 0 0 80px green, 0 0 0 120px yellow;
+    /* margin:100px; */
+
   } 
+
+  .circle {
+    border-radius: 50%;
+    border: 1px solid red; 
+   } 
+  
+  .circle1 {
+    position: relative;
+    width: 31vw;
+    height: 31vw;
+    background-color: #BB9AF3;
+    border-radius: 50%;
+  }
+  
+  .circle2 {
+    transform: translate(18%, 18%);
+    width: 23vw;
+    height: 23vw;
+    background-color: #F2C7D0;
+    border-radius: 50%;
+  }
+  
+  .circle3 {
+     transform: translate(27%, 27%);
+    width: 15vw;
+    height: 15vw;
+    background-color: #F3803E;
+    border-radius: 50%;
+  }
+  .circle4 {
+    transform: translate(56%, 56%);
+   width: 7vw;
+   height: 7vw;
+   background-color: #FDE802;
+   border-radius: 50%;
+ }
+
+
+  
