@@ -1,4 +1,5 @@
-import * as React from "react";
+
+import * as React from "react"
 import {
   ChakraProvider,
   Box,
@@ -12,18 +13,33 @@ import {
   Center,
   Heading,
   Image,
-} from "@chakra-ui/react";
+} from "@chakra-ui/react"
 // import { Logo } from "./Logo"
-import Sidebar from "./components/Sidebar";
+import Sidebar from "./components/Sidebar"
 
 export const App = () => (
-  <Flex>
-    <Sidebar />
+  <ChakraProvider theme={theme}>
+    <Flex>
+      <Sidebar />
 
-    <Center minH="100vh" width="100%" gap="16px" flexDirection="column">
-      {/* <Logo h="40vmin" pointerEvents="none" /> */}
-      <Image src="/header.png" width={["200px", "400px"]} />
-      <Text fontSize={["16", "24"]}>Welcome to the Kopsachen Web App!</Text>
-    </Center>
-  </Flex>
-);
+      <Flex
+                    flexDirection='column'
+                    position='absolute'
+                    top='5vh'
+                    left='50vw'
+                    transform="translate(-50%, -10%)"
+                    maxWidth='800px'
+                >
+        <Grid minH="50vh" p={200}>
+          <VStack spacing={8}>
+            {/* <Logo h="40vmin" pointerEvents="none" /> */}
+            <Image src='/header.png' />
+            <Text fontSize="20">Welcome to the Kopsachen Web App!</Text>
+          </VStack>
+        </Grid>
+      </Flex>
+
+    </Flex>
+    
+  </ChakraProvider>
+)
