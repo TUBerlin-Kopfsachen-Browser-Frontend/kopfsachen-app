@@ -519,19 +519,17 @@ function FrontPage() {
 export default function SafetyNet() {
   const { t } = useTranslation();
   return (
-    <ChakraProvider theme={theme}>
-      <Stack direction={["row"]} spacing="275px">
-        <Box>
-          <Sidebar />
-        </Box>
+    <Flex direction="column">
+      <Box>
+        <Sidebar />
+      </Box>
 
-        <Box w="100%" h="120px" bg="green.400">
-          <Text fontSize="40px" align="center" pt="50px" color="white">
-            {t("safetyNet")}{" "}
-          </Text>
-        </Box>
-      </Stack>
+      <Box w="100%" h="120px" bg="green.400">
+        <Text fontSize="40px" align="center" pt="50px" color="white">
+          {t("safetyNet")}{" "}
+        </Text>
+      </Box>
       <FrontPage />
-    </ChakraProvider>
+    </Flex>
   );
 }
