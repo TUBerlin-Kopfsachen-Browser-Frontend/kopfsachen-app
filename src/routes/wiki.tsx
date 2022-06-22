@@ -6,32 +6,33 @@ import bookshelf from "../bookshelf.png"
 
 // api response format as interface
 interface IEntry {
-    id: string;
+    // id: string;
     title: string;
-    contents: {
-        content: string;
-        type: string;
-    }[];
+    // contents: {
+    //     content: string;
+    //     type: string;
+    // }[];
+    content: string[];
 }
 
 interface IEntryPageProps {
     entry: IEntry;
 }
 
-interface IContent {
-    type: string;
-    content: string;
-}
+// interface IContent {
+//     type: string;
+//     content: string;
+// }
 
-const renderContentElement = (contentElement: IContent, index: number, contents: IContent[]) => {
-    if (contentElement.type === 'text') {
-        return (
-            <Link href={contents[index].content} color='teal.500' isExternal>
-                {contents[index].content.concat(' ')}
-            </Link>
-        );
-    }
-    return contents[index].content.concat(' ');
+const renderContentElement = (contentElement: string, index: number, contents: string[]) => {
+    // if (contentElement.type === 'text') {
+    //     return (
+    //         <Link href={contents[index].content} color='teal.500' isExternal>
+    //             {contents[index].content.concat(' ')}
+    //         </Link>
+    //     );
+    // }
+    return contents[index].concat(' ');
 }
 
 // should display entry that has been clicked
@@ -45,7 +46,7 @@ function EntryPage(props: IEntryPageProps) {
                 </Heading>
             </Flex>
             <Text>
-                {(props.entry.contents).map(renderContentElement)}
+                {(props.entry.content).map(renderContentElement)}
             </Text>
         </Flex>
     );
@@ -63,9 +64,9 @@ function FrontPage() {
     // to fetch data everytime the front page is loaded
     useEffect(() => {
         const baseUrl = "http://127.0.0.1:4010"; // localhost + port as base url
-        const wikiEntryId = "Lorem ipsum"; // random entry id
+        // const wikiEntryId = "Lorem ipsum"; // random entry id
         const fetchEntriesWrapper = async () => {
-            const fetchEntries = await fetch(`${baseUrl}/wiki/${wikiEntryId}`);
+            const fetchEntries = await fetch(`${baseUrl}/wiki`);
             if (fetchEntries.ok) {
                 const entriesData = await fetchEntries.json();
                 if (entriesData.length > 0) {
@@ -86,7 +87,7 @@ function FrontPage() {
     const renderEntry = (entry: IEntry, index: number, entries: IEntry[]) => {
         let displayInitial = (index === 0 || entries[index - 1].title[0]?.toLowerCase() !== entries[index].title[0]?.toLowerCase());
         return (
-            <Flex key={entry.id} flexDirection='column'>
+            <Flex key={entry.title[0].concat(`${index}`)} flexDirection='column'>
                 <Heading marginTop={4} size='I'>
                     {displayInitial && entries[index].title[0]?.toUpperCase()}
                 </Heading>
