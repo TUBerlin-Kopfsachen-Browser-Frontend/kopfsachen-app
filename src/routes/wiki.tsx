@@ -49,6 +49,36 @@ const renderContentElement = (contentElement: string, index: number, contents: s
   return contents[index].concat(' ');
 }
 
+// functions and custom hook to toggle normal and mobile view
+// https://github.com/Nik-Sch/Rezeptbuch/blob/server/ui/client/src/components/helpers/CustomHooks.tsx#L27
+function getWindowDimensions() {
+  const { innerWidth: width, innerHeight: height } = window;
+  return {
+    width,
+    height
+  };
+}
+
+export function useWindowDimensions() {
+  const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
+
+  useEffect(() => {
+    function handleResize() {
+      setWindowDimensions(getWindowDimensions());
+    }
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  return windowDimensions;
+}
+
+export function useMobile() {
+  const { width, height } = useWindowDimensions();
+  return width <= 815 || height <= 815;
+}
+
 // should display entry that has been clicked
 function EntryPage(props: IEntryPageProps) {
   return (
@@ -75,6 +105,8 @@ function FrontPage() {
   const [entries, setEntries] = useState<IEntry[]>([]);
   const [searchInput, setSearchInput] = useState<string>('');
   const [searchIsActive, setSearchIsActive] = useState(false);
+  const mobile = useMobile();
+
   // to fetch data everytime the front page is loaded
   useEffect(() => {
     const baseUrl = "http://127.0.0.1:4010"; // localhost + port as base url
@@ -93,107 +125,107 @@ function FrontPage() {
     fetchEntriesWrapper();
   }, []);
 
-const handleClickOnEntry = (entry: IEntry) => {
-  setEntryToDisplay(entry);
-};
+  const handleClickOnEntry = (entry: IEntry) => {
+    setEntryToDisplay(entry);
+  };
 
-const renderEntry = (entry: IEntry, index: number, entries: IEntry[]) => {
-  let displayInitial =
-    index === 0 ||
-    entries[index - 1].title[0]?.toLowerCase() !==
-    entries[index].title[0]?.toLowerCase();
-  return (
-    <Flex key={entry.title[0].concat(`${index}`)} flexDirection="column">
-      <Heading marginTop={4} size="I">
-        {displayInitial && entries[index].title[0]?.toUpperCase()}
-      </Heading>
-      <Link
-        marginLeft={2}
-        variant="link"
-        onClick={() => handleClickOnEntry(entry)}
-        fontSize="md"
-      >
-        {entry.title}
-      </Link>
-    </Flex>
-  );
-};
-
-const filterEntry = (entry: IEntry) => {
-  return entry.title.toLowerCase().includes(searchInput.trim().toLowerCase());
-};
-
-function handleInput(e: React.ChangeEvent<HTMLInputElement>) {
-  setSearchInput(e.target.value);
-  setSearchIsActive(true);
-}
-
-if (typeof entryToDisplay === "undefined") {
-  // front page
-  let filteredEntries = entries.filter(filterEntry).map(renderEntry);
-  return (
-    <Flex direction={"row"}>
-      <Flex
-        flexDirection="column"
-        position="absolute"
-        top="28vh"
-        left="57vw"
-        transform="translate(-50%, -0%)"
-        maxWidth="800px"
-      >
-        <img src={bookshelf} alt="book shelf" width="400px"></img>
-        <InputGroup>
-          <InputLeftElement
-            pointerEvents="none"
-            children={<SearchIcon color="gray.300" />}
-          />
-          <Input
-            placeholder="Search for entries"
-            focusBorderColor="teal.400"
-            onChange={handleInput}
-          />
-        </InputGroup>
-        <Flex
-          fontSize="xl"
-          alignItems="flex-start"
-          flexDirection="column"
-          paddingBottom={100}
+  const renderEntry = (entry: IEntry, index: number, entries: IEntry[]) => {
+    let displayInitial =
+      index === 0 ||
+      entries[index - 1].title[0]?.toLowerCase() !==
+      entries[index].title[0]?.toLowerCase();
+    return (
+      <Flex key={entry.title[0].concat(`${index}`)} flexDirection="column">
+        <Heading marginTop={4} size="I">
+          {displayInitial && entries[index].title[0]?.toUpperCase()}
+        </Heading>
+        <Link
+          marginLeft={2}
+          variant="link"
+          onClick={() => handleClickOnEntry(entry)}
+          fontSize="md"
         >
-          {filteredEntries}
-          {searchIsActive && filteredEntries.length === 0 && (
-            <Text marginTop={5} fontSize="md">
-              {" "}
-              No entries found.{" "}
-            </Text>
-          )}
-          {entries.length === 0 &&
-            Array.apply(null, new Array(5)).map((_, i) => (
-              <Skeleton
-                height="20px"
-                width="100%"
-                marginTop="10px"
-                key={-i}
-              />
-            ))}
+          {entry.title}
+        </Link>
+      </Flex>
+    );
+  };
+
+  const filterEntry = (entry: IEntry) => {
+    return entry.title.toLowerCase().includes(searchInput.trim().toLowerCase());
+  };
+
+  function handleInput(e: React.ChangeEvent<HTMLInputElement>) {
+    setSearchInput(e.target.value);
+    setSearchIsActive(true);
+  }
+
+  if (typeof entryToDisplay === "undefined") {
+    // front page
+    let filteredEntries = entries.filter(filterEntry).map(renderEntry);
+    return (
+      <Flex direction={"row"}>
+        <Flex
+          flexDirection="column"
+          position="absolute"
+          top={mobile ? "none" : "20vh"}
+          left={mobile ? "none" : "50vw"}
+          transform={mobile ? "none" : "translate(-50%, -0%)"}
+          maxWidth="800px"
+          margin={mobile ? "40px" : "none"}
+        >
+          <img src={bookshelf} alt="book shelf" width="400px"></img>
+          <InputGroup>
+            <InputLeftElement
+              pointerEvents="none"
+              children={<SearchIcon color="gray.300" />}
+            />
+            <Input
+              placeholder="Search for entries"
+              focusBorderColor="teal.400"
+              onChange={handleInput}
+            />
+          </InputGroup>
+          <Flex
+            fontSize="xl"
+            alignItems="flex-start"
+            flexDirection="column"
+            paddingBottom={100}
+          >
+            {filteredEntries}
+            {searchIsActive && filteredEntries.length === 0 && (
+              <Text marginTop={5} fontSize="md">
+                {" "}
+                No entries found.{" "}
+              </Text>
+            )}
+            {entries.length === 0 &&
+              Array.apply(null, new Array(5)).map((_, i) => (
+                <Skeleton
+                  height="20px"
+                  width="100%"
+                  marginTop="10px"
+                  key={-i}
+                />
+              ))}
+          </Flex>
         </Flex>
       </Flex>
-    </Flex>
-  );
-} else {
-  // entry page
-  return (
-    <Flex>
-      {/* <Sidebar /> */}
+    );
+  } else {
+    // entry page
+    return (
       <Flex>
         <Flex
           fontSize="large"
           position="absolute"
-          top="20vh"
-          left="50vw"
-          transform="translate(-50%, -0%)"
+          top={mobile ? "none" : "20vh"}
+          left={mobile ? "none" : "50vw"}
+          transform={mobile ? "none" : "translate(-50%, -0%)"}
+          margin={mobile ? "40px" : "none"}
           maxWidth="800px"
         >
-          <Button
+          {!mobile && <Button
             variant="ghost"
             flexShrink={0}
             marginRight={5}
@@ -202,13 +234,22 @@ if (typeof entryToDisplay === "undefined") {
             onClick={() => setEntryToDisplay(undefined)}
           >
             Back
-          </Button>
+          </Button>}
           <EntryPage entry={entryToDisplay} />
         </Flex>
+        {mobile && <Button
+            variant="ghost"
+            flexShrink={0}
+            marginRight={5}
+            colorScheme="blackAlpha"
+            leftIcon={<ArrowBackIcon />}
+            onClick={() => setEntryToDisplay(undefined)}
+          >
+            Back
+          </Button>}
       </Flex>
-    </Flex>
-  );
-}
+    );
+  }
 }
 
 export default function Wiki() {
