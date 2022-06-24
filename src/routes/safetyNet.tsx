@@ -89,6 +89,37 @@ interface ISafteyNetItem {
   }[];
 }
 
+// functions and custom hook to toggle normal and mobile view
+// https://github.com/Nik-Sch/Rezeptbuch/blob/server/ui/client/src/components/helpers/CustomHooks.tsx#L27
+function getWindowDimensions() {
+  const { innerWidth: width, innerHeight: height } = window;
+  return {
+    width,
+    height
+  };
+}
+
+export function useWindowDimensions() {
+  const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
+
+  useEffect(() => {
+    function handleResize() {
+      setWindowDimensions(getWindowDimensions());
+    }
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  return windowDimensions;
+}
+
+export function useMobile() {
+  const { width, height } = useWindowDimensions();
+  return width <= 815 || height <= 815;
+}
+
+
 function AddItemView() {
   const [nameInput, setNameInput] = useState<string>("");
   const [strategyInput1, setStrategyInput1] = useState<string>("");
@@ -101,7 +132,8 @@ function AddItemView() {
   const { register, handleSubmit, setValue, reset } = useForm<ISafteyNetItem>();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { t } = useTranslation();
-  
+  const mobile = useMobile();
+
   const handleItemInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNameInput(e.target.value);
   };
@@ -126,7 +158,7 @@ function AddItemView() {
 
   return (
     <Flex direction="column">
-      <Text fontSize={20} marginTop={12} marginBottom={5}>
+      <Text fontSize={20} marginTop={mobile ? 5 : 12} marginBottom={5}>
         {" "}
         {t("happyMaker")}{" "}
       </Text>
@@ -148,24 +180,24 @@ function AddItemView() {
           colorScheme="green"
           isDisabled={continueClicked}
         >
-          <Stack direction="row" spacing={10}>
-            <Radio {...register("type")} value="situationControl">
+          <Flex direction="row" wrap='wrap' justifyContent='space-around'>
+            <Radio {...register("type")} value="situationControl" ml={2.5} mr={2.5} width='100px'>
               {t("situationControl")}
               <Text fontSize={40}>🎚</Text>
             </Radio>
-            <Radio {...register("type")} value="relaxation">
+            <Radio {...register("type")} value="relaxation" ml={2.5} mr={2.5} width='100px'>
               {t("relaxation")}
               <Text fontSize={40}>🦥</Text>
             </Radio>
-            <Radio {...register("type")} value="pet">
+            <Radio {...register("type")} value="pet" ml={2.5} mr={2.5} width='100px'>
               {t("pets")}
               <Text fontSize={40}>🐾</Text>{" "}
             </Radio>
-            <Radio {...register("type")} value="other">
+            <Radio {...register("type")} value="other" ml={2.5} mr={2.5} width='100px'>
               {t("other")}
               <Text fontSize={40}>💭</Text>
             </Radio>
-          </Stack>
+          </Flex>
         </RadioGroup>
 
         {!continueClicked && (
@@ -310,6 +342,7 @@ function AddItemView() {
 function FrontPage() {
   const [addItemClicked, setAddItemClicked] = useState(false);
   const [items, setItems] = useState<ISafteyNetItem[]>([]);
+  const mobile = useMobile();
   const { t } = useTranslation();
   const displayIcon = (iconType: string) => {
     return items.some((item) => {
@@ -350,15 +383,15 @@ function FrontPage() {
         <Flex>
           <Flex
             direction="column"
-            position="absolute"
-            top="10vh"
-            left="50vw"
-            transform="translate(-50%, -0%)"
-            maxWidth="800px"
-            // margin={mobile ? "20px" : "none"}
+            position={mobile ? "unset" : 'absolute'}
+            top={mobile ? "unset" : "10vh"}
+            left={mobile ? "unset" : "50vw"}
+            transform={mobile ? "unset" : "translate(-50%, -0%)"}
+            maxWidth={mobile ? 'calc(100vw - 40px)' : "800px"}
+            margin={mobile ? "20px" : "unset"}
           >
             {!addItemClicked && (
-              <Text fontSize={20} pt={"80px"} align={"center"} marginBottom={5}>
+              <Text fontSize={20} marginTop={mobile ? 5 : 12} align={"center"} marginBottom={5}>
                 {t("welcome")}
               </Text>
             )}
@@ -493,9 +526,7 @@ function FrontPage() {
               </Center>
             )}
             {addItemClicked && (
-              <AddItemView
-              // onBackClick={() => setAddItemClicked(false)}
-              />
+              <AddItemView />
             )}
           </Flex>
         </Flex>
