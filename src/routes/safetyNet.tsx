@@ -89,12 +89,7 @@ interface ISafteyNetItem {
   }[];
 }
 
-// interface IAddItemViewProps {
-//     onBackClick: () => void;
-// }
-
 function AddItemView() {
-  // props: IAddItemViewProps
   const [nameInput, setNameInput] = useState<string>("");
   const [strategyInput1, setStrategyInput1] = useState<string>("");
   const [strategyInput2, setStrategyInput2] = useState<string>("");
@@ -103,18 +98,17 @@ function AddItemView() {
   const [continueClicked, setContinueClicked] = useState(false);
   const [itHelped, setItHelped] = useState<boolean | undefined>();
   const navigate = useNavigate();
+  const { register, handleSubmit, setValue, reset } = useForm<ISafteyNetItem>();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { t } = useTranslation();
+  
   const handleItemInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNameInput(e.target.value);
   };
-
-  const { t } = useTranslation();
-
-  const { register, handleSubmit, setValue, reset } = useForm<ISafteyNetItem>();
   const onSubmit: SubmitHandler<ISafteyNetItem> = (data) => {
     console.log("submitting", data);
     axios.post(`http://127.0.0.1:4010/safetyNet/1`, data);
   };
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const onModalClose = () => {
     onClose();
     setItHelped(undefined);
@@ -129,6 +123,7 @@ function AddItemView() {
     setCategoryInput("situationControl");
     setContinueClicked(false);
   };
+
   return (
     <Flex direction="column">
       <Text fontSize={20} marginTop={12} marginBottom={5}>
@@ -315,6 +310,7 @@ function AddItemView() {
 function FrontPage() {
   const [addItemClicked, setAddItemClicked] = useState(false);
   const [items, setItems] = useState<ISafteyNetItem[]>([]);
+  const { t } = useTranslation();
   const displayIcon = (iconType: string) => {
     return items.some((item) => {
       if (item.type === iconType) {
@@ -330,8 +326,6 @@ function FrontPage() {
       </Flex>
     );
   };
-
-  const { t } = useTranslation();
   // to fetch data everytime the front page is loaded
   useEffect(() => {
     const baseUrl = "http://127.0.0.1:4010"; // localhost + port as base url
@@ -361,6 +355,7 @@ function FrontPage() {
             left="50vw"
             transform="translate(-50%, -0%)"
             maxWidth="800px"
+            // margin={mobile ? "20px" : "none"}
           >
             {!addItemClicked && (
               <Text fontSize={20} pt={"80px"} align={"center"} marginBottom={5}>
@@ -370,7 +365,7 @@ function FrontPage() {
             {!addItemClicked && (
               <Center flexDirection="column">
                 <Flex
-                  className="container"
+                  // className="container"
                   backgroundColor="white"
                   borderRadius={170}
                   paddingBottom={5}
@@ -486,7 +481,7 @@ function FrontPage() {
                 </Flex>
                 {!addItemClicked && (
                   <Button
-                    mt={10}
+                    mt={5}
                     colorScheme="green"
                     aria-label="Add item"
                     leftIcon={<AddIcon />}
