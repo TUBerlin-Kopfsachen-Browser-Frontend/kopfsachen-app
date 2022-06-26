@@ -64,7 +64,7 @@ import i18n, { t } from "i18next";
 import { initReactI18next, useTranslation } from "react-i18next";
 
 // import safetyNet from "../safetyNet.png";
-import "./../assets/css/safetyNet.scss";
+// import "./../assets/css/safetyNet.scss";
 
 i18n.use(initReactI18next).init({
   resources: {

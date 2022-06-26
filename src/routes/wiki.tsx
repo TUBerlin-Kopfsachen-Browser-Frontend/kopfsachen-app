@@ -1,3 +1,4 @@
+import React from 'react';
 import { useEffect, useState } from "react";
 import {
   ChakraProvider,
@@ -103,6 +104,7 @@ const renderEntry = (entry: IEntry, index: number, entries: IEntry[]) => {
     entries[index - 1].title[0]?.toLowerCase() !==
     entries[index].title[0]?.toLowerCase();
   return (
+
     <Flex key={entry.title[0].concat(`${index}`)} flexDirection="column">
       <Heading marginTop={4} size="I">
         {displayInitial && entries[index].title[0]?.toUpperCase()}
@@ -157,7 +159,7 @@ if (typeof entryToDisplay === "undefined") {
           fontSize="xl"
           alignItems="flex-start"
           flexDirection="column"
-          paddingBottom={100}
+          paddingBottom={80}
         >
           {filteredEntries}
           {searchIsActive && filteredEntries.length === 0 && (

@@ -1,31 +1,31 @@
 openapi: 3.0.3
 info:
   title: Kopfsachen
-  version: '0.1'
+  version: "0.1"
   description: Kopfsachen e. V. is an association for the promotion of young people's mental health. The goal is to teach the basics of mental health literacy in various educational formats.
   contact:
     name: Kopfsachen e. V.
     email: mail@kopfsachen.org
-    url: 'https://www.kopfsachen.org'
+    url: "https://www.kopfsachen.org"
 paths:
   /user:
     post:
       summary: Create user.
       operationId: post-user
       responses:
-        '200':
+        "200":
           description: OK
-        '201':
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '500':
+        "500":
           description: Internal Server Error
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/user'
+              $ref: "#/components/schemas/user"
       tags:
         - user-service
       description: Create a user.
@@ -33,38 +33,38 @@ paths:
       summary: Get all users.
       operationId: get-user
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/user-with-id'
-        '401':
+                  $ref: "#/components/schemas/user-with-id"
+        "401":
           description: Unauthorized
-        '500':
+        "500":
           description: Internal Server Error
       tags:
         - user-service
       description: Get all users.
-  '/user/{userId}':
+  "/user/{userId}":
     parameters:
-      - $ref: '#/components/parameters/userId'
+      - $ref: "#/components/parameters/userId"
     get:
       summary: Read user by id.
       tags:
         - user-service
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/user-with-id'
-        '401':
+                $ref: "#/components/schemas/user-with-id"
+        "401":
           description: Unauthorized
-        '500':
+        "500":
           description: Internal Server Error
       operationId: get-user-id
       description: Read user by id.
@@ -72,19 +72,19 @@ paths:
       summary: Update user by id.
       operationId: put-user-id
       responses:
-        '200':
+        "200":
           description: OK
-        '201':
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '500':
+        "500":
           description: Internal Server Error
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/user'
+              $ref: "#/components/schemas/user"
       tags:
         - user-service
       description: Update user by id.
@@ -92,32 +92,32 @@ paths:
       summary: Delete user by id.
       operationId: delete-user-id
       responses:
-        '200':
+        "200":
           description: OK
-        '500':
+        "500":
           description: Internal Server Error
       tags:
         - user-service
       description: Delete user by id.
-  '/user/{userId}/settings':
+  "/user/{userId}/settings":
     parameters:
-      - $ref: '#/components/parameters/userId'
+      - $ref: "#/components/parameters/userId"
     get:
       summary: Get user's settings.
       tags:
         - user-service
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/setting'
-        '401':
+                  $ref: "#/components/schemas/setting"
+        "401":
           description: Unauthorized
-        '500':
+        "500":
           description: Internal Server Error
       operationId: get-user-settings
       description: Get user's settings.
@@ -125,9 +125,9 @@ paths:
       summary: Delete user by id.
       operationId: delete-user-settings
       responses:
-        '200':
+        "200":
           description: OK
-        '500':
+        "500":
           description: Internal Server Error
       tags:
         - user-service
@@ -136,11 +136,11 @@ paths:
       summary: Set user's settings.
       operationId: post-user-userId-settings
       responses:
-        '200':
+        "200":
           description: OK
-        '401':
+        "401":
           description: Unauthorized
-        '500':
+        "500":
           description: Internal Server Error
       description: Set user's settings.
       requestBody:
@@ -149,10 +149,10 @@ paths:
             schema:
               type: array
               items:
-                $ref: '#/components/schemas/setting'
+                $ref: "#/components/schemas/setting"
       tags:
         - user-service
-  '/diary/{userId}':
+  "/diary/{userId}":
     get:
       summary: Get mood diary by userId.
       tags:
@@ -160,30 +160,30 @@ paths:
       operationId: get-diary
       description: Get mood diary by userId.
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/mood'
-        '401':
+                  $ref: "#/components/schemas/mood"
+        "401":
           description: Unauthorized
-        '500':
+        "500":
           description: Internal Server Error
       x-tira: true
     parameters:
-      - $ref: '#/components/parameters/userId'
+      - $ref: "#/components/parameters/userId"
     post:
       summary: Add mood to diary
       operationId: post-diary-userId
       responses:
-        '200':
+        "200":
           description: OK
-        '401':
+        "401":
           description: Unauthorized
-        '500':
+        "500":
           description: Internal Server Error
       description: Add mood to user's diary.
       tags:
@@ -192,29 +192,29 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/mood'
+              $ref: "#/components/schemas/mood"
       x-tira: true
     delete:
       summary: Delete mood from user's diary.
       operationId: deleteuser-userId-diary
       responses:
-        '200':
+        "200":
           description: OK
-        '401':
+        "401":
           description: Unauthorized
-        '500':
+        "500":
           description: Internal Server Error
       description: Delete mood from user's diary.
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/timestamp'
+              $ref: "#/components/schemas/timestamp"
           application/xml:
             schema:
               type: object
               properties: {}
-        description: ''
+        description: ""
       tags:
         - mood-diary-service
   /safetyNet:
@@ -223,21 +223,21 @@ paths:
       tags:
         - motivator-service
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/safetyNetItem'
-        '401':
+                  $ref: "#/components/schemas/safetyNetItem"
+        "401":
           description: Unauthorized
-        '500':
+        "500":
           description: Internal Server Error
       operationId: get-safetyNet
       description: Get safety nets of all users - without identifying the users individually.
-  '/safetyNet/{userId}':
+  "/safetyNet/{userId}":
     parameters:
       - name: userId
         in: path
@@ -249,17 +249,17 @@ paths:
       tags:
         - motivator-service
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/safetyNetItem'
-        '401':
+                  $ref: "#/components/schemas/safetyNetItem"
+        "401":
           description: Unauthorized
-        '500':
+        "500":
           description: Internal Server Error
       operationId: get-user-userId-safetyNet
       description: Get safety net by userId.
@@ -267,31 +267,31 @@ paths:
       summary: Add safety net item to user's safety net.
       operationId: post-user-userId-safetyNet
       responses:
-        '200':
+        "200":
           description: OK
-        '201':
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '500':
+        "500":
           description: Internal Server Error
       description: Add safety net item to user's safety net.
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/safetyNetItem'
+              $ref: "#/components/schemas/safetyNetItem"
       tags:
         - motivator-service
     delete:
       summary: Delete safetyNet item by timestamp.
       operationId: delete-user-userId-safetyNet
       responses:
-        '200':
+        "200":
           description: OK
-        '401':
+        "401":
           description: Unauthorized
-        '500':
+        "500":
           description: Internal Server Error
       description: Delete safetyNet item by timestamp.
       requestBody:
@@ -309,17 +309,17 @@ paths:
       tags:
         - motivator-service
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/motivator'
-        '401':
+                  $ref: "#/components/schemas/motivator"
+        "401":
           description: Unauthorized
-        '500':
+        "500":
           description: Internal Server Error
       operationId: get-motivators-userId
       description: Gett all motivators.
@@ -327,43 +327,43 @@ paths:
       summary: Add motivator
       operationId: post-motivator
       responses:
-        '200':
+        "200":
           description: OK
       description: Add a new motivator.
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/motivator'
+              $ref: "#/components/schemas/motivator"
       tags:
         - motivator-service
     delete:
       summary: Delete a motivator.
       operationId: delete-motivator
       responses:
-        '200':
+        "200":
           description: OK
-        '401':
+        "401":
           description: Unauthorized
-        '500':
+        "500":
           description: Internal Server Error
       description: Delete a motivator by id.
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/motivatorId'
+              $ref: "#/components/schemas/motivatorId"
       tags:
         - motivator-service
-  '/motivator/{userId}':
+  "/motivator/{userId}":
     parameters:
-      - $ref: '#/components/parameters/userId'
+      - $ref: "#/components/parameters/userId"
     get:
       summary: Get current motivators by userId.
       tags:
         - motivator-service
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
@@ -371,11 +371,11 @@ paths:
                 type: array
                 items:
                   allOf:
-                    - $ref: '#/components/schemas/motivator'
-                    - $ref: '#/components/schemas/motivatorResult'
-        '401':
+                    - $ref: "#/components/schemas/motivator"
+                    - $ref: "#/components/schemas/motivatorResult"
+        "401":
           description: Unauthorized
-        '500':
+        "500":
           description: Internal Server Error
       operationId: get-motivator-userId
       description: Get current motivators by userId.
@@ -383,95 +383,95 @@ paths:
       summary: Add motivator to user's motivators.
       operationId: post-motivator-userId
       responses:
-        '200':
+        "200":
           description: OK
-        '201':
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '500':
+        "500":
           description: Internal Server Error
       description: Add motivator to user's motivators.
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/motivator'
+              $ref: "#/components/schemas/motivator"
       tags:
         - motivator-service
     delete:
       summary: Delete a motivator from user's motivators.
       operationId: delete-motivator-userId
       responses:
-        '200':
+        "200":
           description: OK
-        '401':
+        "401":
           description: Unauthorized
-        '500':
+        "500":
           description: Internal Server Error
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/motivatorId'
+              $ref: "#/components/schemas/motivatorId"
       description: Delete a motivator from user's motivators.
       tags:
         - motivator-service
-  '/motivator/{userId}/result/{motivatorId}':
+  "/motivator/{userId}/result/{motivatorId}":
     parameters:
-      - $ref: '#/components/parameters/userId'
-      - $ref: '#/components/parameters/motivatorId'
+      - $ref: "#/components/parameters/userId"
+      - $ref: "#/components/parameters/motivatorId"
     post:
       summary: Add a new result to user's current motivator.
       operationId: post-motivator-userId-feedback-motivatorId
       responses:
-        '200':
+        "200":
           description: OK
-        '401':
+        "401":
           description: Unauthorized
-        '500':
+        "500":
           description: Internal Server Error
       description: Add a new result to user's current motivator.
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/motivatorResult'
+              $ref: "#/components/schemas/motivatorResult"
       tags:
         - motivator-service
     delete:
       summary: Delete result from user's current motivator by timestamp.
       operationId: delete-motivator-userId-result-motivatorId
       responses:
-        '200':
+        "200":
           description: OK
       description: Delete result from user's current motivator by timestamp.
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/timestamp'
+              $ref: "#/components/schemas/timestamp"
       tags:
         - motivator-service
-  '/notification/{userId}':
+  "/notification/{userId}":
     parameters:
-      - $ref: '#/components/parameters/userId'
+      - $ref: "#/components/parameters/userId"
     get:
       summary: Get notifications for user by id.
       tags:
         - notification-service
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/notification'
-        '401':
+                  $ref: "#/components/schemas/notification"
+        "401":
           description: Unauthorized
-        '500':
+        "500":
           description: Internal Server Error
       operationId: get-notification-userId
       description: Get notifications for user by id.
@@ -479,38 +479,38 @@ paths:
       summary: Set notification for user by id.
       operationId: post-notification-userId
       responses:
-        '200':
+        "200":
           description: OK
-        '201':
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '500':
+        "500":
           description: Internal Server Error
       description: Set notification for user by id.
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/notification'
-        description: ''
+              $ref: "#/components/schemas/notification"
+        description: ""
       tags:
         - notification-service
     delete:
       summary: Delete notification for user by id.
       operationId: delete-notification-userId
       responses:
-        '200':
+        "200":
           description: OK
-        '401':
+        "401":
           description: Unauthorized
-        '500':
+        "500":
           description: Internal Server Error
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/notificationId'
+              $ref: "#/components/schemas/notificationId"
       description: Delete notification for user by id.
       tags:
         - notification-service
@@ -520,56 +520,56 @@ paths:
       tags:
         - tilt-service
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/tilt'
-        '401':
+                $ref: "#/components/schemas/tilt"
+        "401":
           description: Unauthorized
-        '500':
+        "500":
           description: Internal Server Error
       operationId: get-tilt
-      description: 'Get tilt document, i.e. a machine-readable privacy policy.'
+      description: "Get tilt document, i.e. a machine-readable privacy policy."
       x-tira: false
     post:
       summary: Set tilt document.
       operationId: post-tilt
       responses:
-        '200':
+        "200":
           description: OK
-        '201':
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '500':
+        "500":
           description: Internal Server Error
-      description: 'Set tilt document, i.e. a machine-readable privacy policy.'
+      description: "Set tilt document, i.e. a machine-readable privacy policy."
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/tilt'
+              $ref: "#/components/schemas/tilt"
       tags:
         - tilt-service
-  '/wiki/{wikiEntryId}':
+  "/wiki/{wikiEntryId}":
     get:
       summary: Get all wiki entries
       tags:
         - wiki-service
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/wikiEntry'
-        '401':
+                  $ref: "#/components/schemas/wikiEntry"
+        "401":
           description: Unauthorized
-        '500':
+        "500":
           description: Internal Server Error
       operationId: get-wiki
       description: Get all wiki entries.
@@ -577,20 +577,20 @@ paths:
       summary: Add wiki entry
       operationId: post-wiki
       responses:
-        '200':
+        "200":
           description: OK
-        '201':
+        "201":
           description: Created
-        '401':
+        "401":
           description: Unauthorized
-        '500':
+        "500":
           description: Internal Server Error
       description: Add wiki entry.
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/wikiEntry'
+              $ref: "#/components/schemas/wikiEntry"
       x-tira: false
       tags:
         - wiki-service
@@ -598,17 +598,17 @@ paths:
       summary: Delete wiki entry by id.
       operationId: delete-wiki
       responses:
-        '200':
+        "200":
           description: OK
-        '401':
+        "401":
           description: Unauthorized
-        '500':
+        "500":
           description: Internal Server Error
       description: Delete wiki entry by id.
       tags:
         - wiki-service
     parameters:
-      - $ref: '#/components/parameters/wikiEntryId'
+      - $ref: "#/components/parameters/wikiEntryId"
 components:
   securitySchemes:
     JWTAuth:
@@ -629,16 +629,16 @@ components:
           email: maja@majassen.de
           password: ahcezie2aiKoon0yaequ3eive7uphie9
           role: user
-          created: '2022-03-07T14:15:44+00:00'
-          changed: '2022-03-07T14:15:44+00:00'
+          created: "2022-03-07T14:15:44+00:00"
+          changed: "2022-03-07T14:15:44+00:00"
         example-2:
           id: 0
           username: string
           email: user@example.com
           password: pa$$word
           role: admin
-          created: '2019-08-24T14:15:22Z'
-          changed: '2019-08-24T14:15:22Z'
+          created: "2019-08-24T14:15:22Z"
+          changed: "2019-08-24T14:15:22Z"
       x-tira: true
       properties:
         username:
@@ -649,7 +649,7 @@ components:
           type: string
           minLength: 1
           format: email
-          description: 'Passwords are never stored in plain text, but as hash(pwd) + salt from an widely used library.'
+          description: "Passwords are never stored in plain text, but as hash(pwd) + salt from an widely used library."
         password:
           type: string
           format: password
@@ -691,7 +691,7 @@ components:
           properties:
             id:
               type: number
-        - $ref: '#/components/schemas/user'
+        - $ref: "#/components/schemas/user"
       x-examples:
         example-1:
           id: 42
@@ -699,27 +699,27 @@ components:
           email: user@example.com
           password: pa$$word
           role: admin
-          created: '2019-08-24T14:15:22Z'
-          changed: '2019-08-24T14:15:22Z'
+          created: "2019-08-24T14:15:22Z"
+          changed: "2019-08-24T14:15:22Z"
     tilt:
-      description: 'A valid tilt document validates against the tilt schema: https://github.com/Transparency-Information-Language/schema/blob/master/tilt-schema.json'
+      description: "A valid tilt document validates against the tilt schema: https://github.com/Transparency-Information-Language/schema/blob/master/tilt-schema.json"
       type: object
       x-examples:
         example-1:
           meta:
             _id: f1424f86-ca0f-4f0c-9438-43cc00509931
             name: Green Company
-            created: '2020-04-03T15:53:05.929588'
-            modified: '2020-04-03T15:53:05.929588'
+            created: "2020-04-03T15:53:05.929588"
+            modified: "2020-04-03T15:53:05.929588"
             version: 2
             language: de
             status: active
-            url: 'https://green-bikes.de/privacy'
+            url: "https://green-bikes.de/privacy"
             _hash: be81d309088dde861ab5fc4d62d4bbfe0aeef3e3baf2f5362c1086f451f0a1e7
           controller:
             name: Green Company AG
             division: Product line e-mobility
-            address: 'Wolfsburger Ring 2, 38440 Berlin'
+            address: "Wolfsburger Ring 2, 38440 Berlin"
             country: DE
             representative:
               name: Jane Super
@@ -727,7 +727,7 @@ components:
               phone: 0049 151 1234 5678
           dataProtectionOfficer:
             name: Jane Super
-            address: 'Wolfsburger Ring 2, 38440 Berlin'
+            address: "Wolfsburger Ring 2, 38440 Berlin"
             country: DE
             email: contact@greencompany.de
             phone: 0049 151 1234 5678
@@ -748,7 +748,7 @@ components:
               recipients:
                 - name: Yellow Company AG
                   division: Product line e-mobility
-                  address: 'Triana 123, 9999 Seville'
+                  address: "Triana 123, 9999 Seville"
                   country: ES
                   representative:
                     name: Jane Super
@@ -761,7 +761,7 @@ components:
                     - description: Creating backups.
                       ttl: P3Y6M4DT12H30M5S
                     - description: Finishing ordering process.
-                      ttl: '2020-08-09T18:31:42P3Y6M4DT12H30M17S'
+                      ttl: "2020-08-09T18:31:42P3Y6M4DT12H30M17S"
                   purposeConditional:
                     - Data is stored until the end of the ordering process.
                   legalBasisConditional:
@@ -771,7 +771,7 @@ components:
                 legalRequirement: false
                 contractualRegulation: false
                 obligationToProvide: false
-                consequences: 'If the data is not disclosed, the shipment cannot be delivered.'
+                consequences: "If the data is not disclosed, the shipment cannot be delivered."
           thirdCountryTransfers:
             - country: ES
               adequacyDecision:
@@ -785,11 +785,11 @@ components:
                 description: These rights are given because of...
               standardDataProtectionClause:
                 available: true
-                description: 'The standard data protection clause which applies here can be found here: ...'
+                description: "The standard data protection clause which applies here can be found here: ..."
           accessAndDataPortability:
             available: true
             description: Data access is possible through...
-            url: 'https://green-bikes.de/access'
+            url: "https://green-bikes.de/access"
             email: access@greencompany.de
             identificationEvidences:
               - ID card copy
@@ -805,12 +805,12 @@ components:
               dataCategory: Creditworthiness
               sources:
                 - description: This information could be retrieved from...
-                  url: 'https://blueCompany.org'
+                  url: "https://blueCompany.org"
                   publiclyAvailable: false
           rightToInformation:
             available: true
             description: For the right to information please use this contact form and...
-            url: 'https://greencompany.org/rightToInformation'
+            url: "https://greencompany.org/rightToInformation"
             email: contact@greencompany.de
             identificationEvidences:
               - ID card copy
@@ -818,7 +818,7 @@ components:
           rightToRectificationOrDeletion:
             available: true
             description: For the right to rectification please use this contact form and...
-            url: 'https://greencompany.org/rights'
+            url: "https://greencompany.org/rights"
             email: contact@greencompany.de
             identificationEvidences:
               - ID card copy
@@ -826,28 +826,28 @@ components:
           rightToDataPortability:
             available: false
             description: Data portability is only possible when...
-            url: 'https://greencompany.org/rights'
+            url: "https://greencompany.org/rights"
             email: contact@greencompany.de
             identificationEvidences:
               - ID card copy
           rightToWithdrawConsent:
             available: true
             description: For the right to withdraw consent please use this contact form and...
-            url: 'https://greencompany.org/rights'
+            url: "https://greencompany.org/rights"
             email: contact@greencompany.de
             identificationEvidences:
               - Email verification
           rightToComplain:
             available: true
             description: For the right to complain please use this contact form and...
-            url: 'https://greencompany.org/rights'
+            url: "https://greencompany.org/rights"
             email: contact@greencompany.de
             identificationEvidences:
               - ID card copy
               - Email verification
             supervisoryAuthority:
               name: Commissioner for Data Protection
-              address: 'Friedrichstrasse 219, 10969 Berlin'
+              address: "Friedrichstrasse 219, 10969 Berlin"
               country: DE
               email: mailbox@privacy-berlin.de
               phone: 0049 444 222 111
@@ -860,8 +860,8 @@ components:
               affectedDataCategories:
                 - Email adress
                 - Credit score
-              plannedDateOfChange: '2020-08-20'
-              urlOfNewVersion: 'https://greencomp.de/privacypolicy/2'
+              plannedDateOfChange: "2020-08-20"
+              urlOfNewVersion: "https://greencomp.de/privacypolicy/2"
       properties:
         meta:
           type: object
@@ -1340,7 +1340,7 @@ components:
           type: string
           format: date-time
     safetyNetItem:
-      description: ''
+      description: ""
       type: object
       x-examples:
         example-1:
@@ -1362,7 +1362,7 @@ components:
             - other
             - situationControl
             - relaxation
-          description: 'Which kind of item is this (i.a., influences symbol in UI)?'
+          description: "Which kind of item is this (i.a., influences symbol in UI)?"
         strategies:
           type: array
           description: How can this item help the user to feel better?
@@ -1371,13 +1371,13 @@ components:
         feedback:
           type: array
           items:
-            $ref: '#/components/schemas/safetyNetItemFeedback'
+            $ref: "#/components/schemas/safetyNetItemFeedback"
       required:
         - name
         - type
         - strategies
     safetyNetItemFeedback:
-      description: ''
+      description: ""
       type: object
       x-examples: {}
       title: safetyNetItemFeedback
@@ -1392,6 +1392,18 @@ components:
     motivator:
       title: motivator
       type: object
+      x-examples:
+        example-1:
+          id: Optimism
+          type: optimism
+          headline: Optimism
+          description: Optimism means seeing the good in life, even if i t doesn't appeear that easy.
+          textContents:
+            {
+              If you want to practice optimism,
+              the following task can help you . set a timer for 10 minutes. During this time,
+              think about your best possible future self and write it down on a piece of paper. Prepare several pieces of paper for this exercise. Imagine your life the way you always imagined it. Imagine you did your best and achieved all the things you always wanted to achieve in life. Don't worry about grammar or spelling as you write. Just focus on expressing all your thoughts and emotions in a vivid way.,
+            }
       properties:
         id:
           type: string
@@ -1400,6 +1412,7 @@ components:
           enum:
             - situationControl
             - relaxation
+            - optimism
         headline:
           type: string
         description:
@@ -1425,7 +1438,7 @@ components:
                 format: uri
         userInputForm:
           type: string
-          description: 'May describe a form for input by the user (format to be defined, e.g., JSON Schema).'
+          description: "May describe a form for input by the user (format to be defined, e.g., JSON Schema)."
     motivatorResult:
       title: motivatorResult
       type: object
@@ -1460,9 +1473,9 @@ components:
           format: date-time
         ttl:
           type: string
-          description: 'time to live (i.e., not relevant anymore at specified time)'
+          description: "time to live (i.e., not relevant anymore at specified time)"
           format: date-time
-        '':
+        "":
           type: string
     notificationId:
       title: notificationId
@@ -1530,11 +1543,11 @@ tags:
   - name: administration-service
   - name: tilt-service
 servers:
-  - url: 'https://api.implementation.online'
-    description: ''
+  - url: "https://api.implementation.online"
+    description: ""
     variables: {}
-  - url: 'http://localhost'
-    description: ''
+  - url: "http://localhost"
+    description: ""
     variables: {}
 #security:
 #  - JWTAuth: []
