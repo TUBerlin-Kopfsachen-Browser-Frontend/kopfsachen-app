@@ -89,12 +89,38 @@ interface ISafteyNetItem {
   }[];
 }
 
-// interface IAddItemViewProps {
-//     onBackClick: () => void;
-// }
+// functions and custom hook to toggle normal and mobile view
+// https://github.com/Nik-Sch/Rezeptbuch/blob/server/ui/client/src/components/helpers/CustomHooks.tsx#L27
+function getWindowDimensions() {
+  const { innerWidth: width, innerHeight: height } = window;
+  return {
+    width,
+    height
+  };
+}
+
+export function useWindowDimensions() {
+  const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
+
+  useEffect(() => {
+    function handleResize() {
+      setWindowDimensions(getWindowDimensions());
+    }
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  return windowDimensions;
+}
+
+export function useMobile() {
+  const { width, height } = useWindowDimensions();
+  return width <= 815 || height <= 815;
+}
+
 
 function AddItemView() {
-  // props: IAddItemViewProps
   const [nameInput, setNameInput] = useState<string>("");
   const [strategyInput1, setStrategyInput1] = useState<string>("");
   const [strategyInput2, setStrategyInput2] = useState<string>("");
@@ -103,18 +129,18 @@ function AddItemView() {
   const [continueClicked, setContinueClicked] = useState(false);
   const [itHelped, setItHelped] = useState<boolean | undefined>();
   const navigate = useNavigate();
+  const { register, handleSubmit, setValue, reset } = useForm<ISafteyNetItem>();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { t } = useTranslation();
+  const mobile = useMobile();
+
   const handleItemInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNameInput(e.target.value);
   };
-
-  const { t } = useTranslation();
-
-  const { register, handleSubmit, setValue, reset } = useForm<ISafteyNetItem>();
   const onSubmit: SubmitHandler<ISafteyNetItem> = (data) => {
     console.log("submitting", data);
     axios.post(`http://127.0.0.1:4010/safetyNet/1`, data);
   };
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const onModalClose = () => {
     onClose();
     setItHelped(undefined);
@@ -129,9 +155,10 @@ function AddItemView() {
     setCategoryInput("situationControl");
     setContinueClicked(false);
   };
+
   return (
     <Flex direction="column">
-      <Text fontSize={20} marginTop={12} marginBottom={5}>
+      <Text fontSize={20} marginTop={mobile ? 5 : 20} marginBottom={5}>
         {" "}
         {t("happyMaker")}{" "}
       </Text>
@@ -153,24 +180,24 @@ function AddItemView() {
           colorScheme="green"
           isDisabled={continueClicked}
         >
-          <Stack direction="row" spacing={10}>
-            <Radio {...register("type")} value="situationControl">
+          <Flex direction="row" wrap='wrap' justifyContent='space-around'>
+            <Radio {...register("type")} value="situationControl" ml={2.5} mr={2.5} width='100px'>
               {t("situationControl")}
-              <Text fontSize={40}>🎚</Text>
+              <Text fontSize={40}>🌈</Text>
             </Radio>
-            <Radio {...register("type")} value="relaxation">
+            <Radio {...register("type")} value="relaxation" ml={2.5} mr={2.5} width='100px'>
               {t("relaxation")}
               <Text fontSize={40}>🦥</Text>
             </Radio>
-            <Radio {...register("type")} value="pet">
+            <Radio {...register("type")} value="pet" ml={2.5} mr={2.5} width='100px'>
               {t("pets")}
               <Text fontSize={40}>🐾</Text>{" "}
             </Radio>
-            <Radio {...register("type")} value="other">
+            <Radio {...register("type")} value="other" ml={2.5} mr={2.5} width='100px'>
               {t("other")}
               <Text fontSize={40}>💭</Text>
             </Radio>
-          </Stack>
+          </Flex>
         </RadioGroup>
 
         {!continueClicked && (
@@ -219,7 +246,7 @@ function AddItemView() {
             />
           </Stack>
         </form>
-        <Flex marginTop={10}>
+        <Flex marginTop={5} justifyContent='space-evenly'>
           <form onSubmit={handleSubmit(onSubmit)}>
             <Button
               type="submit"
@@ -231,6 +258,7 @@ function AddItemView() {
               }}
               marginRight={3}
               colorScheme="green"
+              whiteSpace={mobile ? 'initial' : 'unset'}
               isDisabled={
                 strategyInput1.trim() === "" ||
                 strategyInput2.trim() === "" ||
@@ -244,6 +272,7 @@ function AddItemView() {
             onClick={onOpen}
             marginRight={3}
             colorScheme="green"
+            whiteSpace={mobile ? 'initial' : 'unset'}
             isDisabled={
               strategyInput1.trim() === "" ||
               strategyInput2.trim() === "" ||
@@ -252,61 +281,59 @@ function AddItemView() {
           >
             {t("allResources")}
           </Button>
-          <Modal isOpen={isOpen} onClose={onModalClose}>
-            <ModalOverlay>
-              <ModalContent>
-                <form onSubmit={handleSubmit(onSubmit)}>
-                  <ModalHeader fontSize="lg" fontWeight="bold">
-                    {t("feedback")}
-                  </ModalHeader>
-
-                  <ModalBody>
-                    <Stack direction="row" spacing={3}>
-                      <IconButton
-                        onClick={() => {
-                          setValue(`feedback.${0}.itHelped`, true);
-                          setItHelped(true);
-                        }}
-                        aria-label="positive"
-                        variant={itHelped === true ? "solid" : "ghost"}
-                        icon={<FiSmile size={30} color="green" />}
-                      />
-                      <IconButton
-                        onClick={() => {
-                          setValue(`feedback.${0}.itHelped`, false);
-                          setItHelped(false);
-                        }}
-                        aria-label="negative"
-                        variant={itHelped === false ? "solid" : "ghost"}
-                        icon={<FiFrown size={30} color="red" />}
-                      />
-                    </Stack>
-                  </ModalBody>
-
-                  <ModalFooter>
-                    <Button
-                      onClick={() => {
-                        onModalClose();
-                        // prevent react from clearing the inputs before the form submit is handled
-                        setTimeout(() => {
-                          clearInputs();
-                          navigate("/resources");
-                        }, 0);
-                        // props.onBackClick();
-                      }}
-                      type="submit"
-                      isDisabled={typeof itHelped === "undefined"}
-                      mr={3}
-                    >
-                      {t("submit")}
-                    </Button>
-                    <Button onClick={onModalClose}>{t("cancel")}</Button>
-                  </ModalFooter>
-                </form>
-              </ModalContent>
-            </ModalOverlay>
-          </Modal>
         </Flex>
+        <Modal isOpen={isOpen} onClose={onModalClose}>
+          <ModalOverlay>
+            <ModalContent width={mobile ? 'calc(100vw - 40px)' : 'unset'}>
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <ModalHeader fontSize="lg" fontWeight="bold">
+                  {t("feedback")}
+                </ModalHeader>
+                <ModalBody>
+                  <Stack direction="row" spacing={3}>
+                    <IconButton
+                      onClick={() => {
+                        setValue(`feedback.${0}.itHelped`, true);
+                        setItHelped(true);
+                      }}
+                      aria-label="positive"
+                      variant={itHelped === true ? "solid" : "ghost"}
+                      icon={<FiSmile size={30} color="green" />}
+                    />
+                    <IconButton
+                      onClick={() => {
+                        setValue(`feedback.${0}.itHelped`, false);
+                        setItHelped(false);
+                      }}
+                      aria-label="negative"
+                      variant={itHelped === false ? "solid" : "ghost"}
+                      icon={<FiFrown size={30} color="red" />}
+                    />
+                  </Stack>
+                </ModalBody>
+                <ModalFooter>
+                  <Button
+                    onClick={() => {
+                      onModalClose();
+                      // prevent react from clearing the inputs before the form submit is handled
+                      setTimeout(() => {
+                        clearInputs();
+                        navigate("/resources");
+                      }, 0);
+                      // props.onBackClick();
+                    }}
+                    type="submit"
+                    isDisabled={typeof itHelped === "undefined"}
+                    mr={3}
+                  >
+                    {t("submit")}
+                  </Button>
+                  <Button onClick={onModalClose}>{t("cancel")}</Button>
+                </ModalFooter>
+              </form>
+            </ModalContent>
+          </ModalOverlay>
+        </Modal>
       </Flex>
     </Flex>
   );
@@ -315,6 +342,8 @@ function AddItemView() {
 function FrontPage() {
   const [addItemClicked, setAddItemClicked] = useState(false);
   const [items, setItems] = useState<ISafteyNetItem[]>([]);
+  const mobile = useMobile();
+  const { t } = useTranslation();
   const displayIcon = (iconType: string) => {
     return items.some((item) => {
       if (item.type === iconType) {
@@ -330,8 +359,6 @@ function FrontPage() {
       </Flex>
     );
   };
-
-  const { t } = useTranslation();
   // to fetch data everytime the front page is loaded
   useEffect(() => {
     const baseUrl = "http://127.0.0.1:4010"; // localhost + port as base url
@@ -356,21 +383,22 @@ function FrontPage() {
         <Flex>
           <Flex
             direction="column"
-            position="absolute"
-            top="10vh"
-            left="50vw"
-            transform="translate(-50%, -0%)"
-            maxWidth="800px"
+            position={mobile ? "unset" : 'absolute'}
+            top={mobile ? "unset" : "10vh"}
+            left={mobile ? "unset" : "50vw"}
+            transform={mobile ? "unset" : "translate(-50%, -0%)"}
+            maxWidth={mobile ? 'calc(100vw - 40px)' : "800px"}
+            margin={mobile ? "20px" : "unset"}
           >
             {!addItemClicked && (
-              <Text fontSize={20} pt={"80px"} align={"center"} marginBottom={5}>
+              <Text fontSize={20} marginTop={mobile ? 5 : 20} align={"center"} marginBottom={5}>
                 {t("welcome")}
               </Text>
             )}
             {!addItemClicked && (
               <Center flexDirection="column">
                 <Flex
-                  className="container"
+                  // className="container"
                   backgroundColor="white"
                   borderRadius={170}
                   paddingBottom={5}
@@ -435,7 +463,7 @@ function FrontPage() {
                         <Popover>
                           <PopoverTrigger>
                             <button className="btn">
-                              <Text fontSize={40}>🎚</Text>
+                              <Text fontSize={40}>🌈</Text>
                             </button>
                           </PopoverTrigger>
                           <Portal>
@@ -486,7 +514,7 @@ function FrontPage() {
                 </Flex>
                 {!addItemClicked && (
                   <Button
-                    mt={10}
+                    mt={5}
                     colorScheme="green"
                     aria-label="Add item"
                     leftIcon={<AddIcon />}
@@ -498,9 +526,7 @@ function FrontPage() {
               </Center>
             )}
             {addItemClicked && (
-              <AddItemView
-              // onBackClick={() => setAddItemClicked(false)}
-              />
+              <AddItemView />
             )}
           </Flex>
         </Flex>
