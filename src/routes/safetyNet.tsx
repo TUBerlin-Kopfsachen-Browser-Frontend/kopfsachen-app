@@ -158,7 +158,7 @@ function AddItemView() {
 
   return (
     <Flex direction="column">
-      <Text fontSize={20} marginTop={mobile ? 5 : 12} marginBottom={5}>
+      <Text fontSize={20} marginTop={mobile ? 5 : 20} marginBottom={5}>
         {" "}
         {t("happyMaker")}{" "}
       </Text>
@@ -246,7 +246,7 @@ function AddItemView() {
             />
           </Stack>
         </form>
-        <Flex marginTop={10}>
+        <Flex marginTop={5} justifyContent='space-evenly'>
           <form onSubmit={handleSubmit(onSubmit)}>
             <Button
               type="submit"
@@ -258,6 +258,7 @@ function AddItemView() {
               }}
               marginRight={3}
               colorScheme="green"
+              whiteSpace={mobile ? 'initial' : 'unset'}
               isDisabled={
                 strategyInput1.trim() === "" ||
                 strategyInput2.trim() === "" ||
@@ -271,6 +272,7 @@ function AddItemView() {
             onClick={onOpen}
             marginRight={3}
             colorScheme="green"
+            whiteSpace={mobile ? 'initial' : 'unset'}
             isDisabled={
               strategyInput1.trim() === "" ||
               strategyInput2.trim() === "" ||
@@ -279,61 +281,59 @@ function AddItemView() {
           >
             {t("allResources")}
           </Button>
-          <Modal isOpen={isOpen} onClose={onModalClose}>
-            <ModalOverlay>
-              <ModalContent>
-                <form onSubmit={handleSubmit(onSubmit)}>
-                  <ModalHeader fontSize="lg" fontWeight="bold">
-                    {t("feedback")}
-                  </ModalHeader>
-
-                  <ModalBody>
-                    <Stack direction="row" spacing={3}>
-                      <IconButton
-                        onClick={() => {
-                          setValue(`feedback.${0}.itHelped`, true);
-                          setItHelped(true);
-                        }}
-                        aria-label="positive"
-                        variant={itHelped === true ? "solid" : "ghost"}
-                        icon={<FiSmile size={30} color="green" />}
-                      />
-                      <IconButton
-                        onClick={() => {
-                          setValue(`feedback.${0}.itHelped`, false);
-                          setItHelped(false);
-                        }}
-                        aria-label="negative"
-                        variant={itHelped === false ? "solid" : "ghost"}
-                        icon={<FiFrown size={30} color="red" />}
-                      />
-                    </Stack>
-                  </ModalBody>
-
-                  <ModalFooter>
-                    <Button
-                      onClick={() => {
-                        onModalClose();
-                        // prevent react from clearing the inputs before the form submit is handled
-                        setTimeout(() => {
-                          clearInputs();
-                          navigate("/resources");
-                        }, 0);
-                        // props.onBackClick();
-                      }}
-                      type="submit"
-                      isDisabled={typeof itHelped === "undefined"}
-                      mr={3}
-                    >
-                      {t("submit")}
-                    </Button>
-                    <Button onClick={onModalClose}>{t("cancel")}</Button>
-                  </ModalFooter>
-                </form>
-              </ModalContent>
-            </ModalOverlay>
-          </Modal>
         </Flex>
+        <Modal isOpen={isOpen} onClose={onModalClose}>
+          <ModalOverlay>
+            <ModalContent width={mobile ? 'calc(100vw - 40px)' : 'unset'}>
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <ModalHeader fontSize="lg" fontWeight="bold">
+                  {t("feedback")}
+                </ModalHeader>
+                <ModalBody>
+                  <Stack direction="row" spacing={3}>
+                    <IconButton
+                      onClick={() => {
+                        setValue(`feedback.${0}.itHelped`, true);
+                        setItHelped(true);
+                      }}
+                      aria-label="positive"
+                      variant={itHelped === true ? "solid" : "ghost"}
+                      icon={<FiSmile size={30} color="green" />}
+                    />
+                    <IconButton
+                      onClick={() => {
+                        setValue(`feedback.${0}.itHelped`, false);
+                        setItHelped(false);
+                      }}
+                      aria-label="negative"
+                      variant={itHelped === false ? "solid" : "ghost"}
+                      icon={<FiFrown size={30} color="red" />}
+                    />
+                  </Stack>
+                </ModalBody>
+                <ModalFooter>
+                  <Button
+                    onClick={() => {
+                      onModalClose();
+                      // prevent react from clearing the inputs before the form submit is handled
+                      setTimeout(() => {
+                        clearInputs();
+                        navigate("/resources");
+                      }, 0);
+                      // props.onBackClick();
+                    }}
+                    type="submit"
+                    isDisabled={typeof itHelped === "undefined"}
+                    mr={3}
+                  >
+                    {t("submit")}
+                  </Button>
+                  <Button onClick={onModalClose}>{t("cancel")}</Button>
+                </ModalFooter>
+              </form>
+            </ModalContent>
+          </ModalOverlay>
+        </Modal>
       </Flex>
     </Flex>
   );
@@ -391,7 +391,7 @@ function FrontPage() {
             margin={mobile ? "20px" : "unset"}
           >
             {!addItemClicked && (
-              <Text fontSize={20} marginTop={mobile ? 5 : 12} align={"center"} marginBottom={5}>
+              <Text fontSize={20} marginTop={mobile ? 5 : 20} align={"center"} marginBottom={5}>
                 {t("welcome")}
               </Text>
             )}
