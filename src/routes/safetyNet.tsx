@@ -183,7 +183,7 @@ function AddItemView() {
           <Flex direction="row" wrap='wrap' justifyContent='space-around'>
             <Radio {...register("type")} value="situationControl" ml={2.5} mr={2.5} width='100px'>
               {t("situationControl")}
-              <Text fontSize={40}>🎚</Text>
+              <Text fontSize={40}>🌈</Text>
             </Radio>
             <Radio {...register("type")} value="relaxation" ml={2.5} mr={2.5} width='100px'>
               {t("relaxation")}
@@ -463,7 +463,7 @@ function FrontPage() {
                         <Popover>
                           <PopoverTrigger>
                             <button className="btn">
-                              <Text fontSize={40}>🎚</Text>
+                              <Text fontSize={40}>🌈</Text>
                             </button>
                           </PopoverTrigger>
                           <Portal>
