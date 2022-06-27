@@ -32,38 +32,79 @@ import nummergegenkummer from "../nummergegenkummer.png";
 
 import { MdCheckCircle } from "react-icons/md";
 import { ChatIcon, EmailIcon, PhoneIcon } from "@chakra-ui/icons";
+import { useEffect, useState } from "react";
 
-export default function Wiki() {
+// functions and custom hook to toggle normal and mobile view
+// https://github.com/Nik-Sch/Rezeptbuch/blob/server/ui/client/src/components/helpers/CustomHooks.tsx#L27
+function getWindowDimensions() {
+  const { innerWidth: width, innerHeight: height } = window;
+  return {
+    width,
+    height
+  };
+}
+
+export function useWindowDimensions() {
+  const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
+
+  useEffect(() => {
+    function handleResize() {
+      setWindowDimensions(getWindowDimensions());
+    }
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  return windowDimensions;
+}
+
+export function useMobile() {
+  const { width, height } = useWindowDimensions();
+  return width <= 815 || height <= 815;
+}
+
+export default function EmergencyNumbers() {
+  const mobile = useMobile();
   return (
     <Flex direction="column">
       <Box>
         <Sidebar />
       </Box>
 
-      <Box w="100%" h="600px">
-        <Box w="100%" h="200px" bg="red.400">
-          <Text fontSize="40px" align="center" pt="50px" color="white">
+      {/* <Box w="100%" h="600px"> */}
+        <Box w="100%" h={mobile ? '180px' : '200px'} bg="red.400">
+          <Text fontSize="40px" align="center" pl={mobile ? "80px" : "unset"} pt={mobile ? "18px" : "30px"} color="white">
             External Help{" "}
           </Text>
           <Center>
             <Image src={externhelp} alt="externhelp" />
           </Center>
-
-          <Text fontSize={20} align="center" pt="50px" color={"gray.600"}>
+        </Box>
+        <Flex
+            direction="column"
+            position={mobile ? "unset" : 'absolute'}
+            top={mobile ? "unset" : "25vh"}
+            left={mobile ? "unset" : "50vw"}
+            transform={mobile ? "unset" : "translate(-50%, -0%)"}
+            maxWidth={mobile ? 'calc(100vw - 40px)' : "800px"}
+            margin={mobile ? "20px" : "unset"}
+          >
+          <Text fontSize={mobile ? 16 : 20} align="center" color={"gray.600"}>
             If you just don't know what to do anymore, there are many external
             help offers that will support you in every situation.
           </Text>
 
           <List>
             <Center>
-              <ListItem fontSize={30} color="black" fontWeight="bold" pt="20px">
+              <ListItem fontSize={mobile ? 20 : 30} color="black" fontWeight="bold" pt="20px">
                 <ListIcon as={MdCheckCircle} color="red.400" />
                 Online Consultation
               </ListItem>
             </Center>
           </List>
 
-          <Tabs isFitted variant="enclosed" pt="50px">
+          <Tabs isFitted variant="enclosed" pt={mobile ? "20px" : "50px"}>
             <TabList mb="1em">
               <Tab>Jugend Notmail</Tab>
               <Tab>Krisenchat </Tab>
@@ -72,9 +113,9 @@ export default function Wiki() {
             <TabPanels>
               <TabPanel>
                 <Center>
-                  <Stack direction={["row"]} spacing="300px">
+                  <Stack direction="row" wrap='wrap'>
                     <Link href="https://jugendnotmail.de/">
-                      <Image src={jugendemail} alt="jugendemail" />
+                      <Image src={jugendemail} alt="jugendnotmail" width={200}/>
                     </Link>
 
                     <Stack pt="20px" spacing="15px">
@@ -120,13 +161,14 @@ export default function Wiki() {
 
               <TabPanel>
                 <Center>
-                  <Stack direction={["row"]} spacing="300px">
+                  <Stack direction="row" wrap='wrap'>
                     <Link href="https://krisenchat.de/">
                       <Image
                         src={krisenchat}
                         alt="krisenchat"
-                        width="400px"
+                        width="250px"
                         pt="70 px"
+                        pr={mobile ? 'unset' :'30px'}
                       />
                     </Link>
 
@@ -164,9 +206,9 @@ export default function Wiki() {
 
               <TabPanel>
                 <Center>
-                  <Stack direction={["row"]} spacing="300px">
+                  <Stack direction="row" wrap='wrap'>
                     <Link href="https://www.nummergegenkummer.de/">
-                      <Image src={nummergegenkummer} alt="nummergegenkummer" />
+                      <Image src={nummergegenkummer} alt="nummergegenkummer" width={200}/>
                     </Link>
 
                     <Stack pt="40px" spacing="20px">
@@ -202,8 +244,8 @@ export default function Wiki() {
               </TabPanel>
             </TabPanels>
           </Tabs>
-        </Box>
-      </Box>
+          </Flex>
+      {/* </Box> */}
     </Flex>
   );
 }
