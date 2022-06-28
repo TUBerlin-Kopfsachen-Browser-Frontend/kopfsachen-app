@@ -166,7 +166,7 @@ export default function EmergencyNumbers() {
                       <Image
                         src={krisenchat}
                         alt="krisenchat"
-                        width="200px"
+                        width="220px"
                         pt="70 px"
                         pr={mobile ? 'unset' :'30px'}
                       />
