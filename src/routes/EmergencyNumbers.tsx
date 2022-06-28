@@ -113,9 +113,9 @@ export default function EmergencyNumbers() {
             <TabPanels>
               <TabPanel>
                 <Center>
-                  <Stack direction="row" wrap='wrap'>
+                  <Stack direction="column" wrap='wrap' alignItems='center'>
                     <Link href="https://jugendnotmail.de/">
-                      <Image src={jugendemail} alt="jugendnotmail" width={200}/>
+                      <Image src={jugendemail} alt="jugendnotmail" width={250}/>
                     </Link>
 
                     <Stack pt="20px" spacing="15px">
@@ -161,12 +161,12 @@ export default function EmergencyNumbers() {
 
               <TabPanel>
                 <Center>
-                  <Stack direction="row" wrap='wrap'>
+                  <Stack direction="column" wrap='wrap' alignItems='center'>
                     <Link href="https://krisenchat.de/">
                       <Image
                         src={krisenchat}
                         alt="krisenchat"
-                        width="250px"
+                        width="200px"
                         pt="70 px"
                         pr={mobile ? 'unset' :'30px'}
                       />
@@ -206,12 +206,12 @@ export default function EmergencyNumbers() {
 
               <TabPanel>
                 <Center>
-                  <Stack direction="row" wrap='wrap'>
+                  <Stack direction="column" wrap='wrap' alignItems='center'>
                     <Link href="https://www.nummergegenkummer.de/">
                       <Image src={nummergegenkummer} alt="nummergegenkummer" width={200}/>
                     </Link>
 
-                    <Stack pt="40px" spacing="20px">
+                    <Stack pt="10px" spacing="20px">
                       <Link href="https://www.nummergegenkummer.de/onlineberatung/#/">
                         <Button
                           leftIcon={<ChatIcon />}
