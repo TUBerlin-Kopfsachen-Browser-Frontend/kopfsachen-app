@@ -20,6 +20,7 @@ import {
   Checkbox,
   useSafeLayoutEffect,
 } from "@chakra-ui/react";
+import LogoutButton from "../components/Logout";
 
 export default function Register() {
   const {
@@ -39,7 +40,12 @@ export default function Register() {
       flexDirection="column"
     >
       <Text>Register!</Text>
-      <button
+      <Button
+        bg={"green.400"}
+        color={"white"}
+        _hover={{
+          bg: "green.400",
+        }}
         onClick={() => {
           fetch(`self-service/registration/browser`, {
             headers: { Accept: "application/json" },
@@ -63,7 +69,8 @@ export default function Register() {
         }}
       >
         Register
-      </button>
+      </Button>
+      <LogoutButton />
     </Flex>
   );
 }
