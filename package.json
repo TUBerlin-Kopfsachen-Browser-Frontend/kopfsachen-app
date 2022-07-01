@@ -1,7 +1,6 @@
 {
   "name": "kopfsachen-merged",
   "version": "0.1.0",
-  "proxy": "https://auth.api.live.mindtastic.lol",
   "private": true,
   "dependencies": {
     "@chakra-ui/icons": "^2.0.2",
@@ -16,9 +15,11 @@
     "@types/react": "^18.0.12",
     "@types/react-dom": "^18.0.5",
     "axios": "^0.27.2",
+    "blueimp-md5": "^2.19.0",
     "framer-motion": "^6.3.10",
     "http-proxy-middleware": "^2.0.6",
     "i18next": "^21.8.9",
+    "md5": "^2.3.0",
     "moment": "^2.29.3",
     "react": "^18.1.0",
     "react-calendar": "^3.7.0",
