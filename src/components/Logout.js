@@ -9,8 +9,10 @@ import {
   Button,
   Stack,
 } from "@chakra-ui/react";
+import { useStore } from "../store/isLoggedIn";
 
 export default function LogoutButton(props) {
+  const logout = useStore((s) => s.logout);
   return (
     <Button
       onClick={() => {
@@ -25,8 +27,12 @@ export default function LogoutButton(props) {
               },
             })
           )
-          .then((res) => res.json())
-          .then((response) => alert(response.identity.traits.accountKey));
+          .then((res) => {
+            if (res.status == 204 || res.status == 401) {
+              logout();
+              window.location.replace("/");
+            }
+          });
       }}
     >
       Logout

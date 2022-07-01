@@ -17,6 +17,7 @@ import {
 } from "@chakra-ui/react";
 // import { Logo } from "./Logo"
 import Sidebar from "./components/Sidebar";
+import { useStore } from "../src/store/isLoggedIn";
 
 export const App = () => (
   <Flex>
@@ -28,10 +29,20 @@ export const App = () => (
       <Text fontSize={["16", "24"]}>Welcome to the Kopsachen Web App!</Text>
       <Stack spacing={4} direction="row" align="center">
         <a href="/login">
-          <Button colorScheme="teal">Login</Button>
+          <Button
+            display={useStore((state) => state.isLoggedIn) ? "none" : ""}
+            colorScheme="teal"
+          >
+            Login
+          </Button>
         </a>
         <a href="/register">
-          <Button colorScheme="teal">Register</Button>
+          <Button
+            display={useStore((state) => state.isLoggedIn) ? "none" : ""}
+            colorScheme="teal"
+          >
+            Register
+          </Button>
         </a>
       </Stack>
     </Center>

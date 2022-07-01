@@ -21,6 +21,8 @@ import {
   useSafeLayoutEffect,
 } from "@chakra-ui/react";
 import LogoutButton from "../components/Logout";
+import React from "react";
+import { useStore } from "../store/isLoggedIn";
 
 export default function Register() {
   const [submittedData, setSubmittedData] = useState<FormData>();
@@ -31,6 +33,7 @@ export default function Register() {
   } = useForm();
   const onSubmit = (data: any) => console.log(data);
   console.log(errors);
+  const login = useStore((s) => s.login);
 
   return (
     <Flex
@@ -78,9 +81,11 @@ export default function Register() {
                     })
                   )
                   .then((res) => res.json())
-                  .then((response) =>
-                    alert(response.identity.traits.accountKey)
-                  );
+                  .then((response) => {
+                    alert(response.identity.traits.accountKey);
+                    login();
+                    window.location.replace("/");
+                  });
               }}
             >
               Register

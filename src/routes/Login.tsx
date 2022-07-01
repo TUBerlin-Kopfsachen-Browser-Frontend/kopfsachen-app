@@ -21,6 +21,7 @@ import {
   useSafeLayoutEffect,
 } from "@chakra-ui/react";
 import LogoutButton from "../components/Logout";
+import { useStore } from "../store/isLoggedIn";
 
 const md5 = require("md5");
 
@@ -33,6 +34,7 @@ export default function Login() {
   } = useForm();
   const onSubmit = (data: any) => console.log(data);
   console.log(errors);
+  const login = useStore((s) => s.login);
 
   return (
     <Flex
@@ -80,6 +82,7 @@ export default function Login() {
                   )
                   .then((res) => {
                     if (res.status == 200) {
+                      login();
                       alert("success");
                       window.location.replace("/");
                     } else {
