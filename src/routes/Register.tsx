@@ -23,6 +23,7 @@ import {
 import LogoutButton from "../components/Logout";
 
 export default function Register() {
+  const [submittedData, setSubmittedData] = useState<FormData>();
   const {
     register,
     handleSubmit,
@@ -37,40 +38,56 @@ export default function Register() {
       align={"center"}
       justify={"center"}
       bg={useColorModeValue("gray.50", "gray.800")}
-      flexDirection="column"
     >
-      <Text>Register!</Text>
-      <Button
-        bg={"green.400"}
-        color={"white"}
-        _hover={{
-          bg: "green.400",
-        }}
-        onClick={() => {
-          fetch(`self-service/registration/browser`, {
-            headers: { Accept: "application/json" },
-          })
-            .then((res) => res.json())
-            .then((response) =>
-              fetch(`self-service/registration?flow=${response.id}`, {
-                method: "POST",
-                body: JSON.stringify({
-                  method: "password",
-                  csrf_token: response.ui.nodes[0].attributes.value,
-                }),
-                headers: {
-                  Accept: "application/json",
-                  "Content-Type": "application/json",
-                },
-              })
-            )
-            .then((res) => res.json())
-            .then((response) => alert(response.identity.traits.accountKey));
-        }}
-      >
-        Register
-      </Button>
-      <LogoutButton />
+      <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
+        <Stack align={"center"}>
+          <Heading fontSize={"4xl"}>Register a new account</Heading>
+          <Text fontSize={"lg"} color={"gray.600"}>
+            to use the Kopfsachen app!
+          </Text>
+        </Stack>
+        <Box
+          rounded={"lg"}
+          bg={useColorModeValue("white", "gray.700")}
+          boxShadow={"lg"}
+          p={8}
+        >
+          <Stack spacing={4}>
+            <Button
+              bg={"green.400"}
+              color={"white"}
+              _hover={{
+                bg: "green.400",
+              }}
+              onClick={() => {
+                fetch(`self-service/registration/browser`, {
+                  headers: { Accept: "application/json" },
+                })
+                  .then((res) => res.json())
+                  .then((response) =>
+                    fetch(`self-service/registration?flow=${response.id}`, {
+                      method: "POST",
+                      body: JSON.stringify({
+                        method: "password",
+                        csrf_token: response.ui.nodes[0].attributes.value,
+                      }),
+                      headers: {
+                        Accept: "application/json",
+                        "Content-Type": "application/json",
+                      },
+                    })
+                  )
+                  .then((res) => res.json())
+                  .then((response) =>
+                    alert(response.identity.traits.accountKey)
+                  );
+              }}
+            >
+              Register
+            </Button>
+          </Stack>
+        </Box>
+      </Stack>
     </Flex>
   );
 }

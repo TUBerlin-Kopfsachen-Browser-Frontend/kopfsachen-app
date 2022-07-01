@@ -19,6 +19,7 @@ import {
   FiChevronRight,
   FiShield,
 } from "react-icons/fi";
+import LogoutButton from "../components/Logout";
 
 export default function Profile() {
   return (
@@ -89,6 +90,7 @@ export default function Profile() {
               Settings{" "}
             </Button>
           </Link>
+          <LogoutButton />
         </Stack>
       </Flex>
     </Flex>
