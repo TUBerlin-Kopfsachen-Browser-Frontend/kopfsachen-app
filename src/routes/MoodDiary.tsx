@@ -32,7 +32,7 @@ import {
 } from "@chakra-ui/react";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import { FieldValues } from "react-hook-form";
-import { Header } from "../components/utils";
+import { ContentWrapper, Header } from "../components/utils";
 
 interface IEntry {
   type: string;
@@ -70,7 +70,6 @@ function SetMood({ onSubmit }: { onSubmit: (values: FieldValues) => void }) {
         onClick={onOpen}
         size={"lg"}
         height="70px"
-        width="350px"
         border="5px"
         bg={"green.400"}
         color="white"
@@ -130,49 +129,47 @@ var ReactCalendar = () => {
   if (entries) {
     console.log(entries);
     return (
-      <Center>
-        <Flex flexDirection="column">
-          <Stack spacing={20}>
-            <Calendar
-              onChange={onChange}
-              view={"month"}
-              value={date}
-              onClickDay={(value1, event) => {
-                console.log("clicked a day!");
-              }}
-              tileContent={({ date }) => {
-                for (let cur_entry of entries) {
-                  if (
-                    cur_entry.timestamp.split("T")[0] ===
-                    moment(date).format("YYYY-MM-DD")
-                  ) {
-                    if (cur_entry.type === "positive") {
-                      return <p>😄</p>;
-                    } else if (cur_entry.type === "neutral") {
-                      return <p>😐</p>;
-                    } else {
-                      return <p>😞</p>;
-                    }
+      <Flex flexDirection="column">
+        <Stack spacing={20}>
+          <Calendar
+            onChange={onChange}
+            view={"month"}
+            value={date}
+            onClickDay={(value1, event) => {
+              console.log("clicked a day!");
+            }}
+            tileContent={({ date }) => {
+              for (let cur_entry of entries) {
+                if (
+                  cur_entry.timestamp.split("T")[0] ===
+                  moment(date).format("YYYY-MM-DD")
+                ) {
+                  if (cur_entry.type === "positive") {
+                    return <p>😄</p>;
+                  } else if (cur_entry.type === "neutral") {
+                    return <p>😐</p>;
+                  } else {
+                    return <p>😞</p>;
                   }
                 }
-                return null;
-              }}
-              prevLabel={<Icon as={MdChevronLeft} w="24px" h="24px" mt="4px" />}
-              nextLabel={
-                <Icon as={MdChevronRight} w="24px" h="24px" mt="4px" />
               }
-            />
+              return null;
+            }}
+            prevLabel={<Icon as={MdChevronLeft} w="24px" h="24px" mt="4px" />}
+            nextLabel={
+              <Icon as={MdChevronRight} w="24px" h="24px" mt="4px" />
+            }
+          />
 
-            <SetMood
-              onSubmit={(values) => {
-                onSubmit(values).then(() => {
-                  fetchEntriesWrapper().then(setEntries);
-                });
-              }}
-            />
-          </Stack>
-        </Flex>
-      </Center>
+          <SetMood
+            onSubmit={(values) => {
+              onSubmit(values).then(() => {
+                fetchEntriesWrapper().then(setEntries);
+              });
+            }}
+          />
+        </Stack>
+      </Flex>
     );
   } else {
     console.log("NO ENTRIES");
@@ -182,12 +179,8 @@ var ReactCalendar = () => {
 
 export default function MoodDiary() {
   return (
-    <Flex direction="column">
-      <Box>
-        <Sidebar />
-      </Box>
-      <Header text='Mood diary'/>
+    <ContentWrapper headerProps={{text: 'Mood Diary'}}>
       <ReactCalendar />
-    </Flex>
+    </ContentWrapper>
   );
 }

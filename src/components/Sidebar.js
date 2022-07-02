@@ -76,9 +76,9 @@ export default function Sidebar() {
   return (
     <Flex
       pos="fixed"
-      left="5"
-      h={navSize === "small" ? "auto" : "95vh"}
-      marginTop="2.5vh"
+      left="25px"
+      top='25px'
+      bottom={navSize === 'small' ? 'unset' : '25px'}
       boxShadow="0 4px 12px 0 rgba(0, 0, 0, 0.25)"
       borderRadius={navSize === "small" ? "15px" : "30px"}
       w={navSize === "small" ? "75px" : "275px"}

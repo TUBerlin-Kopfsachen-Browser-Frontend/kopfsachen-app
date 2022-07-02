@@ -60,7 +60,7 @@ import {
   PopoverCloseButton,
   PopoverAnchor,
 } from "@chakra-ui/react";
-import { Header, useMobile } from '../components/utils';
+import { ContentWrapper, Header, useMobile } from '../components/utils';
 
 import i18n, { t } from "i18next";
 import { initReactI18next, useTranslation } from "react-i18next";
@@ -131,7 +131,7 @@ function AddItemView() {
 
   return (
     <Flex direction="column">
-      <Text fontSize={20} marginTop={mobile ? 5 : 20} marginBottom={5}>
+      <Text fontSize={20} marginBottom={5}>
         {" "}
         {t("happyMaker")}{" "}
       </Text>
@@ -354,23 +354,14 @@ function FrontPage() {
   if (items) {
     return (
       <Suspense fallback="Loading...">
-        <Flex>
-          <Flex
-            direction="column"
-            position={mobile ? "unset" : 'absolute'}
-            top={mobile ? "unset" : "10vh"}
-            left={mobile ? "unset" : "50vw"}
-            transform={mobile ? "unset" : "translate(-50%, -0%)"}
-            maxWidth={mobile ? 'calc(100vw - 40px)' : "800px"}
-            margin={mobile ? "20px" : "unset"}
-          >
+        <Flex direction="column" alignItems='center'>
             {!addItemClicked && (
-              <Text fontSize={20} marginTop={mobile ? 5 : 20} align={"center"} marginBottom={5}>
+              <Text fontSize={20} marginBottom={5} textAlign='center'>
                 {t("welcome")}
               </Text>
             )}
             {!addItemClicked && (
-              <Center flexDirection="column">
+              <>
                 <Flex
                   // className="container"
                   backgroundColor="white"
@@ -497,12 +488,11 @@ function FrontPage() {
                     Add item
                   </Button>
                 )}
-              </Center>
+              </>
             )}
             {addItemClicked && (
               <AddItemView />
             )}
-          </Flex>
         </Flex>
       </Suspense>
     );
@@ -518,13 +508,8 @@ function FrontPage() {
 
 export default function SafetyNet() {
   const { t } = useTranslation();
-  return (
-    <Flex direction="column">
-      <Box>
-        <Sidebar />
-      </Box>
-      <Header text={t('safetyNet')}/>
-      <FrontPage />
-    </Flex>
-  );
+  return <ContentWrapper headerProps={{text: t('safetyNet')}}>
+    <FrontPage />
+  </ContentWrapper>
+  
 }

@@ -1,5 +1,7 @@
-import { Flex, Text, Image } from "@chakra-ui/react";
+import { Flex, Text, Image, Box, Center } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
+import ReactCalendar from "react-calendar";
+import Sidebar from "./Sidebar";
 
 // functions and custom hook to toggle normal and mobile view
 // https://github.com/Nik-Sch/Rezeptbuch/blob/server/ui/client/src/components/helpers/CustomHooks.tsx#L27
@@ -33,25 +35,54 @@ export function useMobile() {
 
 export interface IHeaderProps {
     text: string;
-    image?: string;
+    // image?: string; // is the image required?
 }
 
 //header
 export function Header(props: IHeaderProps) {
     const mobile = useMobile();
+    const height = 100;
 
-    return <Flex
-        justifyContent='center'
-        alignItems='center'
-        flexDir={mobile ? 'column' : 'row'}
-        w="100%"
-        bgGradient='linear(to-r, neutral.500, green.600)'
-        padding='20px'
+    return <Box
+        height={`${height}px`}
         mb={mobile ? '25px' : '75px'}
+        zIndex={19} // 1 lower than sidebar
     >
-        <Text fontSize="40px" align="center" pl={mobile ? "80px" : "unset"} mr={mobile ? 'unset' : '10px'} color="white">
-            {props.text}
-        </Text>
-        {props.image && <Image src={props.image} alt={props.image} />}
+        <Flex
+            position='fixed'
+            height={`${height}px`}
+            w="100%"
+            bgGradient='linear(to-r, neutral.500, green.600)'
+            pt='20px' pb='20px'
+        >
+            <Flex
+                ml={mobile ? '50px' : '425px'} mr='25px'
+                justifyContent='center'
+                alignItems='center'
+                flexDir={mobile ? 'column' : 'row'}>
+                <Text fontSize='xx-large' align="center" pl={mobile ? "80px" : "unset"} mr={mobile ? 'unset' : '10px'} color="white">
+                    {props.text}
+                </Text>
+                {/* {props.image && <Image src={props.image} alt={props.image} />} */}
+            </Flex>
+        </Flex>
+    </Box>
+}
+
+export interface IContentProps {
+    children: JSX.Element;
+    headerProps: IHeaderProps;
+}
+
+export function ContentWrapper(props: IContentProps) {
+    const mobile = useMobile();
+    return <Flex direction="column">
+        <Box>
+            <Sidebar />
+        </Box>
+        <Header {...props.headerProps} />
+        <Box ml={mobile ? '25px' : '425px'} mr='25px' width={mobile ? 'calc(100vw - 50px)' : 'fit-content'}>
+            {props.children}
+        </Box>
     </Flex>
 }

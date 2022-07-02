@@ -13,11 +13,12 @@ import {
   Skeleton,
   Stack,
   Box,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import { ArrowBackIcon, SearchIcon } from "@chakra-ui/icons";
 import Sidebar from "../components/Sidebar";
 import bookshelf from "../bookshelf.png";
-import { Header, useMobile } from "../components/utils";
+import { ContentWrapper, Header, useMobile } from "../components/utils";
 
 // api response format as interface
 interface IEntry {
@@ -78,6 +79,7 @@ function FrontPage() {
   const [searchInput, setSearchInput] = useState<string>('');
   const [searchIsActive, setSearchIsActive] = useState(false);
   const mobile = useMobile();
+  const focusBorderColorScheme = useColorModeValue("neutral.700", "neutral.100");
 
   // to fetch data everytime the front page is loaded
   useEffect(() => {
@@ -150,7 +152,7 @@ function FrontPage() {
             />
             <Input
               placeholder="Search for entries"
-              focusBorderColor="teal.400"
+              focusBorderColor={focusBorderColorScheme}
               onChange={handleInput}
             />
           </InputGroup>
@@ -197,7 +199,7 @@ function FrontPage() {
             variant="ghost"
             flexShrink={0}
             marginRight={5}
-            colorScheme="blackAlpha"
+            colorScheme="neutral"
             leftIcon={<ArrowBackIcon />}
             onClick={() => setEntryToDisplay(undefined)}
           >
@@ -206,28 +208,22 @@ function FrontPage() {
           <EntryPage entry={entryToDisplay} />
         </Flex>
         {mobile && <Button
-            variant="ghost"
-            flexShrink={0}
-            marginRight={5}
-            colorScheme="blackAlpha"
-            leftIcon={<ArrowBackIcon />}
-            onClick={() => setEntryToDisplay(undefined)}
-          >
-            Back
-          </Button>}
+          variant="ghost"
+          flexShrink={0}
+          marginRight={5}
+          colorScheme="blackAlpha"
+          leftIcon={<ArrowBackIcon />}
+          onClick={() => setEntryToDisplay(undefined)}
+        >
+          Back
+        </Button>}
       </Flex>
     );
   }
 }
 
 export default function Wiki() {
-  return (
-    <Flex direction="column">
-      <Box>
-        <Sidebar />
-      </Box>
-      <Header text='Wiki'/>
-      <FrontPage />
-    </Flex>
-  );
+  return <ContentWrapper headerProps={{ text: 'Wiki' }}>
+    <FrontPage />
+  </ContentWrapper>
 }
