@@ -23,6 +23,7 @@ import meditation from "../../src/meditation.jpg";
 import { useNavigate } from "react-router-dom";
 import Logo from "../../src/net.png";
 import Logo1 from "../../src/situationskontrolle.png";
+import { Header } from "../components/utils";
 
 interface IEntry {
   id: string;
@@ -83,14 +84,11 @@ export default function Resources() {
       <Box>
         <Sidebar />
       </Box>
+      <Header text='My Resources' />
 
-      <Box w="100%" h="120px" bg="green.400">
-        <Text fontSize="40px" align="center" pt="50px" color="white">
-          {" "}
-          My Resources{" "}
-        </Text>
+      <Box maxWidth='800px' margin='auto'>
 
-        <Text fontSize={20} align="center" pt="100px" color={"gray.600"}>
+        <Text fontSize={20} align="center" color={"gray.600"}>
           You have already gatherd so many resources. If you want to work on
           your already existing ones, click on the button below.
         </Text>
@@ -103,7 +101,7 @@ export default function Resources() {
             color={"white"}
             top="13vh"
             size="lg"
-            onClick={() => navigate("/newresources")}
+            onClick={() => navigate("/resources/new")}
           >
             Discover New Resources!
           </Button>
@@ -112,7 +110,7 @@ export default function Resources() {
         <Center>
           <Stack direction="row" spacing={28} pt={"300px"}>
             <Button
-              onClick={() => navigate("/safetynet")}
+              onClick={() => navigate("/resources/safetynet")}
               variant="ghost"
               size="lg"
             >

@@ -32,37 +32,7 @@ import nummergegenkummer from "../nummergegenkummer.png";
 
 import { MdCheckCircle } from "react-icons/md";
 import { ChatIcon, EmailIcon, PhoneIcon } from "@chakra-ui/icons";
-import { useEffect, useState } from "react";
-
-// functions and custom hook to toggle normal and mobile view
-// https://github.com/Nik-Sch/Rezeptbuch/blob/server/ui/client/src/components/helpers/CustomHooks.tsx#L27
-function getWindowDimensions() {
-  const { innerWidth: width, innerHeight: height } = window;
-  return {
-    width,
-    height
-  };
-}
-
-export function useWindowDimensions() {
-  const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
-
-  useEffect(() => {
-    function handleResize() {
-      setWindowDimensions(getWindowDimensions());
-    }
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  return windowDimensions;
-}
-
-export function useMobile() {
-  const { width, height } = useWindowDimensions();
-  return width <= 815 || height <= 815;
-}
+import { Header, useMobile } from '../components/utils';
 
 export default function EmergencyNumbers() {
   const mobile = useMobile();
@@ -72,15 +42,10 @@ export default function EmergencyNumbers() {
         <Sidebar />
       </Box>
 
-      {/* <Box w="100%" h="600px"> */}
-        <Box w="100%" h={mobile ? '180px' : '200px'} bg="red.400">
-          <Text fontSize="40px" align="center" pl={mobile ? "80px" : "unset"} pt={mobile ? "18px" : "30px"} color="white">
-            External Help{" "}
-          </Text>
-          <Center>
-            <Image src={externhelp} alt="externhelp" />
-          </Center>
-        </Box>
+      <Header
+        text="External Help"
+        image={externhelp}
+      />
         <Flex
             direction="column"
             position={mobile ? "unset" : 'absolute'}
@@ -97,8 +62,8 @@ export default function EmergencyNumbers() {
 
           <List>
             <Center>
-              <ListItem fontSize={mobile ? 20 : 30} color="black" fontWeight="bold" pt="20px">
-                <ListIcon as={MdCheckCircle} color="red.400" />
+              <ListItem fontSize={mobile ? 20 : 30} color="black" fontWeight="semibold" pt="20px">
+                <ListIcon as={MdCheckCircle} color="success.500" />
                 Online Consultation
               </ListItem>
             </Center>
@@ -131,7 +96,7 @@ export default function EmergencyNumbers() {
                       <Link href="https://junoma-beratung.de/users/login">
                         <Button
                           leftIcon={<EmailIcon />}
-                          colorScheme="red"
+                          colorScheme="neutral"
                           variant="solid"
                           size="md"
                           height="48px"
@@ -145,7 +110,7 @@ export default function EmergencyNumbers() {
                       <Link href="https://chat.jugendnotmail.de/frontend/counselor_profiles?embed%5Banonymous_chat_token%5D=WQGcGzJhZ0DEwXPRpuWsnxVC8mElTtH2dCZiB4bAom3EVPzpNRBjDrL59LltSam2&embed%5Bdesign%5D=Mobile_Cleaner_834x696&embed%5Bembedding_site%5D=https%3A%2F%2Fjugendnotmail.de&embed%5Binstance_key%5D=4&embed%5Bpartner_key%5D=9b4aa0">
                         <Button
                           leftIcon={<ChatIcon />}
-                          colorScheme="red"
+                          colorScheme="neutral"
                           variant="solid"
                           height="48px"
                           width="300px"
@@ -176,7 +141,7 @@ export default function EmergencyNumbers() {
                       <Link href="https://api.whatsapp.com/send/?phone=4915735998143&text&app_absent=0">
                         <Button
                           leftIcon={<ChatIcon />}
-                          colorScheme="whatsapp"
+                          colorScheme="neutral"
                           variant="solid"
                           size="md"
                           height="48px"
@@ -190,7 +155,7 @@ export default function EmergencyNumbers() {
                       <Link href="mailto:yourmail@gmail.com">
                         <Button
                           leftIcon={<EmailIcon />}
-                          colorScheme="red"
+                          colorScheme="neutral"
                           variant="solid"
                           height="48px"
                           width="300px"
@@ -215,7 +180,7 @@ export default function EmergencyNumbers() {
                       <Link href="https://www.nummergegenkummer.de/onlineberatung/#/">
                         <Button
                           leftIcon={<ChatIcon />}
-                          colorScheme="red"
+                          colorScheme="neutral"
                           variant="solid"
                           size="md"
                           height="48px"
@@ -229,7 +194,7 @@ export default function EmergencyNumbers() {
                       <Link href="tel:11611">
                         <Button
                           leftIcon={<PhoneIcon />}
-                          colorScheme="red"
+                          colorScheme="neutral"
                           variant="solid"
                           height="48px"
                           width="300px"

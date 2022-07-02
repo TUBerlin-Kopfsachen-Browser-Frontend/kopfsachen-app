@@ -32,6 +32,7 @@ import {
 } from "@chakra-ui/react";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import { FieldValues } from "react-hook-form";
+import { Header } from "../components/utils";
 
 interface IEntry {
   type: string;
@@ -130,7 +131,7 @@ var ReactCalendar = () => {
     console.log(entries);
     return (
       <Center>
-        <Flex flexDirection="column" top="30vh" position="absolute">
+        <Flex flexDirection="column">
           <Stack spacing={20}>
             <Calendar
               onChange={onChange}
@@ -185,14 +186,8 @@ export default function MoodDiary() {
       <Box>
         <Sidebar />
       </Box>
-
-      <Box w="100%" h="120px" bg="green.400">
-        <Text fontSize="40px" align="center" pt="50px" color="white">
-          {" "}
-          Mood Diary{" "}
-        </Text>
-        <ReactCalendar />
-      </Box>
+      <Header text='Mood diary'/>
+      <ReactCalendar />
     </Flex>
   );
 }

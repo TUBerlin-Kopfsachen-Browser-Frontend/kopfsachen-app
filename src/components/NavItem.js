@@ -11,19 +11,22 @@ import {
   Link as ChakraLink,
   MenuButton,
   MenuList,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import NavHoverBox from "../components/NavHoverBox";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export default function NavItem({
   icon,
   title,
   description,
-  active,
+  // active,
   navSize,
   routeto,
   ...props
 }) {
+  const active = useLocation().pathname.startsWith(routeto);
+  const activeBackgroundColor = useColorModeValue("neutral.200", "neutral.900");
   return (
     <Flex
       mt={30}
@@ -35,10 +38,10 @@ export default function NavItem({
       <Menu placement="right">
         <Link to={routeto}>
           <ChakraLink
-            backgroundColor={active && "#AEC8CA"}
+            backgroundColor={active && activeBackgroundColor}
             p={3}
             borderRadius={8}
-            _hover={{ textDecor: "none", backgroundColor: "#AEC8CA" }}
+            _hover={{ textDecor: "none", backgroundColor:useColorModeValue("neutral.100", "neutral.800") }}
             w={navSize === "large" && "100%"}
           >
             <MenuButton w="100%">
@@ -46,9 +49,9 @@ export default function NavItem({
                 <Icon
                   as={icon}
                   fontSize="xl"
-                  color={active ? "#82AAAD" : "gray.500"}
+                  color={useColorModeValue("neutral.900","neutral.50")}
                 />
-                <Text ml={5} display={navSize === "small" ? "none" : "flex"}>
+                <Text ml={5} display={navSize === "small" ? "none" : "flex"} color={useColorModeValue("neutral.900", "neutral.50")}>
                   {title}
                 </Text>
               </Flex>

@@ -12,6 +12,7 @@ import {
   Heading,
   Link,
   Select,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import {
   FiMenu,
@@ -48,7 +49,6 @@ i18n.use(initReactI18next).init({
 
 export default function Sidebar() {
   const [navSize, changeNavSize] = useState("large");
-
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -79,12 +79,12 @@ export default function Sidebar() {
       left="5"
       h={navSize === "small" ? "auto" : "95vh"}
       marginTop="2.5vh"
-      boxShadow="0 4px 12px 0 rgba(0, 0, 0, 0.05)"
+      boxShadow="0 4px 12px 0 rgba(0, 0, 0, 0.25)"
       borderRadius={navSize === "small" ? "15px" : "30px"}
-      w={navSize === "small" ? "75px" : "250px"}
+      w={navSize === "small" ? "75px" : "275px"}
       flexDir="column"
       justifyContent="space-between"
-      backgroundColor="white"
+      backgroundColor={useColorModeValue("neutral.50", "neutral.700")}
       zIndex={20}
     >
       <Flex
@@ -93,6 +93,7 @@ export default function Sidebar() {
         w="100%"
         alignItems={navSize === "small" ? "center" : "flex-start"}
         as="nav"
+        // padding='5px'
       >
         <IconButton
           background="none"
@@ -111,7 +112,7 @@ export default function Sidebar() {
           icon={FiHome}
           title={t("home")}
           description="This is the description for the dashboard."
-          routeto="/"
+          routeto="/home"
         />
         <NavItem
           display={navIconDisplay}
@@ -153,6 +154,8 @@ export default function Sidebar() {
           marginTop={30}
           onChange={onChange}
           padding={"10px"}
+          _hover={{ textDecor: "none", backgroundColor:useColorModeValue("neutral.100", "neutral.800") }}
+          borderColor={useColorModeValue("neutral.50", "neutral.700")}
         >
           <option value="en">🇬🇧 English</option>
           <option value="de">🇩🇪 Deutsch</option>
@@ -169,7 +172,7 @@ export default function Sidebar() {
         mb={1}
         display={navSize === "small" ? "none" : "flex"}
       >
-        <ColorModeSwitcher justifySelf="flex-end" />
+        <ColorModeSwitcher justifySelf="flex-end"  _hover={{ textDecor: "none", backgroundColor: "neutral.100" }}/>
       </Flex>
 
       <Flex
@@ -193,7 +196,7 @@ export default function Sidebar() {
                 Maxi Mustermensch
               </Heading>
             </Link>
-            <Text color="gray">{t("username")}</Text>
+            <Text color={useColorModeValue("neutral.800", "neutral.100")}>{t("username")}</Text>
           </Flex>
         </Flex>
       </Flex>
