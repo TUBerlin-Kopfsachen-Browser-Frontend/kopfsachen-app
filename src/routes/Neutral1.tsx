@@ -43,6 +43,8 @@ export default function Neutral1(){
 
     const [show, setShow] = useState(false);
 
+    const [isFertigButton, setIsFertigButton] = useState(false);
+
     const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
     const { register, handleSubmit, setValue } = useForm<ISafteyNetItem>();
     const onSubmit: SubmitHandler<ISafteyNetItem> = data => axios.post(`http://127.0.0.1:4010/safetyNet/1`, data)
@@ -50,7 +52,7 @@ export default function Neutral1(){
     const { isOpen: isOpen1, onOpen: onOpen1, onClose: onClose1} = useDisclosure()
     const { isOpen: isOpen2, onOpen: onOpen2, onClose: onClose2} = useDisclosure()
 
-    const [nameInput1, setNameInput1] = useState<string>('');
+    const [nameInput1, setNameInput1] = useState<string[]>([]);
     const [nameInput2, setNameInput2] = useState<string>('');
     const [nameInput3, setNameInput3] = useState<string>('');
     const [strategyInput1, setStrategyInput1] = useState<string>('');
@@ -86,7 +88,14 @@ export default function Neutral1(){
            <Button onClick={onOpen1} className="button3" border-radius="50%" >+</Button>
 
            <Text className="ich">ICH</Text>
-           <Text className="text1">{nameInput1}</Text>
+
+           <Text className="text10">{nameInput1[0]}</Text>
+           <Text className="text11">{nameInput1[1]}</Text>
+           <Text className="text12">{nameInput1[2]}</Text>
+           <Text className="text13">{nameInput1[3]}</Text>
+           <Text className="text14">{nameInput1[4]}</Text>
+           <Text className="text15">{nameInput1[5]}</Text>
+
            <Text className="text2">{nameInput2}</Text>
            <Text className="text3">{nameInput3}</Text>
 
@@ -110,7 +119,9 @@ export default function Neutral1(){
                                     <ModalFooter>
                                         <Button onClick={() => {
                                             onClose();
-                                            setNameInput1(strategyInput1);
+                                            // setNameInput1(strategyInput1);
+                                            nameInput1.push(strategyInput1)
+                                            setIsFertigButton(true);
                                         }}
                                         type='submit' 
                                         isDisabled={isSubmitDisabled} 
@@ -151,6 +162,8 @@ export default function Neutral1(){
                                         <Button onClick={() => {
                                             onClose1();
                                             setNameInput2(strategyInput2);
+                                            setIsFertigButton(true);
+
                                         }}
                                         type='submit' 
                                         isDisabled={isSubmitDisabled} 
@@ -192,6 +205,8 @@ export default function Neutral1(){
                                         <Button onClick={() => {
                                             onClose2();
                                             setNameInput3(strategyInput3);
+                                            setIsFertigButton(true);
+
                                         }}
                                         type='submit' 
                                         isDisabled={isSubmitDisabled} 
@@ -210,7 +225,11 @@ export default function Neutral1(){
                             </ModalContent>
                         </ModalOverlay>
                     </Modal>
-        </Box>      
+
+                    
+        </Box>    
+        
+        {isFertigButton && <Button width={'140px'} backgroundColor={'#F3803E'} marginTop={'20px'} marginLeft={'45.5%'}>Done!</Button>}  
         </Box>
         </Box>
         </Flex>

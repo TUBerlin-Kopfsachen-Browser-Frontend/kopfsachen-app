@@ -80,11 +80,79 @@
   font-weight: bold;
 }
 
-.container .text1{
+.container .text10{
   position: absolute;
   display: flex;
-  top: 16%;
+  top: 12%;
   left: 120%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  color: rgb(0, 0, 0);
+  font-size: 10px;
+  width: 35px;
+  height: 23px;
+  font-weight: bold;
+  border-radius: 16px;
+  align-items: center;
+}
+
+.container .text11{
+  position: absolute;
+  display: flex;
+  top: 25%;
+  left: 138%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  color: rgb(0, 0, 0);
+  font-size: 10px;
+  width: 10px;
+  height: 38px;
+  font-weight: bold;
+}
+.container .text12{
+  position: absolute;
+  display: flex;
+  top: 54%;
+  left: 145%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  color: rgb(0, 0, 0);
+  font-size: 10px;
+  width: 10px;
+  height: 38px;
+  font-weight: bold;
+}
+.container .text13{
+  position: absolute;
+  display: flex;
+  top: 92%;
+  left: 129%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  color: rgb(0, 0, 0);
+  font-size: 10px;
+  width: 10px;
+  height: 38px;
+  font-weight: bold;
+}
+.container .text14{
+  position: absolute;
+  display: flex;
+  top: 80%;
+  left: 110%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  color: rgb(0, 0, 0);
+  font-size: 10px;
+  width: 10px;
+  height: 38px;
+  font-weight: bold;
+}
+.container .text15{
+  position: absolute;
+  display: flex;
+  top: 55%;
+  left: 105%;
   transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
   color: rgb(0, 0, 0);
