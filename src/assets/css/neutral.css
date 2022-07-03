@@ -1,46 +1,203 @@
-/* Container needed to position the button. Adjust the width as needed */
 .container {
   position: relative;
-  width: 50%;
+  width: 35%;
 }
 
 /* Make the image responsive */
 .container img {
-  width: 100%;
   height: auto;
+  min-width: 300px;
+  max-width: 300px;
+
 }
 
 /* Style the button and place it in the middle of the container/image */
-.container .btn1 {
+.container .button1 {
   position: absolute;
-  top: 50%;
-  left: 50%;
+  display: flex;
+  top: 60%;
+  left: 120%;
   transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
-  background-color: #555;
-  color: white;
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
   font-size: 16px;
-  padding: 12px 24px;
-  border: none;
+  /* padding: 12px 12px; */
+  border: 2px solid black;
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: 50%;
+  width: 10px;
+  height: 38px;
 }
 
-.container .btn2 {
+.container .button2 {
   position: absolute;
-  top: 10%;
-  left: 30%;
+  display: flex;
+  top: 23%;
+  left: 112%;
   transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
-  background-color: #555;
-  color: white;
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
   font-size: 16px;
-  padding: 12px 24px;
-  border: none;
+  /* padding: 12px 12px; */
+  border: 2px solid black;
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: 50%;
+  width: 10px;
+  height: 38px;
 }
 
-.container .btn:hover {
-  background-color: black;
+.container .button3 {
+  position: absolute;
+  display: flex;
+  top: 58%;
+  left: 140%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+  font-size: 16px;
+  /* padding: 12px 12px; */
+  border: 2px solid black;
+  cursor: pointer;
+  border-radius: 50%;
+  width: 10px;
+  height: 38px;
+}
+
+.container .ich {
+  position: absolute;
+  display: flex;
+  top: 52.8%;
+  left: 124.8%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  color: rgb(0, 0, 0);
+  font-size: 16px;
+  width: 10px;
+  height: 38px;
+  font-weight: bold;
+}
+
+.container .text10{
+  position: absolute;
+  display: flex;
+  top: 12%;
+  left: 120%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  color: rgb(0, 0, 0);
+  font-size: 10px;
+  width: 35px;
+  height: 23px;
+  font-weight: bold;
+  border-radius: 16px;
+  align-items: center;
+}
+
+.container .text11{
+  position: absolute;
+  display: flex;
+  top: 25%;
+  left: 138%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  color: rgb(0, 0, 0);
+  font-size: 10px;
+  width: 10px;
+  height: 38px;
+  font-weight: bold;
+}
+.container .text12{
+  position: absolute;
+  display: flex;
+  top: 54%;
+  left: 145%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  color: rgb(0, 0, 0);
+  font-size: 10px;
+  width: 10px;
+  height: 38px;
+  font-weight: bold;
+}
+.container .text13{
+  position: absolute;
+  display: flex;
+  top: 92%;
+  left: 129%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  color: rgb(0, 0, 0);
+  font-size: 10px;
+  width: 10px;
+  height: 38px;
+  font-weight: bold;
+}
+.container .text14{
+  position: absolute;
+  display: flex;
+  top: 80%;
+  left: 110%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  color: rgb(0, 0, 0);
+  font-size: 10px;
+  width: 10px;
+  height: 38px;
+  font-weight: bold;
+}
+.container .text15{
+  position: absolute;
+  display: flex;
+  top: 55%;
+  left: 105%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  color: rgb(0, 0, 0);
+  font-size: 10px;
+  width: 10px;
+  height: 38px;
+  font-weight: bold;
+}
+
+.container .text2{
+  position: absolute;
+  display: flex;
+  top: 30%;
+  left: 132%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  color: rgb(0, 0, 0);
+  font-size: 10px;
+  width: 10px;
+  height: 38px;
+  font-weight: bold;
+}
+
+.container .text3{
+  position: absolute;
+  display: flex;
+  top: 40%;
+  left: 122%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  color: rgb(0, 0, 0);
+  font-size: 10px;
+  width: 10px;
+  height: 38px;
+  font-weight: bold;
+}
+
+.ausereText{
+  color: #9863f3;
+}
+
+.mittlereText{
+  color: #e95575;
+}
+
+.innereText{
+  color: #f1742b;
 }
