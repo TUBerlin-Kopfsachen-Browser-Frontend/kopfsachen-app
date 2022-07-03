@@ -24,6 +24,27 @@ import { useNavigate } from "react-router-dom";
 import Logo from "../../src/net.png";
 import Logo1 from "../../src/situationskontrolle.png";
 
+import i18n, { t } from "i18next";
+import { initReactI18next, useTranslation } from "react-i18next";
+import {
+  translationsEn,
+  translationsTr,
+  translationsDe,
+  translationsAl,
+} from "../components/translationText";
+
+i18n.use(initReactI18next).init({
+  resources: {
+    en: { translation: translationsEn },
+    tr: { translation: translationsTr },
+    de: { translation: translationsDe },
+    al: { translation: translationsAl },
+  },
+  lng: "en",
+  fallbackLng: "en",
+  interpolation: { escapeValue: false },
+});
+
 interface IEntry {
   id: string;
   type: string;
@@ -55,6 +76,7 @@ function Motivator() {
   const [entryToDisplay, setEntryToDisplay] = useState<IEntry>();
   const [entries, setEntries] = useState<IEntry[]>([]);
 
+
   useEffect(() => {
     const baseUrl = "http://127.0.0.1:4010"; // localhost + port as base url
     const userId = 1; // random entry id
@@ -77,13 +99,14 @@ function Motivator() {
 
 export default function Resources() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
     <Flex direction="column">
       <Box>
         <Sidebar />
       </Box>
-
+      
       <Box w="100%" h="120px" bg="green.400">
         <Text fontSize="40px" align="center" pt="50px" color="white">
           {" "}
@@ -91,10 +114,9 @@ export default function Resources() {
         </Text>
 
         <Text fontSize={20} align="center" pt="100px" color={"gray.600"}>
-          You have already gatherd so many resources. If you want to work on
-          your already existing ones, click on the button below.
+        {t("resources1")}
         </Text>
-
+        
         <Center>
           <Button
             textAlign="center"

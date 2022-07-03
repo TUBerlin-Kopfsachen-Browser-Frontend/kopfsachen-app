@@ -23,7 +23,10 @@ export const translationsEn = {welcome: "Which persons or activities make you ha
                         resources: "Resources",
                         emergencyNumbers: "Emergency Numbers",
                         settings: "Settings",
-                        username: "Username"
+                        username: "Username",
+
+                        // Resources----------------------------
+                        resources1: "You have already gathered so many resources. If you want to work on your already existing ones, click on the button below."
                     
                     }
 
@@ -52,7 +55,10 @@ export const translationsTr = {
                         resources: "Kaynaklar",
                         emergencyNumbers: "Acil durum numaraları",
                         settings: "Ayarlar",
-                        username: "Kullanıcı Adı"
+                        username: "Kullanıcı Adı",
+
+                        // Resources----------------------------
+                        resources1: "Zaten çoktan bir sürü kaynak toparladın. Önceden oluşturduklarınla çalışmak istiyorsan, aşağıdaki butona tikla."
                     
                     }
 
@@ -80,7 +86,10 @@ export const translationsAl = {welcome: "Welche Personen oder Aktivitäten berei
                         resources: "Resources",
                         emergencyNumbers: "Emergency Numbers",
                         settings: "Settings",
-                        username: "username"
+                        username: "username",
+
+                        // Resources----------------------------
+                        resources1: "You have already gathered so many resources. If you want to work on your already existing ones, click on the button below."
                         }
 
 export const translationsDe = {welcome: "Welche Personen oder Aktivitäten bereiten dir im Alltag Freude und geben dir Antrieb?",
@@ -107,5 +116,8 @@ export const translationsDe = {welcome: "Welche Personen oder Aktivitäten berei
                         resources: "Resources",
                         emergencyNumbers: "Emergency Numbers",
                         settings: "Settings",
-                        username: "username"
+                        username: "username",
+
+                        // Resources----------------------------
+                        resources1: "You have already gathered so many resources. If you want to work on your already existing ones, click on the button below."
                         }
