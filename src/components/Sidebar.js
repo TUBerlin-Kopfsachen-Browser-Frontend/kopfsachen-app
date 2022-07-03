@@ -2,7 +2,6 @@
 // https://github.com/bjcarlson42/chakra-left-responsive-navbar
 // 12.05.2022
 
-import React from 'react';
 import { useEffect, useMemo, useState } from "react";
 import {
   Flex,

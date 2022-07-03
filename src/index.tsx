@@ -5,7 +5,7 @@ import { App } from "./App";
 import reportWebVitals from "./reportWebVitals";
 import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-//import Wiki from "./routes/wiki";
+import Wiki from "./routes/wiki";
 import MoodDiary from "./routes/MoodDiary";
 import Resources from "./routes/Resources";
 import EmergencyNumbers from "./routes/EmergencyNumbers";
@@ -19,12 +19,6 @@ import Profile from "./routes/Profile";
 import Register from "./routes/Register";
 import Login from "./routes/Login";
 import Neutral1 from "./routes/Neutral1";
-import Optimism from "./routes/Optimism";
-import Optimism1 from "./routes/Optimism1";
-import Optimism2 from "./routes/Optimism2";
-import Optimism3 from "./routes/Optimism3";
-import Wiki from "./routes/wiki";
-
 
 ReactDOM.render(
   <React.StrictMode>
@@ -34,10 +28,6 @@ ReactDOM.render(
         <Routes>
           <Route path="/" element={<App />} />
           <Route path="mooddiary" element={<MoodDiary />} />
-          <Route path="optimism" element={<Optimism />} />
-          <Route path="optimism1" element={<Optimism1 />} />
-          <Route path="optimism2" element={<Optimism2 hours={0} minutes={10} seconds={0} />} />
-          <Route path="optimism3" element={<Optimism3 />} />
           <Route path="wiki" element={<Wiki />} />
           <Route path="resources" element={<Resources />} />
           <Route path="emergencynumbers" element={<EmergencyNumbers />} />
