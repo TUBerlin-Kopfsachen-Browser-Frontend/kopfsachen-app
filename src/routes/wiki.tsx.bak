@@ -1,42 +1,36 @@
 import { useEffect, useState } from "react"
-import React, { Component }  from 'react';
-import { ChakraProvider, Text, Link, theme, Flex, Heading, Input, InputGroup, InputLeftElement, Button, Skeleton, Stack, Box, } from "@chakra-ui/react"
+import {
+    ChakraProvider,
+    Box,
+    Text,
+    Link,
+    VStack,
+    Code,
+    Grid,
+    theme,
+    Flex,
+    Center,
+    Button,
+} from "@chakra-ui/react"
+import { Heading, Input, InputGroup, InputLeftElement, Skeleton, } from "@chakra-ui/react"
 import { ArrowBackIcon, SearchIcon } from "@chakra-ui/icons"
 import Sidebar from "../components/Sidebar"
 import bookshelf from "../bookshelf.png"
 
 // api response format as interface
 interface IEntry {
-    // id: string;
+    id: string;
     title: string;
-    // contents: {
-    //     content: string;
-    //     type: string;
-    // }[];
-    content: string[];
+    contents: {
+        content: string;
+        type: string;
+    }[];
 }
 
 interface IEntryPageProps {
     entry: IEntry;
 }
 
-// interface IContent {
-//     type: string;
-//     content: string;
-// }
-
-const renderContentElement = (contentElement: string, index: number, contents: string[]) => {
-    // if (contentElement.type === 'text') {
-    //     return (
-    //         <Link href={contents[index].content} color='teal.500' isExternal>
-    //             {contents[index].content.concat(' ')}
-    //         </Link>
-    //     );
-    // }
-    return contents[index].concat(' ');
-}
-
-// should display entry that has been clicked
 function EntryPage(props: IEntryPageProps) {
     return (
         <Flex flexDirection='column'>
@@ -47,14 +41,10 @@ function EntryPage(props: IEntryPageProps) {
                 </Heading>
             </Flex>
             <Text>
-                {(props.entry.content).map(renderContentElement)}
+                {(props.entry.contents).map(renderContentElement)}
             </Text>
         </Flex>
     );
-}
-
-const sortEntriesByTitle = (x: IEntry, y: IEntry) => {
-    return x.title.localeCompare(y.title);
 }
 
 function FrontPage() {
@@ -65,13 +55,13 @@ function FrontPage() {
     // to fetch data everytime the front page is loaded
     useEffect(() => {
         const baseUrl = "http://127.0.0.1:4010"; // localhost + port as base url
-        // const wikiEntryId = "Lorem ipsum"; // random entry id
+        const wikiEntryId = "Lorem ipsum"; // random entry id
         const fetchEntriesWrapper = async () => {
-            const fetchEntries = await fetch(`${baseUrl}/wiki`);
+            const fetchEntries = await fetch(`${baseUrl}/wiki/${wikiEntryId}`);
             if (fetchEntries.ok) {
                 const entriesData = await fetchEntries.json();
                 if (entriesData.length > 0) {
-                    setEntries(entriesData.sort(sortEntriesByTitle)); // sort entries by title before storing
+                    setEntries(entriesData);
                 }
             } else {
                 console.log("Failed to fetch wiki entries.");
@@ -88,7 +78,7 @@ function FrontPage() {
     const renderEntry = (entry: IEntry, index: number, entries: IEntry[]) => {
         let displayInitial = (index === 0 || entries[index - 1].title[0]?.toLowerCase() !== entries[index].title[0]?.toLowerCase());
         return (
-            <Flex key={entry.title[0].concat(`${index}`)} flexDirection='column'>
+            <Flex key={entry.id} flexDirection='column'>
                 <Heading marginTop={4} size='I'>
                     {displayInitial && entries[index].title[0]?.toUpperCase()}
                 </Heading>
@@ -117,17 +107,17 @@ function FrontPage() {
     if (typeof entryToDisplay === 'undefined') { // front page
         let filteredEntries = entries.filter(filterEntry).map(renderEntry);
         return (
-            <Flex direction={'row'}>
-            
+            <Flex>
+                <Sidebar />
                 <Flex
                     flexDirection='column'
                     position='absolute'
-                    top='28vh'
-                    left='57vw'
+                    top='10vh'
+                    left='50vw'
                     transform="translate(-50%, -0%)"
                     maxWidth='800px'
                 >
-                  
+                    <Heading marginBottom={10}> Wiki </Heading>
                     <img src={bookshelf} alt='book shelf' width='400px'></img>
                     <InputGroup>
                         <InputLeftElement
@@ -156,12 +146,12 @@ function FrontPage() {
     } else { // entry page
         return (
             <Flex>
-                {/* <Sidebar /> */}
+                <Sidebar />
                 <Flex>
                     <Flex
                         fontSize='large'
                         position='absolute'
-                        top='20vh'
+                        top='10vh'
                         left='50vw'
                         transform="translate(-50%, -0%)"
                         maxWidth='800px'
@@ -187,15 +177,6 @@ function FrontPage() {
 export default function Wiki() {
     return (
         <ChakraProvider theme={theme}>
-            <Stack direction={['row']} spacing='275px'>
-                    <Box >
-                        <Sidebar />
-                    </Box>
-
-                    <Box w='100%' h='120px'  bg='green.400'>
-                        <Text fontSize='40px' align='center' pt='50px' color='white'>Wiki </Text>
-                    </Box>
-            </Stack>
             <FrontPage />
         </ChakraProvider>
     );
