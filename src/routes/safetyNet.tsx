@@ -230,6 +230,7 @@ function AddItemView() {
                 }, 0);
               }}
               marginRight={3}
+              marginBottom={mobile ? '25px' : 'unset'}
               colorScheme="primary"
               whiteSpace={mobile ? 'initial' : 'unset'}
               isDisabled={
@@ -244,6 +245,7 @@ function AddItemView() {
           <Button
             onClick={onOpen}
             marginRight={3}
+            marginBottom={mobile ? '25px' : 'unset'}
             colorScheme="success"
             whiteSpace={mobile ? 'initial' : 'unset'}
             isDisabled={
@@ -480,6 +482,7 @@ function FrontPage() {
                 {!addItemClicked && (
                   <Button
                     mt={5}
+                    mb={mobile ? '25px' : 'unset'}
                     colorScheme="primary"
                     aria-label="Add item"
                     leftIcon={<AddIcon />}
