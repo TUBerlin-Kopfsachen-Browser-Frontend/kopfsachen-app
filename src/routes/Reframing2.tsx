@@ -39,6 +39,7 @@ import axios from "axios";
 
 import i18n, { t } from "i18next";
 import { initReactI18next, useTranslation } from "react-i18next";
+import { ContentWrapper, useMobile } from "../components/utils";
 
 interface IResources {
   feedback: boolean;
@@ -49,7 +50,7 @@ export default function ReframingText() {
   const { title1, text1 } = data1;
   const { title2, text2 } = data2;
   const { title3, text3 } = data3;
-
+  const mobile = useMobile();
   const navigate = useNavigate();
   const { register, handleSubmit, setValue } = useForm<IResources>();
   const onSubmit: SubmitHandler<IResources> = (data) =>
@@ -61,32 +62,21 @@ export default function ReframingText() {
   const [isNavReady, setIsNavReady] = useState(false);
 
   return (
-    <Flex direction="column">
-      <SimpleGrid>
-        <Stack direction={["row"]} spacing="25px">
-          <Box>
-            <Sidebar />
-          </Box>
-          <Box paddingTop={"40px"}>
-            <Card title={title} text={text} />
-            <br></br>
-            <Card title={title1} text={text1} />
-          </Box>
-          <Box paddingTop={"40px"}>
-            <Card title={title2} text={text2} />
-            <br></br>
-            <Card title={title3} text={text3} />
-          </Box>
-        </Stack>
-        <Center paddingTop={"30px"}>
+    <ContentWrapper headerProps={{ text: 'Reframing' }}>
+    <Flex direction="column" alignItems='center'>
+        <Flex direction="row" wrap='wrap'>
+            <Card title={title} text={text} width={mobile ? '100%' : '400px'}/>
+            <Card title={title1} text={text1} width={mobile ? '100%' : '400px'}/>
+            <Card title={title2} text={text2} width={mobile ? '100%' : '400px'}/>
+            <Card title={title3} text={text3} width={mobile ? '100%' : '400px'}/>
+        </Flex>
+      
           <Button
             onClick={onOpen}
-            h={"50px"}
-            w={"40%"}
-            display={"inline-block"}
-            colorScheme="teal"
-            variant="solid"
-            size="lg"
+            mb='25px'
+            mt={3}
+            colorScheme="success"
+            whiteSpace={mobile ? 'initial' : 'unset'}
           >
             Ich bin zu einer neuen Bewertung der Situationen gekommen.
           </Button>
@@ -94,7 +84,7 @@ export default function ReframingText() {
             <ModalOverlay>
               <ModalContent>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                  <ModalHeader fontSize="lg" fontWeight="bold"></ModalHeader>
+                  <ModalHeader fontSize="lg" fontWeight="bold"> How did you like this exercise? </ModalHeader>
 
                   <ModalBody>
                     <Stack direction="row" spacing={3}>
@@ -145,9 +135,9 @@ export default function ReframingText() {
               </ModalContent>
             </ModalOverlay>
           </Modal>
-        </Center>
-      </SimpleGrid>
+
     </Flex>
+    </ContentWrapper>
   );
 }
 

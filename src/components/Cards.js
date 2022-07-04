@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 
 function Card(props) {
-  const { title, text } = props;
+  const { title, text, width } = props;
 
   return (
     <Box
@@ -20,6 +20,7 @@ function Card(props) {
       maxWidth="30rem"
       borderWidth={2}
       margin={2}
+      width={width}
     >
       <Stack
         align={{ base: "center", md: "stretch" }}

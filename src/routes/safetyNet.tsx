@@ -60,7 +60,7 @@ import {
   PopoverCloseButton,
   PopoverAnchor,
 } from "@chakra-ui/react";
-import { ContentWrapper, Header, useMobile } from '../components/utils';
+import { ContentWrapper, useMobile } from '../components/utils';
 
 import i18n, { t } from "i18next";
 import { initReactI18next, useTranslation } from "react-i18next";
@@ -137,7 +137,7 @@ function AddItemView() {
       </Text>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Input
-          focusBorderColor={useColorModeValue("neutral.600", "neutral.100")}
+          focusBorderColor={useColorModeValue("neutral.400", "neutral.100")}
           {...register("name")}
           onChange={handleItemInput}
           value={nameInput}
@@ -199,21 +199,21 @@ function AddItemView() {
             <Input
               {...register(`strategies.0`)}
               placeholder="first"
-              focusBorderColor={useColorModeValue("neutral.600", "neutral.100")}
+              focusBorderColor={useColorModeValue("neutral.400", "neutral.100")}
               value={strategyInput1}
               onChange={(e: any) => setStrategyInput1(e.target.value)}
             />
             <Input
               {...register(`strategies.1`)}
               placeholder="second"
-              focusBorderColor={useColorModeValue("neutral.600", "neutral.100")}
+              focusBorderColor={useColorModeValue("neutral.400", "neutral.100")}
               value={strategyInput2}
               onChange={(e: any) => setStrategyInput2(e.target.value)}
             />
             <Input
               {...register(`strategies.2`)}
               placeholder="third"
-              focusBorderColor={useColorModeValue("neutral.600", "neutral.100")}
+              focusBorderColor={useColorModeValue("neutral.400", "neutral.100")}
               value={strategyInput3}
               onChange={(e: any) => setStrategyInput3(e.target.value)}
             />

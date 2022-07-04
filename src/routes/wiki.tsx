@@ -186,15 +186,6 @@ function FrontPage() {
     // entry page
     return (
       <Flex>
-        <Flex
-          fontSize="large"
-          position="absolute"
-          top={mobile ? "unset" : "20vh"}
-          left={mobile ? "unset" : "50vw"}
-          transform={mobile ? "unset" : "translate(-50%, -0%)"}
-          margin={mobile ? "40px" : "unset"}
-          maxWidth="800px"
-        >
           {!mobile && <Button
             variant="ghost"
             flexShrink={0}
@@ -206,7 +197,7 @@ function FrontPage() {
             Back
           </Button>}
           <EntryPage entry={entryToDisplay} />
-        </Flex>
+        
         {mobile && <Button
           variant="ghost"
           flexShrink={0}

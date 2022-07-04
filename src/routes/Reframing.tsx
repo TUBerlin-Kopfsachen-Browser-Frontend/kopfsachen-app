@@ -19,83 +19,50 @@ import {
 import { useNavigate } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import { AspectRatio } from "@chakra-ui/react";
+import { ContentWrapper, useMobile } from "../components/utils";
 
 export default function New() {
   const navigate = useNavigate();
-
+  const mobile = useMobile();
   return (
-    <Flex direction="column">
-      <Sidebar />
-
-      <Button
-        marginLeft={270}
-        colorScheme="teal"
-        variant="ghost"
-        onClick={() => navigate("/newresources")}
-      >
-        ← Back
-      </Button>
-
-      <Flex
-        flexDirection="column"
-        position="absolute"
-        top="5vh"
-        left="50vw"
-        transform="translate(-50%, -10%)"
-        maxWidth="800px"
-      >
-        <Stack>
-          <Box>
-            <Heading fontSize={{ base: "3xl", md: "4xl", lg: "5xl" }}>
-              <Text color={"green.400"} pl={"370px"} pt={"80px"}>
-                Reframing
-              </Text>
-            </Heading>
-
-            <Text
-              fontSize={{ base: "md", lg: "4xl" }}
-              color={"white"}
-              pt={"90px"}
-              pl={"300px"}
+    <ContentWrapper headerProps={{text: 'Reframing'}}>
+    <Flex flexDirection='column'>
+      {/* <Button
+            marginLeft={270}
+            colorScheme="teal"
+            variant="ghost"
+            onClick={() => navigate("/newresources")}
             >
-              Find out what's behind it!
-            </Text>
-          </Box>
-
-          <Stack>
-            <AspectRatio
-              maxW="560px"
-              ratio={1}
-              pt={"200px"}
-              ml={"230px"}
-              pr={"580px"}
-            >
-              <iframe
-                title="reframe"
-                src="https://www.youtube-nocookie.com/embed/sOwtIkAO3ZI"
-                allowFullScreen
-              />
-            </AspectRatio>
-          </Stack>
-
-          <Stack spacing={8} direction="row" align="center"></Stack>
-          <Center>
-            <Stack direction="row" spacing={20} pl={"180px"} pt={"80px"}>
-              <Button colorScheme="teal" variant="solid" size="lg">
-                Choose another strategy
-              </Button>
-              <Button
-                colorScheme="teal"
-                variant="outline"
-                size="lg"
-                onClick={() => navigate("/resources/reframing1")}
-              >
-                I want to practice that
-              </Button>
-            </Stack>
-          </Center>
-        </Stack>
-      </Flex>
+              ← Back
+            </Button> */}
+      <Text fontSize={20} mb={5}>
+        Find out what's behind it!
+      </Text>
+      <Stack>
+        <AspectRatio
+          ratio={16/9}
+        >
+          <iframe
+            title="reframe"
+            src="https://www.youtube-nocookie.com/embed/sOwtIkAO3ZI"
+            allowFullScreen
+          />
+        </AspectRatio>
+      </Stack>
+      <Flex flexDirection="row" justifyContent='space-evenly'>
+          <Button colorScheme="warning" mr={3} mt={10} whiteSpace={mobile ? 'initial' : 'unset'}>
+            Choose another strategy
+          </Button>
+          <Button
+            colorScheme="success"
+            onClick={() => navigate("/resources/reframing1")}
+            whiteSpace={mobile ? 'initial' : 'unset'}
+            mt={10}
+          >
+            I want to practice that
+          </Button>
+        </Flex>
     </Flex>
+    </ContentWrapper>
   );
 }
