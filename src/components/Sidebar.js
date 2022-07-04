@@ -175,7 +175,7 @@ export default function Sidebar() {
         mb={1}
         display={navSize === "small" ? "none" : "flex"}
       >
-        <ColorModeSwitcher justifySelf="flex-end"  _hover={{ textDecor: "none", backgroundColor: "neutral.100" }}/>
+        <ColorModeSwitcher justifySelf="flex-end"  _hover={{ textDecor: "none", backgroundColor:useColorModeValue("neutral.100", "neutral.800") }}/>
       </Flex>
 
       <Flex
