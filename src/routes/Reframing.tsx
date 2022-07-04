@@ -88,7 +88,7 @@ export default function New() {
                 colorScheme="teal"
                 variant="outline"
                 size="lg"
-                onClick={() => navigate("/reframing1")}
+                onClick={() => navigate("/resources/reframing1")}
               >
                 I want to practice that
               </Button>

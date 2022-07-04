@@ -72,7 +72,7 @@ export default function Wiki() {
                 size='lg' 
                 bg={'#F5F500'}
                 top={8} 
-                onClick={() => navigate('/optimism1')}
+                onClick={() => navigate('/resources/optimism1')}
                 >
                 Let's go!
         </Button>

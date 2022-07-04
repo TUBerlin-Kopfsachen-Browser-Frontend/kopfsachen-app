@@ -38,7 +38,7 @@ interface ISafteyNetItem {
   }[];
 }
 
-export default function Neutral1(){
+export default function SocialSupport(){
 
     const [isText, setIsText] = useState(false);
     const navigate = useNavigate();

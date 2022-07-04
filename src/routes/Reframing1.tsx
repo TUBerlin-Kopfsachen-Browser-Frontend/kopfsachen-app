@@ -111,7 +111,7 @@ export default function New() {
                   variant="solid"
                   size="lg"
                   type="submit"
-                  onClick={() => navigate("/Reframing2")}
+                  onClick={() => navigate("/resources/reframing2")}
                 >
                   These are all the situation that are bothering me at the
                   moment

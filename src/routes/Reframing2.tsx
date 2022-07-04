@@ -126,7 +126,7 @@ export default function ReframingText() {
                       mr={3}
                       onClick={() => {
                         onClose();
-                        // navigate('/Resources')
+                        navigate('/resources')
                         setIsNavReady(true);
                       }}
                     >

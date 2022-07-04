@@ -18,7 +18,7 @@ import Reframing2 from "./routes/Reframing2";
 import Profile from "./routes/Profile";
 import Register from "./routes/Register";
 import Login from "./routes/Login";
-import Neutral1 from "./routes/Neutral1";
+import SocialSupport from "./routes/SocialSupport";
 import Optimism from "./routes/Optimism";
 import Optimism1 from "./routes/Optimism1";
 import Optimism2 from "./routes/Optimism2";
@@ -43,16 +43,17 @@ ReactDOM.render(
           <Route path="/resources/reframing1" element={<Reframing1 />} />
           <Route path="/resources/reframing2" element={<Reframing2 />} />
           <Route path="/resources/new" element={<NewResources />} />
+          <Route path="/resources/optimism" element={<Optimism />} />
+          <Route path="/resources/optimism1" element={<Optimism1 />} />
+          <Route path="/resources/optimism2" element={<Optimism2 hours={0} minutes={10} seconds={0} />} />
+          <Route path="/resources/optimism3" element={<Optimism3 />} />
+          <Route path="/resources/socialsupport" element={<SocialSupport />} />
           <Route path="emergencynumbers" element={<EmergencyNumbers />} />
           <Route path="settings" element={<Settings />} />
           <Route path="register" element={<Register />} />
           <Route path="login" element={<Login />} />
           <Route path="profile" element={<Profile />} />
-          <Route path="neutral1" element={<Neutral1 />} />
-          <Route path="optimism" element={<Optimism />} />
-          <Route path="optimism2" element={<Optimism2 hours={0} minutes={10} seconds={0} />} />
-          <Route path="optimism3" element={<Optimism3 />} />
-          <Route path="optimism1" element={<Optimism1 />} />
+          <Route path="neutral1" element={<SocialSupport />} />
         </Routes>
       </BrowserRouter>
     </ChakraProvider>

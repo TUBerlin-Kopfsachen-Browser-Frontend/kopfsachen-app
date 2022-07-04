@@ -77,7 +77,7 @@ const CountDownTimer = ({ hours = 0, minutes = 0, seconds = 60 }: ICountdown) =>
               <Image src={sun} alt="sun" width='80px' />
             </Center>
             <Button  colorScheme='yellow' variant='ghost' pl='300px' onClick={() => navigate
-                    ('/optimism1')}>
+                    ('/resources/optimism1')}>
                         ← Back 
                 </Button>
 
@@ -109,7 +109,7 @@ const CountDownTimer = ({ hours = 0, minutes = 0, seconds = 60 }: ICountdown) =>
             <Box pt='20px'>
       <Center>
 
-        <Button onClick={() => navigate('/optimism3')}   display={'inline-block'} colorScheme='yellow' variant='solid' size='lg'>Lets go</Button>
+        <Button onClick={() => navigate('/resources/optimism3')}   display={'inline-block'} colorScheme='yellow' variant='solid' size='lg'>Lets go</Button>
  
       </Center>
         </Box>
