@@ -34,6 +34,8 @@ import {
   translationsAl,
 } from "../components/translationText";
 
+import { useStore } from "../../src/store/isLoggedIn";
+
 i18n.use(initReactI18next).init({
   resources: {
     en: { translation: translationsEn },
@@ -86,6 +88,7 @@ export default function Sidebar() {
       justifyContent="space-between"
       backgroundColor="white"
       zIndex={20}
+      display={useStore((state) => state.isLoggedIn) ? "" : "none"}
     >
       <Flex
         p="5%"
