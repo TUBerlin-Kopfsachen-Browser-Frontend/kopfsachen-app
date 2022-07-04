@@ -56,31 +56,31 @@ export const translationsTr = {
                     
                     }
 
-export const translationsAl = {welcome: "Welche Personen oder Aktivitäten bereiten dir im Alltag Freude und geben dir Antrieb?",
-                        happyMaker: "Das ist was mich glücklich macht:",
-                        chooseCategory: "Welche Kategorie gehört diese Übung?",
-                        chooseWays: "Trage 3 Wege ein, auf denen dir {nameInput} gerade helfen kann.",
-                        addResource: "TODO",
-                        allResources: "TODO",
-                        feedback: "TODO",
-                        continue: "TODO",
-                        submit: "TODO",
-                        cancel: "TODO",
-                        situationControl: "TODO",
-                        relaxation: "TODO",
-                        pets: "TODO",
-                        other: "TODO",
-                        safetyNet: "Safety Net",
+export const translationsAl = {welcome: " Cilë persona apo aktivitete iu motivojne ne përditshmeri?",
+                        happyMaker: "Këto gjëra me bëjne te lumtur:",
+                        chooseCategory: "Cilës kategori i përket ky ushtrim?",
+                        chooseWays: "Vendos tre mënyrra me të cilat {nameInput} mund të ndihmojë ne këto momente.",
+                        addResource: "Shto një burim",
+                        allResources: "Këto janë të gjitha burimet",
+                        feedback: "Si do e vlerësoje ushtrimin",
+                        continue: "Vazhdo",
+                        submit: "Dergo",
+                        cancel: "Anullo",
+                        situationControl: "Kontroll i gjendjes",
+                        relaxation: "Pushim",
+                        pets: "Kafshë shtëpiake",
+                        other: "Të tjera",
+                        safetyNet: "Rrjeti i sigurisë",
 
 
                     // Sidebar------------------------------
-                        home: "Home",
-                        moodDiary: "Mood Diary",
+                        home: "Rreth nesh",
+                        moodDiary: "Ditari i gjendjes",
                         wiki: "Wiki",
-                        resources: "Resources",
-                        emergencyNumbers: "Emergency Numbers",
-                        settings: "Settings",
-                        username: "username"
+                        resources: "Burimet",
+                        emergencyNumbers: "Numra emergjence",
+                        settings: "Paramtrat",
+                        username: "Emri i përdoruesit"
                         }
 
 export const translationsDe = {welcome: "Welche Personen oder Aktivitäten bereiten dir im Alltag Freude und geben dir Antrieb?",
