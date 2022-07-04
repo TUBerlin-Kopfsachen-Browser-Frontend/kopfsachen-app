@@ -23,6 +23,7 @@ import meditation from "../../src/meditation.jpg";
 import { useNavigate } from "react-router-dom";
 import Logo from "../../src/net.png";
 import Logo1 from "../../src/situationskontrolle.png";
+import { ContentWrapper, Header } from "../components/utils";
 
 interface IEntry {
   id: string;
@@ -79,40 +80,28 @@ export default function Resources() {
   const navigate = useNavigate();
 
   return (
-    <Flex direction="column">
-      <Box>
-        <Sidebar />
-      </Box>
-
-      <Box w="100%" h="120px" bg="green.400">
-        <Text fontSize="40px" align="center" pt="50px" color="white">
-          {" "}
-          My Resources{" "}
+    <ContentWrapper headerProps={{ text: 'My Resources' }}>
+      <Flex flexDirection='column' alignItems='center'>
+        <Text fontSize={20} textAlign='center'>
+          You have already gatherd so many resources.
         </Text>
-
-        <Text fontSize={20} align="center" pt="100px" color={"gray.600"}>
-          You have already gatherd so many resources. If you want to work on
-          your already existing ones, click on the button below.
+        <Text fontSize={20} textAlign='center'>
+        If you want to work on
+        your already existing ones, click on the button below.
         </Text>
-
-        <Center>
           <Button
-            textAlign="center"
-            rounded={"full"}
-            bg={"green.400"}
-            color={"white"}
-            top="13vh"
+            // textAlign="center"
+            // rounded={"full"}
+            colorScheme='primary'
             size="lg"
-            onClick={() => navigate("/newresources")}
+            onClick={() => navigate("/resources/new")}
+            mt={100}
           >
             Discover New Resources!
           </Button>
-        </Center>
-
-        <Center>
-          <Stack direction="row" spacing={28} pt={"300px"}>
+          <Stack direction="row" justifyContent='flex-start' mt={100}>
             <Button
-              onClick={() => navigate("/safetynet")}
+              onClick={() => navigate("/resources/safetynet")}
               variant="ghost"
               size="lg"
             >
@@ -125,10 +114,8 @@ export default function Resources() {
               <Image margin={2} alt={"Logo1"} objectFit={"cover"} src={Logo1} />
             </Button>
           </Stack>
-        </Center>
-      </Box>
-
-      <Motivator />
-    </Flex>
+        {/* <Motivator /> */}
+      </Flex>
+    </ContentWrapper>
   );
 }

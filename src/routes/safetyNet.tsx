@@ -26,6 +26,7 @@ import {
   Link,
   Center,
   Portal,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import Sidebar from "../components/Sidebar";
 
@@ -59,6 +60,7 @@ import {
   PopoverCloseButton,
   PopoverAnchor,
 } from "@chakra-ui/react";
+import { ContentWrapper, Header, useMobile } from '../components/utils';
 
 import i18n, { t } from "i18next";
 import { initReactI18next, useTranslation } from "react-i18next";
@@ -89,35 +91,6 @@ interface ISafteyNetItem {
   }[];
 }
 
-// functions and custom hook to toggle normal and mobile view
-// https://github.com/Nik-Sch/Rezeptbuch/blob/server/ui/client/src/components/helpers/CustomHooks.tsx#L27
-function getWindowDimensions() {
-  const { innerWidth: width, innerHeight: height } = window;
-  return {
-    width,
-    height
-  };
-}
-
-export function useWindowDimensions() {
-  const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
-
-  useEffect(() => {
-    function handleResize() {
-      setWindowDimensions(getWindowDimensions());
-    }
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  return windowDimensions;
-}
-
-export function useMobile() {
-  const { width, height } = useWindowDimensions();
-  return width <= 815 || height <= 815;
-}
 
 
 function AddItemView() {
@@ -158,13 +131,13 @@ function AddItemView() {
 
   return (
     <Flex direction="column">
-      <Text fontSize={20} marginTop={mobile ? 5 : 20} marginBottom={5}>
+      <Text fontSize={20} marginBottom={5}>
         {" "}
         {t("happyMaker")}{" "}
       </Text>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Input
-          focusBorderColor="green.400"
+          focusBorderColor={useColorModeValue("neutral.600", "neutral.100")}
           {...register("name")}
           onChange={handleItemInput}
           value={nameInput}
@@ -177,7 +150,7 @@ function AddItemView() {
         <RadioGroup
           onChange={setCategoryInput}
           value={categoryInput}
-          colorScheme="green"
+          colorScheme="neutral"
           isDisabled={continueClicked}
         >
           <Flex direction="row" wrap='wrap' justifyContent='space-around'>
@@ -204,7 +177,7 @@ function AddItemView() {
           <Button
             marginTop={10}
             marginBottom={5}
-            colorScheme="green"
+            colorScheme="success"
             onClick={() => setContinueClicked(true)}
             isDisabled={nameInput.trim() === ""}
           >
@@ -226,21 +199,21 @@ function AddItemView() {
             <Input
               {...register(`strategies.0`)}
               placeholder="first"
-              focusBorderColor="green.400"
+              focusBorderColor={useColorModeValue("neutral.600", "neutral.100")}
               value={strategyInput1}
               onChange={(e: any) => setStrategyInput1(e.target.value)}
             />
             <Input
               {...register(`strategies.1`)}
               placeholder="second"
-              focusBorderColor="green.400"
+              focusBorderColor={useColorModeValue("neutral.600", "neutral.100")}
               value={strategyInput2}
               onChange={(e: any) => setStrategyInput2(e.target.value)}
             />
             <Input
               {...register(`strategies.2`)}
               placeholder="third"
-              focusBorderColor="green.400"
+              focusBorderColor={useColorModeValue("neutral.600", "neutral.100")}
               value={strategyInput3}
               onChange={(e: any) => setStrategyInput3(e.target.value)}
             />
@@ -257,7 +230,7 @@ function AddItemView() {
                 }, 0);
               }}
               marginRight={3}
-              colorScheme="green"
+              colorScheme="primary"
               whiteSpace={mobile ? 'initial' : 'unset'}
               isDisabled={
                 strategyInput1.trim() === "" ||
@@ -271,7 +244,7 @@ function AddItemView() {
           <Button
             onClick={onOpen}
             marginRight={3}
-            colorScheme="green"
+            colorScheme="success"
             whiteSpace={mobile ? 'initial' : 'unset'}
             isDisabled={
               strategyInput1.trim() === "" ||
@@ -313,6 +286,7 @@ function AddItemView() {
                 </ModalBody>
                 <ModalFooter>
                   <Button
+                    colorScheme='success'
                     onClick={() => {
                       onModalClose();
                       // prevent react from clearing the inputs before the form submit is handled
@@ -328,7 +302,7 @@ function AddItemView() {
                   >
                     {t("submit")}
                   </Button>
-                  <Button onClick={onModalClose}>{t("cancel")}</Button>
+                  <Button colorScheme='warning' onClick={onModalClose}>{t("cancel")}</Button>
                 </ModalFooter>
               </form>
             </ModalContent>
@@ -380,23 +354,14 @@ function FrontPage() {
   if (items) {
     return (
       <Suspense fallback="Loading...">
-        <Flex>
-          <Flex
-            direction="column"
-            position={mobile ? "unset" : 'absolute'}
-            top={mobile ? "unset" : "10vh"}
-            left={mobile ? "unset" : "50vw"}
-            transform={mobile ? "unset" : "translate(-50%, -0%)"}
-            maxWidth={mobile ? 'calc(100vw - 40px)' : "800px"}
-            margin={mobile ? "20px" : "unset"}
-          >
+        <Flex direction="column" alignItems='center'>
             {!addItemClicked && (
-              <Text fontSize={20} marginTop={mobile ? 5 : 20} align={"center"} marginBottom={5}>
+              <Text fontSize={20} marginBottom={5} textAlign='center'>
                 {t("welcome")}
               </Text>
             )}
             {!addItemClicked && (
-              <Center flexDirection="column">
+              <>
                 <Flex
                   // className="container"
                   backgroundColor="white"
@@ -515,7 +480,7 @@ function FrontPage() {
                 {!addItemClicked && (
                   <Button
                     mt={5}
-                    colorScheme="green"
+                    colorScheme="primary"
                     aria-label="Add item"
                     leftIcon={<AddIcon />}
                     onClick={() => setAddItemClicked(true)}
@@ -523,12 +488,11 @@ function FrontPage() {
                     Add item
                   </Button>
                 )}
-              </Center>
+              </>
             )}
             {addItemClicked && (
               <AddItemView />
             )}
-          </Flex>
         </Flex>
       </Suspense>
     );
@@ -544,18 +508,8 @@ function FrontPage() {
 
 export default function SafetyNet() {
   const { t } = useTranslation();
-  return (
-    <Flex direction="column">
-      <Box>
-        <Sidebar />
-      </Box>
-
-      <Box w="100%" h="120px" bg="green.400">
-        <Text fontSize="40px" align="center" pt="50px" color="white">
-          {t("safetyNet")}{" "}
-        </Text>
-      </Box>
-      <FrontPage />
-    </Flex>
-  );
+  return <ContentWrapper headerProps={{text: t('safetyNet')}}>
+    <FrontPage />
+  </ContentWrapper>
+  
 }

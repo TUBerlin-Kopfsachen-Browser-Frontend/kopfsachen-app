@@ -13,10 +13,12 @@ import {
   Skeleton,
   Stack,
   Box,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import { ArrowBackIcon, SearchIcon } from "@chakra-ui/icons";
 import Sidebar from "../components/Sidebar";
 import bookshelf from "../bookshelf.png";
+import { ContentWrapper, Header, useMobile } from "../components/utils";
 
 // api response format as interface
 interface IEntry {
@@ -49,35 +51,6 @@ const renderContentElement = (contentElement: string, index: number, contents: s
   return contents[index].concat(' ');
 }
 
-// functions and custom hook to toggle normal and mobile view
-// https://github.com/Nik-Sch/Rezeptbuch/blob/server/ui/client/src/components/helpers/CustomHooks.tsx#L27
-function getWindowDimensions() {
-  const { innerWidth: width, innerHeight: height } = window;
-  return {
-    width,
-    height
-  };
-}
-
-export function useWindowDimensions() {
-  const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
-
-  useEffect(() => {
-    function handleResize() {
-      setWindowDimensions(getWindowDimensions());
-    }
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  return windowDimensions;
-}
-
-export function useMobile() {
-  const { width, height } = useWindowDimensions();
-  return width <= 815 || height <= 815;
-}
 
 // should display entry that has been clicked
 function EntryPage(props: IEntryPageProps) {
@@ -106,6 +79,7 @@ function FrontPage() {
   const [searchInput, setSearchInput] = useState<string>('');
   const [searchIsActive, setSearchIsActive] = useState(false);
   const mobile = useMobile();
+  const focusBorderColorScheme = useColorModeValue("neutral.700", "neutral.100");
 
   // to fetch data everytime the front page is loaded
   useEffect(() => {
@@ -167,22 +141,18 @@ function FrontPage() {
       <Flex direction={"row"}>
         <Flex
           flexDirection="column"
-          position="absolute"
-          top={mobile ? "unset" : "20vh"}
-          left={mobile ? "unset" : "50vw"}
-          transform={mobile ? "unset" : "translate(-50%, -0%)"}
           maxWidth="800px"
-          margin={mobile ? "40px" : "unset"}
+          margin='auto'
         >
           <img src={bookshelf} alt="book shelf" width="400px"></img>
           <InputGroup>
             <InputLeftElement
               pointerEvents="none"
-              children={<SearchIcon color="gray.300" />}
+              children={<SearchIcon color="neutral.400" />}
             />
             <Input
               placeholder="Search for entries"
-              focusBorderColor="teal.400"
+              focusBorderColor={focusBorderColorScheme}
               onChange={handleInput}
             />
           </InputGroup>
@@ -229,7 +199,7 @@ function FrontPage() {
             variant="ghost"
             flexShrink={0}
             marginRight={5}
-            colorScheme="blackAlpha"
+            colorScheme="neutral"
             leftIcon={<ArrowBackIcon />}
             onClick={() => setEntryToDisplay(undefined)}
           >
@@ -238,33 +208,22 @@ function FrontPage() {
           <EntryPage entry={entryToDisplay} />
         </Flex>
         {mobile && <Button
-            variant="ghost"
-            flexShrink={0}
-            marginRight={5}
-            colorScheme="blackAlpha"
-            leftIcon={<ArrowBackIcon />}
-            onClick={() => setEntryToDisplay(undefined)}
-          >
-            Back
-          </Button>}
+          variant="ghost"
+          flexShrink={0}
+          marginRight={5}
+          colorScheme="blackAlpha"
+          leftIcon={<ArrowBackIcon />}
+          onClick={() => setEntryToDisplay(undefined)}
+        >
+          Back
+        </Button>}
       </Flex>
     );
   }
 }
 
 export default function Wiki() {
-  return (
-    <Flex direction="column">
-      <Box>
-        <Sidebar />
-      </Box>
-
-      <Box w="100%" h="120px" bg="green.400">
-        <Text fontSize="40px" align="center" pt="50px" color="white">
-          Wiki{" "}
-        </Text>
-      </Box>
-      <FrontPage />
-    </Flex>
-  );
+  return <ContentWrapper headerProps={{ text: 'Wiki' }}>
+    <FrontPage />
+  </ContentWrapper>
 }

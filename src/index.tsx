@@ -1,10 +1,10 @@
-import { ChakraProvider, ColorModeScript, theme } from "@chakra-ui/react";
+import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
 import * as React from "react";
 import ReactDOM from "react-dom";
-import { App } from "./App";
+import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import * as serviceWorker from "./serviceWorker";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Wiki from "./routes/wiki";
 import MoodDiary from "./routes/MoodDiary";
 import Resources from "./routes/Resources";
@@ -24,23 +24,27 @@ import Optimism1 from "./routes/Optimism1";
 import Optimism2 from "./routes/Optimism2";
 import Optimism3 from "./routes/Optimism3";
 
+import * as colors from "./color";
+const { theme } = colors;
+
 ReactDOM.render(
   <React.StrictMode>
     <ChakraProvider theme={theme}>
       <BrowserRouter>
         <ColorModeScript />
         <Routes>
-          <Route path="/" element={<App />} />
+          <Route path='/' element={<Navigate to='/home' />}/>
+          <Route path="/home" element={<App />} />
           <Route path="mooddiary" element={<MoodDiary />} />
           <Route path="wiki" element={<Wiki />} />
           <Route path="resources" element={<Resources />} />
+          <Route path="/resources/safetynet" element={<SafetyNet />} />
+          <Route path="/resources/reframing" element={<Reframing />} />
+          <Route path="/resources/reframing1" element={<Reframing1 />} />
+          <Route path="/resources/reframing2" element={<Reframing2 />} />
+          <Route path="/resources/new" element={<NewResources />} />
           <Route path="emergencynumbers" element={<EmergencyNumbers />} />
-          <Route path="safetynet" element={<SafetyNet />} />
           <Route path="settings" element={<Settings />} />
-          <Route path="newresources" element={<NewResources />} />
-          <Route path="reframing" element={<Reframing />} />
-          <Route path="reframing1" element={<Reframing1 />} />
-          <Route path="reframing2" element={<Reframing2 />} />
           <Route path="register" element={<Register />} />
           <Route path="login" element={<Login />} />
           <Route path="profile" element={<Profile />} />
