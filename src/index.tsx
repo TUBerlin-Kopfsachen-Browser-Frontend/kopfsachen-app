@@ -19,6 +19,10 @@ import Profile from "./routes/Profile";
 import Register from "./routes/Register";
 import Login from "./routes/Login";
 import Neutral1 from "./routes/Neutral1";
+import Optimism from "./routes/Optimism";
+import Optimism1 from "./routes/Optimism1";
+import Optimism2 from "./routes/Optimism2";
+import Optimism3 from "./routes/Optimism3";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -41,6 +45,10 @@ ReactDOM.render(
           <Route path="login" element={<Login />} />
           <Route path="profile" element={<Profile />} />
           <Route path="neutral1" element={<Neutral1 />} />
+          <Route path="optimism" element={<Optimism />} />
+          <Route path="optimism2" element={<Optimism2 hours={0} minutes={10} seconds={0} />} />
+          <Route path="optimism3" element={<Optimism3 />} />
+          <Route path="optimism1" element={<Optimism1 />} />
         </Routes>
       </BrowserRouter>
     </ChakraProvider>
