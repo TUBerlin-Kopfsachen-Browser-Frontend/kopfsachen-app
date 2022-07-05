@@ -20,7 +20,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import { AspectRatio, useColorModeValue } from "@chakra-ui/react";
-
+import reframing from "../reframing.png"
 import { useForm, SubmitHandler } from "react-hook-form";
 import { stringify } from "querystring";
 import { networkInterfaces } from "os";
@@ -39,7 +39,7 @@ export default function New() {
     axios.post(`http://127.0.0.1:4010/safetyNet/1`, data);
 
   return (
-    <ContentWrapper headerProps={{ text: 'Reframing' }}>
+    <ContentWrapper headerProps={{ text: 'Reframing', image: reframing }}>
       <Flex flexDirection="column" alignItems='center'>
         <Text fontSize={20} mb={10} textAlign='center'>
           Which situation is bothering you at the moment? {"\n"}

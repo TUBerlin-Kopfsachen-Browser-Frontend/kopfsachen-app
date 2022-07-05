@@ -24,7 +24,8 @@ import {
     ModalHeader,
     ModalBody,
     IconButton,
-    useDisclosure
+    useDisclosure,
+    useColorModeValue
 } from "@chakra-ui/react"
 import sun from "../sun.png"
 
@@ -41,6 +42,7 @@ import axios from "axios"
 
 import i18n, { t } from "i18next";
 import { initReactI18next, useTranslation } from "react-i18next";
+import { ContentWrapper } from "../components/utils";
 
 
 interface IResources {
@@ -64,34 +66,22 @@ export default function ReframingText() {
     const [isNavReady, setIsNavReady] = useState(false);
 
     return (
-        <ChakraProvider theme={theme}>
-            <Box >
-                <Sidebar />
-            </Box>
-            <Box w='100%' h='600px'>
-                <Box w='100%' h='200px' bg='#F5F500'>
-                    <Text fontSize='40px' align='center' pt='50px' color='white'>Optimism </Text>
-                    <Center>
-                        <Image src={sun} alt="sun" width='80px' />
-                    </Center>
-                    <Button colorScheme='yellow' variant='ghost' pl='300px' onClick={() => navigate
-                        ('/resources/optimism2')}>
-                        ← Back
-                    </Button>
-                </Box>
+        <ContentWrapper headerProps={{ text: 'Optimism', image: sun }}>
+            <Flex flexDir='column'>
                 <Container maxW="100rem" centerContent>
                     <SimpleGrid>
-                        <Text fontSize={{ base: 'md', lg: '2xl' }} textAlign="center" color={'black'} pt={'20px'}>
-                            Write down the thought that came up in these 10 minutes.
+                        <Text fontSize={20} textAlign="center" color={'black'} mb={10}>
+                            Write down the thoughts that came up in these 10 minutes.
                         </Text>
-                        <Stack spacing={8} pt={'80px'}>
+                        <Stack spacing={5}>
 
-                            <Input {...register(`situations.${0}`)} placeholder='---' size='lg' />
-                            <Input {...register(`situations.${1}`)} placeholder='---' size='lg' />
-                            <Input {...register(`situations.${2}`)} placeholder='---' size='lg' />
+                            <Input {...register(`situations.${0}`)} placeholder='Thought 1' focusBorderColor={useColorModeValue("neutral.400", "neutral.100")}/>
+                            <Input {...register(`situations.${1}`)} placeholder='Thougt 2' focusBorderColor={useColorModeValue("neutral.400", "neutral.100")}/>
+                            <Input {...register(`situations.${2}`)} placeholder='Thought 3' focusBorderColor={useColorModeValue("neutral.400", "neutral.100")}/>
+                            <Input {...register(`situations.${2}`)} placeholder='Thought 4' focusBorderColor={useColorModeValue("neutral.400", "neutral.100")}/>
 
                             <Center>
-                                <Button onClick={onOpen} h={'50px'} w={'40%'} display={'inline-block'} colorScheme='yellow' variant='solid' size='lg'>Done</Button>
+                                <Button mt={5} onClick={onOpen} w={'30%'} display={'inline-block'} colorScheme='success'>Done</Button>
                             </Center>
                         </Stack>
                         <Modal
@@ -102,7 +92,7 @@ export default function ReframingText() {
                                 <ModalContent>
                                     <form onSubmit={handleSubmit(onSubmit)}>
                                         <ModalHeader fontSize='lg' fontWeight='bold'>
-
+                                            How did you like this exercise?
                                         </ModalHeader>
 
                                         <ModalBody>
@@ -129,7 +119,10 @@ export default function ReframingText() {
                                             </Stack>
                                         </ModalBody>
                                         <ModalFooter>
-                                            <Button isDisabled={isSubmitDisabled} type='submit' mr={3}
+                                            <Button 
+                                                colorScheme='success'
+                                                isDisabled={isSubmitDisabled}
+                                                type='submit' mr={3}
                                                 onClick={() => {
                                                     onClose();
                                                     navigate('/resources')
@@ -137,7 +130,7 @@ export default function ReframingText() {
                                                 }}>
                                                 {t('submit')}
                                             </Button>
-                                            <Button onClick={() => {
+                                            <Button colorScheme='warning' onClick={() => {
                                                 onClose();
                                                 setIsSubmitDisabled(true);
                                             }}>
@@ -150,8 +143,8 @@ export default function ReframingText() {
                         </Modal>
                     </SimpleGrid>
                 </Container>
-            </Box>
-        </ChakraProvider>
+            </Flex>
+        </ContentWrapper>
     );
 
 }

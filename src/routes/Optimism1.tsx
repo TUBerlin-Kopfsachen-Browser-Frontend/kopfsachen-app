@@ -32,57 +32,37 @@ import sun from "../sun.png"
 import { MdCheckCircle } from "react-icons/md";
 import { ChatIcon, EmailIcon, PhoneIcon } from "@chakra-ui/icons"
 import { useNavigate } from "react-router-dom";
+import { ContentWrapper, useMobile } from "../components/utils"
 
 
 export default function Wiki() {
     const navigate = useNavigate();
-
+    const mobile = useMobile();
     return (
-        <ChakraProvider theme={theme}>
-            <Box >
-                <Sidebar />
-
-            </Box>
-            <Box w='100%' h='600px'>
-                <Box w='100%' h='200px' bg='#F5F500'>
-                    <Text fontSize='40px' align='center' pt='50px' color='white'>Optimism </Text>
-                    <Center>
-                        <Image src={sun} alt="sun" width='80px' />
-                    </Center>
-                    <Button colorScheme='yellow' variant='ghost' pl='300px' onClick={() => navigate
-                        ('/resources/optimism')}>
-                        ← Back
+        <ContentWrapper headerProps={{ text: 'Resources' }}>
+            <Flex flexDir='column' alignItems='center'>
+            <Flex alignItems='center' justifyContent='space-evenly' bg='yellow.100' width='300px'>
+                <Text color='black' mr={3} fontSize='2xl'fontWeight='bold' fontStyle='oblique'> Optimism </Text>
+                <Image mt={3} mb={3} src={sun}alt='sun'/>
+            </Flex>
+                <Text fontSize={20} mt={10} mb={5}>
+                    Find out what's behind it!
+                </Text>
+                <Image src={thumbnail} alt="thumbnail" width='300px' />
+                <Flex flexDirection="row" justifyContent='space-evenly'>
+                    <Button colorScheme="warning" mr={3} mt={10} whiteSpace={mobile ? 'initial' : 'unset'}>
+                        Choose another strategy
                     </Button>
-
-                    <Text fontSize={{ base: 'md', lg: '3xl' }} textAlign="center" color={'black'} pt={'20px'}>
-                        Find out what's behind it!
-                    </Text>
-
-                    <Box w='100%' >
-                        <Center>
-                            <Image src={thumbnail} alt="thumbnail" width='400px' pt={'20px'} />
-                        </Center>
-                    </Box>
-
-                    <Center >
-
-                        <Stack direction='row' spacing={20} pt={'40px'}>
-                            <Button colorScheme='yellow' variant='solid' size='lg'>
-                                Choose another strategy
-
-                            </Button>
-                            <Button colorScheme='#F5F500' variant='outline' size='lg'
-                                onClick={() => navigate('/resources/optimism2')}>
-                                I want to practice that
-                            </Button>
-
-                        </Stack>
-                    </Center>
-                </Box>
-
-            </Box>
-
-
-        </ChakraProvider>
+                    <Button
+                        colorScheme="success"
+                        onClick={() => navigate("/resources/optimism2")}
+                        whiteSpace={mobile ? 'initial' : 'unset'}
+                        mt={10}
+                    >
+                        I want to practice that
+                    </Button>
+                </Flex>
+            </Flex>
+        </ContentWrapper>
     );
 }

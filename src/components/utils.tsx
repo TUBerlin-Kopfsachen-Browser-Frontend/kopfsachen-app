@@ -35,7 +35,7 @@ export function useMobile() {
 
 export interface IHeaderProps {
     text: string;
-    // image?: string; // is the image required?
+    image?: string; // is the image required?
 }
 
 export function Header(props: IHeaderProps) {
@@ -44,7 +44,7 @@ export function Header(props: IHeaderProps) {
 
     return <Box
         height={`${height}px`}
-        mb={mobile ? '25px' : '75px'}
+        mb={mobile ? '25px' : '50px'}
         zIndex={19} // 1 lower than sidebar
     >
         <Flex
@@ -58,11 +58,11 @@ export function Header(props: IHeaderProps) {
                 ml={mobile ? '50px' : '425px'} mr='25px'
                 justifyContent='center'
                 alignItems='center'
-                flexDir={mobile ? 'column' : 'row'}>
+                flexDir={'row'}>
                 <Text fontSize='xx-large' align="center" pl={mobile ? "80px" : "unset"} mr={mobile ? 'unset' : '10px'} color="white">
                     {props.text}
                 </Text>
-                {/* {props.image && <Image src={props.image} alt={props.image} />} */}
+                {props.image && <Image ml={3} src={props.image} alt={props.image} width={mobile ? '50px' : '75px'}/>}
             </Flex>
         </Flex>
     </Box>
