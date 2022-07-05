@@ -5,8 +5,8 @@ export const theme = extendTheme({
         success: { //green
             50: "#72CA9B",
             100: "#72CA9B",
-            // 200: "#72CA9B",
-            200: "#3cc37b",
+            200: "#72CA9B",
+            // 200: "#3cc37b",
             300: "#32A467",
             400: "#238551",
             500: "#1C6E42",
@@ -18,8 +18,8 @@ export const theme = extendTheme({
         warning: { //red
             50: "##FA999C",
             100: "#FA999C",
-            // 200: "#FA999C",
-            200: "#ea7b7f",
+            200: "#FA999C",
+            // 200: "#ea7b7f",
             300: "#E76A6E",
             400: "#CD4246",
             500: "#AC2F33",
@@ -43,8 +43,8 @@ export const theme = extendTheme({
         primary: { //blue
             50: "#8ABBFF",
             100: "#8ABBFF",
-            // 200: "#8ABBFF",
-            200: "#71a8f4",
+            200: "#8ABBFF",
+            // 200: "#71a8f4",
             300: "#4C90F0",
             400: "#2D72D2",
             500: "#215DB0",

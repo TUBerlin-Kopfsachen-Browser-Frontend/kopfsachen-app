@@ -29,7 +29,7 @@ export default function New() {
   return (
     <ContentWrapper headerProps={{ text: 'Resources' }}>
       <Flex flexDirection='column' alignItems='center'>
-        <Flex alignItems='center' justifyContent='space-evenly' bg='red.100' width='300px'>
+        <Flex alignItems='center' justifyContent='space-evenly' bg='red.200' width='300px' borderRadius='lg'>
           <Text color='black' mr={3} fontSize='2xl' fontWeight='bold' fontStyle='oblique'> Reframing </Text>
           <Image mt={3} mb={3} src={reframing} alt='mood barometer' width='120px'/>
         </Flex>

@@ -41,7 +41,7 @@ export default function Wiki() {
     return (
         <ContentWrapper headerProps={{ text: 'Resources' }}>
             <Flex flexDir='column' alignItems='center'>
-            <Flex alignItems='center' justifyContent='space-evenly' bg='yellow.100' width='300px'>
+            <Flex alignItems='center' justifyContent='space-evenly' bg={'yellow.200'} width='300px' borderRadius='lg'>
                 <Text color='black' mr={3} fontSize='2xl'fontWeight='bold' fontStyle='oblique'> Optimism </Text>
                 <Image mt={3} mb={3} src={sun}alt='sun'/>
             </Flex>
