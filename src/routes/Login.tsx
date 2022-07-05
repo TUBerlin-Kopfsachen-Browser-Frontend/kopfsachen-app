@@ -19,6 +19,10 @@ import {
   FormLabel,
   Checkbox,
   useSafeLayoutEffect,
+  Alert,
+  AlertDescription,
+  AlertIcon,
+  AlertTitle,
 } from "@chakra-ui/react";
 import LogoutButton from "../components/Logout";
 import { useStore } from "../store/isLoggedIn";
@@ -27,6 +31,7 @@ const md5 = require("md5");
 
 export default function Login() {
   const [submittedData, setSubmittedData] = useState<FormData>();
+  const [wrongKey, setwrongKey] = useState<Boolean>(false);
   const {
     register,
     handleSubmit,
@@ -83,10 +88,9 @@ export default function Login() {
                   .then((res) => {
                     if (res.status == 200) {
                       login();
-                      alert("success");
                       window.location.replace("/");
                     } else {
-                      alert("something went wrong");
+                      setwrongKey(true);
                     }
                   });
               }}
@@ -110,6 +114,11 @@ export default function Login() {
             </form>
           </Stack>
         </Box>
+        <Alert status="error" display={wrongKey ? "" : "none"}>
+          <AlertIcon />
+          <AlertTitle>Wrong account key!</AlertTitle>
+          <AlertDescription>The account key does not exist.</AlertDescription>
+        </Alert>
       </Stack>
     </Flex>
   );
