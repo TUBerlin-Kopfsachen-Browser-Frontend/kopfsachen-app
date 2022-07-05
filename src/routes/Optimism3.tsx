@@ -97,24 +97,24 @@ export default function ReframingText() {
 
                                         <ModalBody>
                                             <Stack direction='row' spacing={3}>
-                                                <IconButton
+                                                <Button
                                                     onClick={() => {
                                                         setValue('feedback', true);
                                                         setIsSubmitDisabled(false);
                                                     }}
-                                                    aria-label='positive'
+                                                    aria-label='celebrating emoji'
                                                     variant='ghost'
-                                                    icon={<FiSmile size={30} color='green' />}
-                                                />
-                                                <IconButton
+                                                    // icon={<FiSmile size={30} color='green' />}
+                                                > <Text fontSize={33}> 🥳 </Text> </Button>
+                                                <Button
                                                     onClick={() => {
                                                         setValue('feedback', false);
                                                         setIsSubmitDisabled(false);
                                                     }}
-                                                    aria-label='negative'
+                                                    aria-label='vomiting emoji'
                                                     variant='ghost'
-                                                    icon={<FiFrown size={30} color='red' />}
-                                                />
+                                                    // icon={<FiFrown size={30} color='red' />}
+                                                > <Text fontSize={33}> 🤮 </Text> </Button>
 
                                             </Stack>
                                         </ModalBody>

@@ -266,24 +266,30 @@ function AddItemView() {
                 </ModalHeader>
                 <ModalBody>
                   <Stack direction="row" spacing={3}>
-                    <IconButton
+                    <Button
                       onClick={() => {
                         setValue(`feedback.${0}.itHelped`, true);
                         setItHelped(true);
                       }}
                       aria-label="positive"
                       variant={itHelped === true ? "solid" : "ghost"}
-                      icon={<FiSmile size={30} color="green" />}
-                    />
-                    <IconButton
+                      colorScheme={itHelped ===  true ? 'yellow' : 'unset'}
+                      // icon={<FiSmile size={30} color="green" />}
+                    > 
+                      <Text fontSize={33}> 🥳 </Text>
+                    </Button>
+                    <Button
                       onClick={() => {
                         setValue(`feedback.${0}.itHelped`, false);
                         setItHelped(false);
                       }}
                       aria-label="negative"
-                      variant={itHelped === false ? "solid" : "ghost"}
-                      icon={<FiFrown size={30} color="red" />}
-                    />
+                      variant={itHelped === false ? 'solid' : "ghost"}
+                      colorScheme={itHelped === false ? 'yellow' : 'unset'}
+                      // icon={<FiFrown size={30} color="red" />}
+                    >
+                      <Text fontSize={33}> 🤮 </Text>
+                    </Button>
                   </Stack>
                 </ModalBody>
                 <ModalFooter>
