@@ -37,7 +37,7 @@ import {
 } from "../components/translationText";
 
 import { useStore } from "../../src/store/isLoggedIn";
-import LogoutButton, { LogoutButtonWithIcon } from "./Logout";
+import LogoutButton, { LogoutButtonSidebar } from "./Logout";
 
 i18n.use(initReactI18next).init({
   resources: {
@@ -179,7 +179,7 @@ export default function Sidebar() {
         justifyContent='space-between'
       >
         <ColorModeSwitcher justifySelf="flex-end"  _hover={{ textDecor: "none", backgroundColor:useColorModeValue("neutral.100", "neutral.800") }}/>
-        <LogoutButtonWithIcon/>
+        <LogoutButtonSidebar/>
       </Flex>
 
       {/* <Flex

@@ -19,29 +19,20 @@ import {
   FiChevronRight,
   FiShield,
 } from "react-icons/fi";
-import LogoutButton from "../components/Logout";
+import LogoutButton, { LogoutButtonSidebar } from "../components/Logout";
+import { ContentWrapper } from "../components/utils";
 
 export default function Profile() {
   return (
-    <Flex direction="column">
-      <Sidebar />
-      <Flex
-        flexDirection="column"
-        position="absolute"
-        top="10vh"
-        left="50vw"
-        transform="translate(-50%, -0%)"
-        maxWidth="800px"
-      >
-        <Center>
-          <Heading> My Profile </Heading>
-        </Center>
+    <ContentWrapper headerProps={{text:'My Profile'}}>
+      <Flex flexDir='column' alignItems='center'>
         <Center>
           <Avatar size="xl" src="avatar-1.jpg" margin={7} />
         </Center>
         <Stack direction="column" spacing={3}>
           <Link>
             <Button
+              colorScheme='primary'
               width={200}
               leftIcon={<FiUser />}
               rightIcon={<FiChevronRight />}
@@ -52,6 +43,7 @@ export default function Profile() {
           </Link>
           <Link href="mooddiary">
             <Button
+              colorScheme='primary'
               width={200}
               leftIcon={<FiCalendar />}
               rightIcon={<FiChevronRight />}
@@ -62,6 +54,7 @@ export default function Profile() {
           </Link>
           <Link>
             <Button
+              colorScheme='primary'
               width={200}
               leftIcon={<FiMail />}
               rightIcon={<FiChevronRight />}
@@ -72,6 +65,7 @@ export default function Profile() {
           </Link>
           <Link>
             <Button
+              colorScheme='warning'
               width={200}
               leftIcon={<FiShield />}
               rightIcon={<FiChevronRight />}
@@ -80,7 +74,7 @@ export default function Profile() {
               Data protection{" "}
             </Button>
           </Link>
-          <Link href="settings">
+          {/* <Link href="settings">
             <Button
               width={200}
               leftIcon={<FiSettings />}
@@ -89,10 +83,10 @@ export default function Profile() {
               {" "}
               Settings{" "}
             </Button>
-          </Link>
-          <LogoutButton />
+          </Link> */}
+          <LogoutButton/>
         </Stack>
       </Flex>
-    </Flex>
+    </ContentWrapper>
   );
 }

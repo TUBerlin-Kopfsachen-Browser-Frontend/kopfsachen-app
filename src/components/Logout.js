@@ -11,12 +11,15 @@ import {
   useColorModeValue
 } from "@chakra-ui/react";
 import { useStore } from "../store/isLoggedIn";
-import { FiLogOut } from "react-icons/fi";
+import { FiLogOut, FiChevronRight } from "react-icons/fi";
 
 export default function LogoutButton(props) {
   const logout = useStore((s) => s.logout);
   return (
     <Button
+      colorScheme='warning'
+      leftIcon={<FiLogOut/>}
+      rightIcon={<FiChevronRight />}
       onClick={() => {
         fetch(`self-service/logout/browser`, {
           headers: { Accept: "application/json" },
@@ -42,7 +45,7 @@ export default function LogoutButton(props) {
   );
 }
 
-export function LogoutButtonWithIcon(props) {
+export function LogoutButtonSidebar(props) {
   const logout = useStore((s) => s.logout);
   return (
     <Button
