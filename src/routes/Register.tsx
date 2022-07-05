@@ -19,12 +19,24 @@ import {
   FormLabel,
   Checkbox,
   useSafeLayoutEffect,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  useDisclosure,
+  Code,
 } from "@chakra-ui/react";
 import LogoutButton from "../components/Logout";
 import React from "react";
 import { useStore } from "../store/isLoggedIn";
 
 export default function Register() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [accountKey, setAccountKey] = useState<String>();
+  const finalRef = React.useRef(null);
   const [submittedData, setSubmittedData] = useState<FormData>();
   const {
     register,
@@ -82,9 +94,11 @@ export default function Register() {
                   )
                   .then((res) => res.json())
                   .then((response) => {
-                    alert(response.identity.traits.accountKey);
-                    login();
-                    window.location.replace("/");
+                    //alert(response.identity.traits.accountKey);
+                    setAccountKey(response.identity.traits.accountKey);
+                    onOpen();
+                    // login();
+                    // window.location.replace("/");
                   });
               }}
             >
@@ -93,6 +107,42 @@ export default function Register() {
           </Stack>
         </Box>
       </Stack>
+      <Modal
+        isCentered
+        finalFocusRef={finalRef}
+        isOpen={isOpen}
+        onClose={() => {
+          onClose();
+          login();
+          window.location.replace("/");
+        }}
+      >
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Your Account Key 🔑</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Text>
+              This is your personal account key: <Code>{accountKey}</Code>.
+              Please save it somewhere secure!
+            </Text>
+          </ModalBody>
+
+          <ModalFooter>
+            <Button
+              colorScheme="blue"
+              mr={3}
+              onClick={() => {
+                onClose();
+                login();
+                window.location.replace("/");
+              }}
+            >
+              Okay!
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </Flex>
   );
 }
