@@ -52,7 +52,7 @@ export default function Login() {
         <Stack align={"center"}>
           <Heading fontSize={"4xl"}>Log in to your account</Heading>
           <Text fontSize={"lg"} color={"gray.600"}>
-            please enter your account key 🔑
+            Please enter your account key 🔑
           </Text>
         </Stack>
         <Box
@@ -96,17 +96,14 @@ export default function Login() {
               }}
             >
               <Stack spacing={4}>
-                <Input name="account-key" placeholder="Account Key" />
+                <Input name="account-key" placeholder="Account key" focusBorderColor={useColorModeValue("neutral.400", "neutral.100")}/>
               </Stack>
 
               <Stack spacing={10}>
                 <Button
                   type="submit"
-                  bg={"green.400"}
-                  color={"white"}
-                  _hover={{
-                    bg: "green.400",
-                  }}
+                  colorScheme='success'
+                  mt={3}
                 >
                   Login
                 </Button>

@@ -27,12 +27,13 @@ export default function App() {
   return <ContentWrapper headerProps={{ text: 'Home' }}>
     <Flex flexDirection='column' alignItems='center' mt='150px'>
       <Image src="/header.png" width={["200px", "400px"]} />
-      <Text fontSize={["16", "24"]}>Welcome to the Kopsachen Web App!</Text>
+      <Text fontSize={["16", "20"]}>Welcome to the Kopfsachen Web App!</Text>
       <Stack spacing={4} direction="row" align="center">
         <a href="/login">
           <Button
             display={useStore((state) => state.isLoggedIn) ? "none" : ""}
-            colorScheme="teal"
+            colorScheme="success"
+            mt={3}
           >
             Login
           </Button>
@@ -40,7 +41,8 @@ export default function App() {
         <a href="/register">
           <Button
             display={useStore((state) => state.isLoggedIn) ? "none" : ""}
-            colorScheme="teal"
+            colorScheme="primary"
+            mt={3}
           >
             Register
           </Button>

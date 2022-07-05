@@ -79,7 +79,7 @@ function FrontPage() {
   const [searchInput, setSearchInput] = useState<string>('');
   const [searchIsActive, setSearchIsActive] = useState(false);
   const mobile = useMobile();
-  const focusBorderColorScheme = useColorModeValue("neutral.700", "neutral.100");
+  const focusBorderColorScheme = useColorModeValue("neutral.400", "neutral.100");
 
   // to fetch data everytime the front page is loaded
   useEffect(() => {

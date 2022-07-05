@@ -69,11 +69,7 @@ export default function Register() {
         >
           <Stack spacing={4}>
             <Button
-              bg={"green.400"}
-              color={"white"}
-              _hover={{
-                bg: "green.400",
-              }}
+              colorScheme='success'
               onClick={() => {
                 fetch(`self-service/registration/browser`, {
                   headers: { Accept: "application/json" },
@@ -130,7 +126,7 @@ export default function Register() {
 
           <ModalFooter>
             <Button
-              colorScheme="blue"
+              colorScheme="success"
               mr={3}
               onClick={() => {
                 onClose();
