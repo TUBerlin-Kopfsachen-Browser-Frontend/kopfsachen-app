@@ -38,7 +38,6 @@ export interface IHeaderProps {
     // image?: string; // is the image required?
 }
 
-//header
 export function Header(props: IHeaderProps) {
     const mobile = useMobile();
     const height = 100;

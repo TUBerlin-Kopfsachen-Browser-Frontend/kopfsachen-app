@@ -22,6 +22,7 @@ import {
   FiArrowUpCircle,
   FiShield,
   FiSettings,
+  FiUser,
 } from "react-icons/fi";
 import NavItem from "../components/NavItem";
 import { ColorModeSwitcher } from "../components/ColorModeSwitcher";
@@ -36,6 +37,7 @@ import {
 } from "../components/translationText";
 
 import { useStore } from "../../src/store/isLoggedIn";
+import LogoutButton, { LogoutButtonWithIcon } from "./Logout";
 
 i18n.use(initReactI18next).init({
   resources: {
@@ -84,6 +86,7 @@ export default function Sidebar() {
       boxShadow="0 4px 12px 0 rgba(0, 0, 0, 0.25)"
       borderRadius={navSize === "small" ? "15px" : "30px"}
       w={navSize === "small" ? "75px" : "275px"}
+      h={navSize === "small" ? "unset" : "600px"}
       flexDir="column"
       justifyContent="space-between"
       backgroundColor={useColorModeValue("neutral.50", "neutral.700")}
@@ -148,16 +151,16 @@ export default function Sidebar() {
         <NavItem
           display={navIconDisplay}
           navSize={navSize}
-          icon={FiSettings}
-          title={t("settings")}
-          routeto="/settings"
+          icon={FiUser}
+          title={t("Profile")}
+          routeto="/profile"
         />
         <Select
           display={navIconDisplay}
           marginTop={30}
           onChange={onChange}
           padding={"10px"}
-          _hover={{ textDecor: "none", backgroundColor:useColorModeValue("neutral.100", "neutral.800") }}
+          _hover={{ backgroundColor:useColorModeValue("neutral.100", "neutral.800") }}
           borderColor={useColorModeValue("neutral.50", "neutral.700")}
         >
           <option value="en">🇬🇧 English</option>
@@ -169,24 +172,25 @@ export default function Sidebar() {
 
       <Flex
         p="5%"
-        flexDir="column"
         w="100%"
         alignItems={navSize === "small" ? "center" : "flex-start"}
         mb={1}
         display={navSize === "small" ? "none" : "flex"}
+        justifyContent='space-between'
       >
         <ColorModeSwitcher justifySelf="flex-end"  _hover={{ textDecor: "none", backgroundColor:useColorModeValue("neutral.100", "neutral.800") }}/>
+        <LogoutButtonWithIcon/>
       </Flex>
 
-      <Flex
+      {/* <Flex
         p="5%"
         flexDir="column"
         w="100%"
         alignItems={navSize === "small" ? "center" : "flex-start"}
         mb={4}
         display={navSize === "small" ? "none" : "flex"}
-      >
-        <Divider display={navSize === "small" ? "none" : "flex"} />
+      > */}
+        {/* <Divider display={navSize === "small" ? "none" : "flex"} />
         <Flex mt={4} align="center">
           <Avatar size="sm" src="avatar-1.jpg" />
           <Flex
@@ -201,8 +205,8 @@ export default function Sidebar() {
             </Link>
             <Text color={useColorModeValue("neutral.800", "neutral.100")}>{t("username")}</Text>
           </Flex>
-        </Flex>
-      </Flex>
+        </Flex> */}
+      {/* </Flex> */}
     </Flex>
   );
 }

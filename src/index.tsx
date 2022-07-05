@@ -49,7 +49,7 @@ ReactDOM.render(
           <Route path="/resources/optimism3" element={<Optimism3 />} />
           <Route path="/resources/socialsupport" element={<SocialSupport />} />
           <Route path="emergencynumbers" element={<EmergencyNumbers />} />
-          <Route path="settings" element={<Settings />} />
+          {/* <Route path="settings" element={<Settings />} /> */}
           <Route path="register" element={<Register />} />
           <Route path="login" element={<Login />} />
           <Route path="profile" element={<Profile />} />
