@@ -33,6 +33,7 @@ import {
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import { FieldValues } from "react-hook-form";
 import { ContentWrapper, Header } from "../components/utils";
+import { AddIcon } from "@chakra-ui/icons";
 
 interface IEntry {
   type: string;
@@ -68,11 +69,11 @@ function SetMood({ onSubmit }: { onSubmit: (values: FieldValues) => void }) {
     <>
       <Button
         onClick={onOpen}
-        size={"lg"}
-        height="70px"
-        border="5px"
-        bg={"green.400"}
+        // size={"lg"}
+        // height="70px"
+        colorScheme='primary'
         color="white"
+        leftIcon={<AddIcon />}
       >
         Set Mood
       </Button>
@@ -130,7 +131,7 @@ var ReactCalendar = () => {
     console.log(entries);
     return (
       <Flex flexDirection="column">
-        <Stack spacing={20}>
+        <Stack spacing={10}>
           <Calendar
             onChange={onChange}
             view={"month"}
