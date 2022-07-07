@@ -62,23 +62,25 @@ export default function ReframingText() {
 
   return (
     <ContentWrapper headerProps={{ text: 'Reframing', image: reframing }}>
-    <Flex direction="column" alignItems='center'>
+    <Flex direction="column">
         <Flex direction="row" wrap='wrap'>
-            <Card title={title} text={text} width={mobile ? '100%' : '400px'}/>
-            <Card title={title1} text={text1} width={mobile ? '100%' : '400px'}/>
-            <Card title={title2} text={text2} width={mobile ? '100%' : '400px'}/>
-            <Card title={title3} text={text3} width={mobile ? '100%' : '400px'}/>
+            <Card title={title} text={text} width={mobile ? '100%' : '500px'}/>
+            <Card title={title1} text={text1} width={mobile ? '100%' : '500px'}/>
+            <Card title={title2} text={text2} width={mobile ? '100%' : '500px'}/>
+            <Card title={title3} text={text3} width={mobile ? '100%' : '500px'}/>
         </Flex>
-      
+      {/* <Flex justifyContent='center'> */}
           <Button
             onClick={onOpen}
-            mb='25px'
-            mt={3}
+            mt={3} ml={mobile ? 'unset' : 4}
+            mb={mobile ? '25px' : 'unset'}
             colorScheme="success"
             whiteSpace={mobile ? 'initial' : 'unset'}
+            maxWidth='485px'
           >
             Ich bin zu einer neuen Bewertung der Situationen gekommen.
           </Button>
+          {/* </Flex> */}
           <Modal isOpen={isOpen} onClose={onClose}>
             <ModalOverlay>
               <ModalContent>
@@ -149,14 +151,14 @@ const data1 = {
   title1:
     "2. Geht es um eine bestimmte Handlung/ Verhalten, die du nicht ausführen möchtest, helfen dir die folgenden Fragen zu einer positiveren/ neutralen Bewertung zu kommen.",
   text1:
-    "A) Kontext erweitern/ in einem anderen Kontext betrachten: Welchen Vorteil könnte eine ungeliebte Tätigkeit haben? B) Andere Bewertung anbieten:Wozu könnte ein gewisses Verhalten dienen? Welche Funktion könnte es haben? C) Perspektive ändern:Welche Bedeutung könnte es in 10 Jahren haben?",
+    "A) Kontext erweitern/ in einem anderen Kontext betrachten: Welchen Vorteil könnte eine ungeliebte Tätigkeit haben?\nB) Andere Bewertung anbieten:Wozu könnte ein gewisses Verhalten dienen? Welche Funktion könnte es haben?\nC) Perspektive ändern:Welche Bedeutung könnte es in 10 Jahren haben?",
 };
 
 const data2 = {
   title2:
     "3. Belastet dich aktuell das Verhalten einer anderen Person, denk über folgende Fragen nach:",
   text2:
-    "1. Was sind mögliche Gründe für dieses Verhalten (die ggf. nichts mit dir zu tun haben)? 2. Welche Bedürfnisse der anderen Person könnten dahinter stehen? (Zugehörigkeit, Verständnis, Sicherheit etc.) 3. Was braucht diese Person mit diesem Bedürfnis? Was braucht sie anders als bisher? 4. Von wem braucht diese Person etwas? 5. Was braucht sie nicht? 6. Was konkret kannst du als nächstes tun?",
+    "1. Was sind mögliche Gründe für dieses Verhalten (die ggf. nichts mit dir zu tun haben)?\n2. Welche Bedürfnisse der anderen Person könnten dahinter stehen? (Zugehörigkeit, Verständnis, Sicherheit etc.)\n3. Was braucht diese Person mit diesem Bedürfnis? Was braucht sie anders als bisher?\n4. Von wem braucht diese Person etwas?\n5. Was braucht sie nicht?\n6. Was konkret kannst du als nächstes tun?",
 };
 
 const data3 = {

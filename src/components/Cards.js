@@ -8,6 +8,7 @@ import {
   Link,
   Button,
   Stack,
+  useColorModeValue
 } from "@chakra-ui/react";
 
 function Card(props) {
@@ -19,26 +20,28 @@ function Card(props) {
       display={{ md: "flex" }}
       maxWidth="30rem"
       borderWidth={2}
-      margin={2}
+      borderColor={useColorModeValue("primary.400", "primary.100")}
+      mb={5} mr={5} ml={5}
       width={width}
+      bg={useColorModeValue("blue.100", "blue.900")}
     >
       <Stack
         align={{ base: "center", md: "stretch" }}
         textAlign={{ base: "center", md: "left" }}
         mt={{ base: 4, md: 0 }}
-        ml={{ md: 6 }}
+        ml={{ md: 2 }}
       >
         <Text
           fontWeight="bold"
-          textTransform="uppercase"
-          fontSize="lg"
+          // textTransform="uppercase"
+          fontSize='md'
           letterSpacing="wide"
-          color="teal.400"
+          color={useColorModeValue("primary.400", "primary.100")}
         >
           {title}
         </Text>
 
-        <Text my={2} color="gray.1000">
+        <Text my={2} whiteSpace='break-spaces'>
           {text}
         </Text>
       </Stack>
