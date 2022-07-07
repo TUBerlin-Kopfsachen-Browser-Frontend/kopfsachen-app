@@ -145,7 +145,6 @@ var ReactCalendar = () => {
             }}
             tileContent={({ date }) => {
               for (let cur_entry of entries) {
-                console.log(cur_entry);
                 if (
                   cur_entry.mood_day.split("T")[0] ===
                   moment(date).format("YYYY-MM-DD")
