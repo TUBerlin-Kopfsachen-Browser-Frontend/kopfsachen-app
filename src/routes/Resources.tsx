@@ -46,21 +46,21 @@ export default function Resources() {
             image="/sun_large.png"
             emoji={"🌞"}
             emojiaria="sun"
-            link="/resources/optimism"
+            link="/resources/optimism-preview"
           />
           <ResourceCard
             title="Reframing"
             image="/reframing_large.png"
-            emoji={"🪟"}
-            emojiaria="window"
-            link="/resources/reframing"
+            emoji={"🪞"}
+            emojiaria="mirror"
+            link="/resources/reframing-preview"
           />
           <ResourceCard
             title="Social Support"
             image="/socialsupport.png"
             emoji={"🫂"}
             emojiaria="hug"
-            link="/resources/socialsupport"
+            link="/resources/socialsupport-preview"
           />
           <ResourceCard
             title="Situation Control"
