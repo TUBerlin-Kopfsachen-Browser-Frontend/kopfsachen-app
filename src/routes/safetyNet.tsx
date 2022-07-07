@@ -67,6 +67,7 @@ import { initReactI18next, useTranslation } from "react-i18next";
 
 // import safetyNet from "../safetyNet.png";
 import "./../assets/css/safetyNet.scss";
+import { resourceUsage } from "process";
 
 i18n.use(initReactI18next).init({
   resources: {
@@ -368,10 +369,11 @@ function FrontPage() {
       // const fetchItems = await fetch('https://motivator.api.live.mindtastic.lol/safetyNet')
       if (fetchItems.ok) {
         console.log("Entered first if");
-        const responseData: ISafetyNetResponse = await fetchItems.json();
-        if (responseData.items.length > 0) {
+        const responseData: ISafetyNetItem[] = await fetchItems.json();
+        console.log(responseData);
+        if (responseData.length > 0) {
           console.log("Entered second if");
-          setItems(responseData.items);
+          setItems(responseData);
         }
       } else {
         console.log("Failed to fetch safety net items.");
