@@ -30,7 +30,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState, Suspense } from "react";
 import Sidebar from "../components/Sidebar";
-import Card from "../components/Cards";
+import Card from "../components/ReframingCard";
 import { FiFrown, FiMeh, FiSmile } from "react-icons/fi";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { AspectRatio } from "@chakra-ui/react";

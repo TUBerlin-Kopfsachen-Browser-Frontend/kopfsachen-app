@@ -79,30 +79,32 @@ i18n.use(initReactI18next).init({
   fallbackLng: "en",
   interpolation: { escapeValue: false },
 });
-// api get/post request format
-interface ISafteyNetItem {
+
+interface ISafetyNetItem {
+  id: number;
   name: string;
   type: string;
   strategies: string[];
   feedback?: {
-    timestamp: string;
     itHelped: boolean;
     comment: string;
+    timestamp: string;
   }[];
 }
-
-
+interface ISafetyNetResponse {
+  items: ISafetyNetItem[];
+}
 
 function AddItemView() {
   const [nameInput, setNameInput] = useState<string>("");
   const [strategyInput1, setStrategyInput1] = useState<string>("");
   const [strategyInput2, setStrategyInput2] = useState<string>("");
   const [strategyInput3, setStrategyInput3] = useState<string>("");
-  const [categoryInput, setCategoryInput] = useState("situationControl");
+  const [categoryInput, setCategoryInput] = useState("people");
   const [continueClicked, setContinueClicked] = useState(false);
   const [itHelped, setItHelped] = useState<boolean | undefined>();
   const navigate = useNavigate();
-  const { register, handleSubmit, setValue, reset } = useForm<ISafteyNetItem>();
+  const { register, handleSubmit, setValue, reset } = useForm<ISafetyNetItem>();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { t } = useTranslation();
   const mobile = useMobile();
@@ -110,9 +112,9 @@ function AddItemView() {
   const handleItemInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNameInput(e.target.value);
   };
-  const onSubmit: SubmitHandler<ISafteyNetItem> = (data) => {
+  const onSubmit: SubmitHandler<ISafetyNetItem> = (data) => {
     console.log("submitting", data);
-    axios.post(`http://127.0.0.1:4010/safetyNet/1`, data);
+    axios.post(`http://127.0.0.1:4010/safetyNet`, data);
   };
   const onModalClose = () => {
     onClose();
@@ -120,12 +122,12 @@ function AddItemView() {
   };
   const clearInputs = () => {
     reset();
-    setValue("type", "situationControl");
+    setValue("type", "people");
     setNameInput("");
     setStrategyInput1("");
     setStrategyInput2("");
     setStrategyInput3("");
-    setCategoryInput("situationControl");
+    setCategoryInput("people");
     setContinueClicked(false);
   };
 
@@ -154,17 +156,29 @@ function AddItemView() {
           isDisabled={continueClicked}
         >
           <Flex direction="row" wrap='wrap' justifyContent='space-around'>
-            <Radio {...register("type")} value="situationControl" ml={2.5} mr={2.5} width='100px'>
+            <Radio {...register("type")} value="people" ml={2.5} mr={2.5} width='100px'>
+              People
+              <Text fontSize={40}>👨‍👩‍👧‍👦</Text>{" "}
+            </Radio>
+            <Radio {...register("type")} value="activities" ml={2.5} mr={2.5} width='100px'>
+              Activities
+              <Text fontSize={40}>🤾🏾</Text>{" "}
+            </Radio>
+            {/* <Radio {...register("type")} value="situationControl" ml={2.5} mr={2.5} width='100px'>
               {t("situationControl")}
               <Text fontSize={40}>🌈</Text>
             </Radio>
             <Radio {...register("type")} value="relaxation" ml={2.5} mr={2.5} width='100px'>
               {t("relaxation")}
               <Text fontSize={40}>🦥</Text>
-            </Radio>
-            <Radio {...register("type")} value="pet" ml={2.5} mr={2.5} width='100px'>
+            </Radio> */}
+            <Radio {...register("type")} value="pets" ml={2.5} mr={2.5} width='100px'>
               {t("pets")}
               <Text fontSize={40}>🐾</Text>{" "}
+            </Radio>
+            <Radio {...register("type")} value="personalStrengths" ml={2.5} mr={2.5} width='100px'>
+              Personal strengths
+              <Text fontSize={40}>💪🏽</Text>{" "}
             </Radio>
             <Radio {...register("type")} value="other" ml={2.5} mr={2.5} width='100px'>
               {t("other")}
@@ -273,9 +287,9 @@ function AddItemView() {
                       }}
                       aria-label="positive"
                       variant={itHelped === true ? "solid" : "ghost"}
-                      colorScheme={itHelped ===  true ? 'yellow' : 'unset'}
-                      // icon={<FiSmile size={30} color="green" />}
-                    > 
+                      colorScheme={itHelped === true ? 'yellow' : 'unset'}
+                    // icon={<FiSmile size={30} color="green" />}
+                    >
                       <Text fontSize={33}> 🥳 </Text>
                     </Button>
                     <Button
@@ -286,7 +300,7 @@ function AddItemView() {
                       aria-label="negative"
                       variant={itHelped === false ? 'solid' : "ghost"}
                       colorScheme={itHelped === false ? 'yellow' : 'unset'}
-                      // icon={<FiFrown size={30} color="red" />}
+                    // icon={<FiFrown size={30} color="red" />}
                     >
                       <Text fontSize={33}> 🤮 </Text>
                     </Button>
@@ -323,7 +337,7 @@ function AddItemView() {
 
 function FrontPage() {
   const [addItemClicked, setAddItemClicked] = useState(false);
-  const [items, setItems] = useState<ISafteyNetItem[]>([]);
+  const [items, setItems] = useState<ISafetyNetItem[]>([]);
   const mobile = useMobile();
   const { t } = useTranslation();
   const displayIcon = (iconType: string) => {
@@ -334,7 +348,7 @@ function FrontPage() {
       return false;
     });
   };
-  const renderItem = (item: ISafteyNetItem) => {
+  const renderItem = (item: ISafetyNetItem) => {
     return (
       <Flex marginLeft={5}>
         <li>{item.name}</li>
@@ -344,13 +358,20 @@ function FrontPage() {
   // to fetch data everytime the front page is loaded
   useEffect(() => {
     const baseUrl = "http://127.0.0.1:4010"; // localhost + port as base url
-    const userId = 1; // random user id
     const fetchItemsWrapper = async () => {
-      const fetchItems = await fetch(`${baseUrl}/safetyNet/${userId}`);
+      const fetchItems = await fetch(`${baseUrl}/safetyNet`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer test",
+        },
+      });
+      // const fetchItems = await fetch('https://motivator.api.live.mindtastic.lol/safetyNet')
       if (fetchItems.ok) {
-        const itemsData = await fetchItems.json();
-        if (itemsData.length > 0) {
-          setItems(itemsData);
+        console.log("Entered first if");
+        const responseData: ISafetyNetResponse = await fetchItems.json();
+        if (responseData.items.length > 0) {
+          console.log("Entered second if");
+          setItems(responseData.items);
         }
       } else {
         console.log("Failed to fetch safety net items.");
@@ -363,145 +384,220 @@ function FrontPage() {
     return (
       <Suspense fallback="Loading...">
         <Flex direction="column" alignItems='center'>
-            {!addItemClicked && (
-              <Text fontSize={20} marginBottom={5} textAlign='center'>
-                {t("welcome")}
-              </Text>
-            )}
-            {!addItemClicked && (
-              <>
-                <Flex
-                  // className="container"
-                  backgroundColor="white"
-                  borderRadius={170}
-                  paddingBottom={5}
+          {!addItemClicked && (
+            <Text fontSize={20} marginBottom={5} textAlign='center'>
+              {t("welcome")}
+            </Text>
+          )}
+          {!addItemClicked && (
+            <>
+              <Flex
+                // className="container"
+                backgroundColor="white"
+                borderRadius={170}
+                paddingBottom={5}
+              >
+                <ul className="circle-container">
+                  {/* <li>
+                    {displayIcon("relaxation") && (
+                      <Popover>
+                        <PopoverTrigger>
+                          <button className="btn">
+                            <Text fontSize={40}>🦥</Text>
+                          </button>
+                        </PopoverTrigger>
+                        <Portal>
+                          <PopoverContent bg="tomato" color="white">
+                            <PopoverArrow bg="tomato" />
+                            <PopoverCloseButton />
+                            <PopoverHeader fontWeight="semibold">
+                              Relaxation
+                            </PopoverHeader>
+                            <PopoverBody>
+                              <Text>
+                                {items
+                                  .filter(
+                                    (item) => item.type === "relaxation"
+                                  )
+                                  .map(renderItem)}
+                              </Text>
+                            </PopoverBody>
+                          </PopoverContent>
+                        </Portal>
+                      </Popover>
+                    )}
+                  </li> */}
+                   <li>
+                    {displayIcon("other") && (
+                      <Popover>
+                        <PopoverTrigger>
+                          <button className="btn">
+                            <Text fontSize={40}>👨‍👩‍👧‍👦</Text>
+                          </button>
+                        </PopoverTrigger>
+                        <Portal>
+                          <PopoverContent bg="tomato" color="white">
+                            <PopoverArrow bg="tomato" />
+                            <PopoverCloseButton />
+                            <PopoverHeader>Other</PopoverHeader>
+                            <PopoverBody>
+                              <Text>
+                                {items
+                                  .filter((item) => item.type === "people")
+                                  .map(renderItem)}
+                              </Text>
+                            </PopoverBody>
+                          </PopoverContent>
+                        </Portal>
+                      </Popover>
+                    )}
+                  </li>
+                  <li>
+                    {displayIcon("other") && (
+                      <Popover>
+                        <PopoverTrigger>
+                          <button className="btn">
+                            <Text fontSize={40}>🤾🏾</Text>
+                          </button>
+                        </PopoverTrigger>
+                        <Portal>
+                          <PopoverContent bg="tomato" color="white">
+                            <PopoverArrow bg="tomato" />
+                            <PopoverCloseButton />
+                            <PopoverHeader>Other</PopoverHeader>
+                            <PopoverBody>
+                              <Text>
+                                {items
+                                  .filter((item) => item.type === "activities")
+                                  .map(renderItem)}
+                              </Text>
+                            </PopoverBody>
+                          </PopoverContent>
+                        </Portal>
+                      </Popover>
+                    )}
+                  </li>
+                  <li>
+                    {displayIcon("pet") && (
+                      <Popover>
+                        <PopoverTrigger>
+                          <button className="btn">
+                            <Text fontSize={40}>🐾</Text>
+                          </button>
+                        </PopoverTrigger>
+                        <Portal>
+                          <PopoverContent bg="tomato" color="white">
+                            <PopoverArrow bg="tomato" />
+                            <PopoverCloseButton />
+                            <PopoverHeader>Pets</PopoverHeader>
+                            <PopoverBody>
+                              <Text>
+                                {items
+                                  .filter((item) => item.type === "pet")
+                                  .map(renderItem)}
+                              </Text>
+                            </PopoverBody>
+                          </PopoverContent>
+                        </Portal>
+                      </Popover>
+                    )}
+                  </li>
+                  <li>
+                    {displayIcon("pet") && (
+                      <Popover>
+                        <PopoverTrigger>
+                          <button className="btn">
+                            <Text fontSize={40}>💪🏽</Text>
+                          </button>
+                        </PopoverTrigger>
+                        <Portal>
+                          <PopoverContent bg="tomato" color="white">
+                            <PopoverArrow bg="tomato" />
+                            <PopoverCloseButton />
+                            <PopoverHeader>Pets</PopoverHeader>
+                            <PopoverBody>
+                              <Text>
+                                {items
+                                  .filter((item) => item.type === "personalStrengths")
+                                  .map(renderItem)}
+                              </Text>
+                            </PopoverBody>
+                          </PopoverContent>
+                        </Portal>
+                      </Popover>
+                    )}
+                  </li>
+                  {/* <li>
+                    {displayIcon("situationControl") && (
+                      <Popover>
+                        <PopoverTrigger>
+                          <button className="btn">
+                            <Text fontSize={40}>🌈</Text>
+                          </button>
+                        </PopoverTrigger>
+                        <Portal>
+                          <PopoverContent bg="tomato" color="white">
+                            <PopoverArrow bg="tomato" />
+                            <PopoverCloseButton />
+                            <PopoverHeader>Situation Control</PopoverHeader>
+                            <PopoverBody>
+                              <Text>
+                                {items
+                                  .filter(
+                                    (item) => item.type === "situationControl"
+                                  )
+                                  .map(renderItem)}
+                              </Text>
+                            </PopoverBody>
+                          </PopoverContent>
+                        </Portal>
+                      </Popover>
+                    )}
+                  </li> */}
+                  <li>
+                    {displayIcon("other") && (
+                      <Popover>
+                        <PopoverTrigger>
+                          <button className="btn">
+                            <Text fontSize={40}>💭</Text>
+                          </button>
+                        </PopoverTrigger>
+                        <Portal>
+                          <PopoverContent bg="tomato" color="white">
+                            <PopoverArrow bg="tomato" />
+                            <PopoverCloseButton />
+                            <PopoverHeader>Other</PopoverHeader>
+                            <PopoverBody>
+                              <Text>
+                                {items
+                                  .filter((item) => item.type === "other")
+                                  .map(renderItem)}
+                              </Text>
+                            </PopoverBody>
+                          </PopoverContent>
+                        </Portal>
+                      </Popover>
+                    )}
+                  </li>
+                </ul>
+              </Flex>
+              {!addItemClicked && (
+                <Button
+                  mt={5}
+                  mb={mobile ? '25px' : 'unset'}
+                  colorScheme="primary"
+                  aria-label="Add item"
+                  leftIcon={<AddIcon />}
+                  onClick={() => setAddItemClicked(true)}
                 >
-                  <ul className="circle-container">
-                    <li>
-                      {displayIcon("relaxation") && (
-                        <Popover>
-                          <PopoverTrigger>
-                            <button className="btn">
-                              <Text fontSize={40}>🦥</Text>
-                            </button>
-                          </PopoverTrigger>
-                          <Portal>
-                            <PopoverContent bg="tomato" color="white">
-                              <PopoverArrow bg="tomato" />
-                              <PopoverCloseButton />
-                              <PopoverHeader fontWeight="semibold">
-                                Relaxation
-                              </PopoverHeader>
-                              <PopoverBody>
-                                <Text>
-                                  {items
-                                    .filter(
-                                      (item) => item.type === "relaxation"
-                                    )
-                                    .map(renderItem)}
-                                </Text>
-                              </PopoverBody>
-                            </PopoverContent>
-                          </Portal>
-                        </Popover>
-                      )}
-                    </li>
-                    <li>
-                      {displayIcon("pet") && (
-                        <Popover>
-                          <PopoverTrigger>
-                            <button className="btn">
-                              <Text fontSize={40}>🐾</Text>
-                            </button>
-                          </PopoverTrigger>
-                          <Portal>
-                            <PopoverContent bg="tomato" color="white">
-                              <PopoverArrow bg="tomato" />
-                              <PopoverCloseButton />
-                              <PopoverHeader>Pets</PopoverHeader>
-                              <PopoverBody>
-                                <Text>
-                                  {items
-                                    .filter((item) => item.type === "pet")
-                                    .map(renderItem)}
-                                </Text>
-                              </PopoverBody>
-                            </PopoverContent>
-                          </Portal>
-                        </Popover>
-                      )}
-                    </li>
-                    <li>
-                      {displayIcon("situationControl") && (
-                        <Popover>
-                          <PopoverTrigger>
-                            <button className="btn">
-                              <Text fontSize={40}>🌈</Text>
-                            </button>
-                          </PopoverTrigger>
-                          <Portal>
-                            <PopoverContent bg="tomato" color="white">
-                              <PopoverArrow bg="tomato" />
-                              <PopoverCloseButton />
-                              <PopoverHeader>Situation Control</PopoverHeader>
-                              <PopoverBody>
-                                <Text>
-                                  {items
-                                    .filter(
-                                      (item) => item.type === "situationControl"
-                                    )
-                                    .map(renderItem)}
-                                </Text>
-                              </PopoverBody>
-                            </PopoverContent>
-                          </Portal>
-                        </Popover>
-                      )}
-                    </li>
-                    <li>
-                      {displayIcon("other") && (
-                        <Popover>
-                          <PopoverTrigger>
-                            <button className="btn">
-                              <Text fontSize={40}>💭</Text>
-                            </button>
-                          </PopoverTrigger>
-                          <Portal>
-                            <PopoverContent bg="tomato" color="white">
-                              <PopoverArrow bg="tomato" />
-                              <PopoverCloseButton />
-                              <PopoverHeader>Other</PopoverHeader>
-                              <PopoverBody>
-                                <Text>
-                                  {items
-                                    .filter((item) => item.type === "other")
-                                    .map(renderItem)}
-                                </Text>
-                              </PopoverBody>
-                            </PopoverContent>
-                          </Portal>
-                        </Popover>
-                      )}
-                    </li>
-                  </ul>
-                </Flex>
-                {!addItemClicked && (
-                  <Button
-                    mt={5}
-                    mb={mobile ? '25px' : 'unset'}
-                    colorScheme="primary"
-                    aria-label="Add item"
-                    leftIcon={<AddIcon />}
-                    onClick={() => setAddItemClicked(true)}
-                  >
-                    Add item
-                  </Button>
-                )}
-              </>
-            )}
-            {addItemClicked && (
-              <AddItemView />
-            )}
+                  Add item
+                </Button>
+              )}
+            </>
+          )}
+          {addItemClicked && (
+            <AddItemView />
+          )}
         </Flex>
       </Suspense>
     );
@@ -517,8 +613,8 @@ function FrontPage() {
 
 export default function SafetyNet() {
   const { t } = useTranslation();
-  return <ContentWrapper headerProps={{text: t('safetyNet')}}>
+  return <ContentWrapper headerProps={{ text: t('safetyNet') }}>
     <FrontPage />
   </ContentWrapper>
-  
+
 }

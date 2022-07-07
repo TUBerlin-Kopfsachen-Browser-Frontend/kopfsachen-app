@@ -25,6 +25,7 @@ function Card(props) {
       width={width}
       bg={useColorModeValue("blue.100", "blue.900")}
       borderRadius='lg'
+      boxShadow={"xl"}
     >
       <Stack
         align={{ base: "center", md: "stretch" }}

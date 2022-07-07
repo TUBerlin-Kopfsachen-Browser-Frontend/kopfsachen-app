@@ -105,6 +105,7 @@ const CountDownTimer = ({
                 mt="40px"
                 bg="yellow.200"
                 borderRadius="lg"
+                boxShadow={"xl"}
               >
                 <Text fontSize="18px" color="black" textAlign="left">
                   If you want to practice optimism, the following task can help
