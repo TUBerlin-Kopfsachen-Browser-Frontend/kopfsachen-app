@@ -12,8 +12,6 @@ import {
   Button,
 } from "@chakra-ui/react";
 import Sidebar from "../components/Sidebar";
-import thumbnail from "../thumbnail.png";
-import sun from "../sun.png";
 import { useNavigate } from "react-router-dom";
 import { TimeIcon } from "@chakra-ui/icons";
 import { ContentWrapper } from "../components/utils";
