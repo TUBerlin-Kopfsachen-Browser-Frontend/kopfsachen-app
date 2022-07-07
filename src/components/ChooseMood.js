@@ -22,16 +22,25 @@ export default function ChooseMoodForm({ onSubmit }) {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <FormControl isInvalid={errors.name}>
-        <FormLabel htmlFor="type">Please enter your mood here:</FormLabel>
+        <FormLabel htmlFor="mood_type">Please enter your mood here:</FormLabel>
         <RadioGroup>
           <Stack direction="row">
-            <Radio {...register("type", { required: true })} value="positive">
+            <Radio
+              {...register("mood_type", { required: true })}
+              value="positive"
+            >
               Positive
             </Radio>
-            <Radio {...register("type", { required: true })} value="neutral">
+            <Radio
+              {...register("mood_type", { required: true })}
+              value="neutral"
+            >
               Neutral
             </Radio>
-            <Radio {...register("type", { required: true })} value="negative">
+            <Radio
+              {...register("mood_type", { required: true })}
+              value="negative"
+            >
               Negative
             </Radio>
           </Stack>
@@ -39,7 +48,7 @@ export default function ChooseMoodForm({ onSubmit }) {
         <Input
           id="description"
           placeholder="description"
-          {...register("description", {
+          {...register("mood_descr", {
             required: "This is required",
           })}
         />
@@ -52,10 +61,10 @@ export default function ChooseMoodForm({ onSubmit }) {
       </Button>
       <input
         type="hidden"
-        id="timestamp"
-        name="timestamp"
+        id="mood_day"
+        name="mood_day"
         value={new Date().toISOString()}
-        {...register("timestamp")}
+        {...register("mood_day")}
       />
     </form>
   );
