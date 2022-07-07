@@ -12,7 +12,7 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { ArrowBackIcon, SearchIcon } from "@chakra-ui/icons";
-import bookshelf from "../bookshelf.png";
+// import bookshelf from "../../public/bookshelf.png";
 import { ContentWrapper, useMobile } from "../components/utils";
 import ReactMarkdown from 'react-markdown';
 
@@ -39,7 +39,7 @@ interface IEntryPageProps {
 function EntryPage(props: IEntryPageProps) {
   return (
     <Flex flexDirection='column'>
-      <img src={bookshelf} alt='book shelf' width='400px'></img>
+      <img src='/bookshelf.png' alt='book shelf' width='400px'></img>
       <Flex justifyContent='flex-start'>
       {
       // useMobile() && 
@@ -73,10 +73,13 @@ const sortEntriesByTitle = (x: IEntry, y: IEntry) => {
 function FrontPage() {
   const [entryToDisplay, setEntryToDisplay] = useState<IEntry>();
   const [entries, setEntries] = useState<IEntry[]>([]);
-  const [searchInput, setSearchInput] = useState<string>('');
+  const [searchInput, setSearchInput] = useState<string>("");
   const [searchIsActive, setSearchIsActive] = useState(false);
   const mobile = useMobile();
-  const focusBorderColorScheme = useColorModeValue("neutral.400", "neutral.100");
+  const focusBorderColorScheme = useColorModeValue(
+    "neutral.400",
+    "neutral.100"
+  );
 
   // to fetch data everytime the front page is loaded
   useEffect(() => {
@@ -91,7 +94,7 @@ function FrontPage() {
       } else {
         console.log("Failed to fetch wiki entries.");
       }
-    }
+    };
     fetchEntriesWrapper();
   }, []);
 
@@ -103,7 +106,7 @@ function FrontPage() {
     let displayInitial =
       index === 0 ||
       entries[index - 1].title[0]?.toLowerCase() !==
-      entries[index].title[0]?.toLowerCase();
+        entries[index].title[0]?.toLowerCase();
     return (
       <Flex key={entry.title[0].concat(`${index}`)} flexDirection="column">
         <Heading marginTop={4} size="I">
@@ -139,7 +142,7 @@ function FrontPage() {
         maxWidth="800px"
         margin='auto'
       >
-        <img src={bookshelf} alt="book shelf" width="400px"></img>
+        <img src='/bookshelf.png' alt="book shelf" width="400px"></img>
         <InputGroup>
           <InputLeftElement
             pointerEvents="none"
@@ -179,25 +182,15 @@ function FrontPage() {
   } else {
     // entry page
     return (
-      <Flex flexDir={mobile ? 'column' : 'row'}>
-        {/* {!mobile && <Button
-          variant="ghost"
-          flexShrink={0}
-          marginRight={5}
-          colorScheme="neutral"
-          leftIcon={<ArrowBackIcon />}
-          onClick={() => setEntryToDisplay(undefined)}
-        >
-          Back
-        </Button>} */}
         <EntryPage entry={entryToDisplay} mobileBackClick={() => setEntryToDisplay(undefined)}/>
-      </Flex>
     );
   }
 }
 
 export default function Wiki() {
-  return <ContentWrapper headerProps={{ text: 'Wiki' }}>
-    <FrontPage />
-  </ContentWrapper>
+  return (
+    <ContentWrapper headerProps={{ text: "Wiki" }}>
+      <FrontPage />
+    </ContentWrapper>
+  );
 }
