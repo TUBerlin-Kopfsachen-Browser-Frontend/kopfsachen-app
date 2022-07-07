@@ -19,11 +19,12 @@ function Card(props) {
       p={4}
       display={{ md: "flex" }}
       maxWidth="30rem"
-      borderWidth={2}
+      // borderWidth={2}
       borderColor={useColorModeValue("primary.400", "primary.100")}
       mb={5} mr={5} ml={5}
       width={width}
       bg={useColorModeValue("blue.100", "blue.900")}
+      borderRadius='lg'
     >
       <Stack
         align={{ base: "center", md: "stretch" }}

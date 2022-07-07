@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
 import {
-  ChakraProvider,
   Text,
   Link,
-  theme,
   Flex,
   Heading,
   Input,
@@ -11,60 +9,59 @@ import {
   InputLeftElement,
   Button,
   Skeleton,
-  Stack,
-  Box,
   useColorModeValue,
 } from "@chakra-ui/react";
 import { ArrowBackIcon, SearchIcon } from "@chakra-ui/icons";
-import Sidebar from "../components/Sidebar";
 import bookshelf from "../bookshelf.png";
-import { ContentWrapper, Header, useMobile } from "../components/utils";
+import { ContentWrapper, useMobile } from "../components/utils";
+import ReactMarkdown from 'react-markdown';
 
-// api response format as interface
+// api response format as interface(s)
+interface IWikiResponse {
+  entry_count: number;
+  entries: IEntry[];
+}
+
 interface IEntry {
-  // id: string;
+  id: string;
+  created_at: string;
+  updated_at: string;
   title: string;
-  // contents: {
-  //     content: string;
-  //     type: string;
-  // }[];
-  content: string[];
+  content: string;
 }
 
 interface IEntryPageProps {
   entry: IEntry;
+  mobileBackClick: () => void;
 }
-
-// interface IContent {
-//     type: string;
-//     content: string;
-// }
-
-const renderContentElement = (contentElement: string, index: number, contents: string[]) => {
-  // if (contentElement.type === 'text') {
-  //     return (
-  //         <Link href={contents[index].content} color='teal.500' isExternal>
-  //             {contents[index].content.concat(' ')}
-  //         </Link>
-  //     );
-  // }
-  return contents[index].concat(' ');
-}
-
 
 // should display entry that has been clicked
 function EntryPage(props: IEntryPageProps) {
   return (
     <Flex flexDirection='column'>
       <img src={bookshelf} alt='book shelf' width='400px'></img>
+      <Flex justifyContent='flex-start'>
+      {
+      // useMobile() && 
+      <Button
+            variant="link"
+            // flexShrink={0}
+            // marginRight={5}
+            mb={5}
+            colorScheme="neutral"
+            leftIcon={<ArrowBackIcon />}
+            onClick={props.mobileBackClick}
+          > Back </Button>
+      }
+      </Flex>
       <Flex>
-        <Heading marginBottom={5} fontSize='3xl'>
+        <Heading marginBottom={5} fontSize='lg'>
           {props.entry.title}
         </Heading>
       </Flex>
-      <Text>
-        {(props.entry.content).map(renderContentElement)}
-      </Text>
+      <ReactMarkdown>
+          {(props.entry.content)}
+      </ReactMarkdown>
     </Flex>
   );
 }
@@ -84,13 +81,12 @@ function FrontPage() {
   // to fetch data everytime the front page is loaded
   useEffect(() => {
     const baseUrl = "http://127.0.0.1:4010"; // localhost + port as base url
-    // const wikiEntryId = "Lorem ipsum"; // random entry id
     const fetchEntriesWrapper = async () => {
-      const fetchEntries = await fetch(`${baseUrl}/wiki`);
+      const fetchEntries = await fetch(`${baseUrl}/wiki?limit=20&offset=0&with_content=true`);
       if (fetchEntries.ok) {
-        const entriesData = await fetchEntries.json();
-        if (entriesData.length > 0) {
-          setEntries(entriesData.sort(sortEntriesByTitle)); // sort entries by title before storing
+        const entriesData: IWikiResponse = await fetchEntries.json();
+        if (entriesData.entries.length > 0) {
+          setEntries(entriesData.entries.sort(sortEntriesByTitle)); // sort entries by title before storing
         }
       } else {
         console.log("Failed to fetch wiki entries.");
@@ -138,76 +134,63 @@ function FrontPage() {
     // front page
     let filteredEntries = entries.filter(filterEntry).map(renderEntry);
     return (
-      <Flex direction={"row"}>
+      <Flex
+        flexDirection="column"
+        maxWidth="800px"
+        margin='auto'
+      >
+        <img src={bookshelf} alt="book shelf" width="400px"></img>
+        <InputGroup>
+          <InputLeftElement
+            pointerEvents="none"
+            children={<SearchIcon color="neutral.400" />}
+          />
+          <Input
+            placeholder="Search for entries"
+            focusBorderColor={focusBorderColorScheme}
+            onChange={handleInput}
+          />
+        </InputGroup>
         <Flex
+          fontSize="xl"
+          alignItems="flex-start"
           flexDirection="column"
-          maxWidth="800px"
-          margin='auto'
+          paddingBottom={100}
         >
-          <img src={bookshelf} alt="book shelf" width="400px"></img>
-          <InputGroup>
-            <InputLeftElement
-              pointerEvents="none"
-              children={<SearchIcon color="neutral.400" />}
-            />
-            <Input
-              placeholder="Search for entries"
-              focusBorderColor={focusBorderColorScheme}
-              onChange={handleInput}
-            />
-          </InputGroup>
-          <Flex
-            fontSize="xl"
-            alignItems="flex-start"
-            flexDirection="column"
-            paddingBottom={100}
-          >
-            {filteredEntries}
-            {searchIsActive && filteredEntries.length === 0 && (
-              <Text marginTop={5} fontSize="md">
-                {" "}
-                No entries found.{" "}
-              </Text>
-            )}
-            {entries.length === 0 &&
-              Array.apply(null, new Array(5)).map((_, i) => (
-                <Skeleton
-                  height="20px"
-                  width="100%"
-                  marginTop="10px"
-                  key={-i}
-                />
-              ))}
-          </Flex>
+          {filteredEntries}
+          {searchIsActive && filteredEntries.length === 0 && (
+            <Text marginTop={5} fontSize="md">
+              {" "}
+              No entries found.{" "}
+            </Text>
+          )}
+          {entries.length === 0 &&
+            Array.apply(null, new Array(5)).map((_, i) => (
+              <Skeleton
+                height="20px"
+                width="100%"
+                marginTop="10px"
+                key={-i}
+              />
+            ))}
         </Flex>
       </Flex>
     );
   } else {
     // entry page
     return (
-      <Flex>
-          {!mobile && <Button
-            variant="ghost"
-            flexShrink={0}
-            marginRight={5}
-            colorScheme="neutral"
-            leftIcon={<ArrowBackIcon />}
-            onClick={() => setEntryToDisplay(undefined)}
-          >
-            Back
-          </Button>}
-          <EntryPage entry={entryToDisplay} />
-        
-        {mobile && <Button
+      <Flex flexDir={mobile ? 'column' : 'row'}>
+        {/* {!mobile && <Button
           variant="ghost"
           flexShrink={0}
           marginRight={5}
-          colorScheme="blackAlpha"
+          colorScheme="neutral"
           leftIcon={<ArrowBackIcon />}
           onClick={() => setEntryToDisplay(undefined)}
         >
           Back
-        </Button>}
+        </Button>} */}
+        <EntryPage entry={entryToDisplay} mobileBackClick={() => setEntryToDisplay(undefined)}/>
       </Flex>
     );
   }
