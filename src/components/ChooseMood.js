@@ -9,6 +9,7 @@ import {
   Radio,
   RadioGroup,
   Stack,
+  Textarea,
 } from "@chakra-ui/react";
 import { m } from "framer-motion";
 
@@ -24,28 +25,32 @@ export default function ChooseMoodForm({ onSubmit }) {
       <FormControl isInvalid={errors.name}>
         <FormLabel htmlFor="mood_type">Please enter your mood here:</FormLabel>
         <RadioGroup>
-          <Stack direction="row">
+          <Stack m={10}>
             <Radio
               {...register("mood_type", { required: true })}
               value="positive"
+              size="md"
             >
-              Positive
+              😄 Positive
             </Radio>
             <Radio
               {...register("mood_type", { required: true })}
               value="neutral"
+              size="md"
             >
-              Neutral
+              😐 Neutral
             </Radio>
             <Radio
               {...register("mood_type", { required: true })}
               value="negative"
+              size="md"
             >
-              Negative
+              😞 Negative
             </Radio>
           </Stack>
         </RadioGroup>
-        <Input
+        <FormLabel htmlFor="mood_type">Enter more detail here:</FormLabel>
+        <Textarea
           id="description"
           placeholder="description"
           {...register("mood_descr", {
@@ -56,7 +61,12 @@ export default function ChooseMoodForm({ onSubmit }) {
           {errors.name && errors.name.message}
         </FormErrorMessage>
       </FormControl>
-      <Button mt={4} colorScheme="teal" isLoading={isSubmitting} type="submit">
+      <Button
+        mt={4}
+        isLoading={isSubmitting}
+        type="submit"
+        colorScheme="primary"
+      >
         Submit
       </Button>
       <input
