@@ -92,9 +92,6 @@ interface ISafetyNetItem {
     timestamp: string;
   }[];
 }
-interface ISafetyNetResponse {
-  items: ISafetyNetItem[];
-}
 
 function AddItemView() {
   const [nameInput, setNameInput] = useState<string>("");
@@ -159,7 +156,7 @@ function AddItemView() {
           <Flex direction="row" wrap='wrap' justifyContent='space-around'>
             <Radio {...register("type")} value="people" ml={2.5} mr={2.5} width='100px'>
               People
-              <Text fontSize={40}>👨‍👩‍👧‍👦</Text>{" "}
+              <Text fontSize={40}>👩‍👦</Text>{" "}
             </Radio>
             <Radio {...register("type")} value="activities" ml={2.5} mr={2.5} width='100px'>
               Activities
@@ -434,7 +431,7 @@ function FrontPage() {
                       <Popover>
                         <PopoverTrigger>
                           <button className="btn">
-                            <Text fontSize={40}>👨‍👩‍👧‍👦</Text>
+                            <Text fontSize={40}>👩‍👦</Text>
                           </button>
                         </PopoverTrigger>
                         <Portal>
@@ -495,7 +492,7 @@ function FrontPage() {
                             <PopoverBody>
                               <Text>
                                 {items
-                                  .filter((item) => item.type === "pet")
+                                  .filter((item) => item.type === "pets")
                                   .map(renderItem)}
                               </Text>
                             </PopoverBody>
