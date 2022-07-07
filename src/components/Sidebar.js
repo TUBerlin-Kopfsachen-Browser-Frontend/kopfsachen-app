@@ -86,7 +86,7 @@ export default function Sidebar() {
       boxShadow="0 4px 12px 0 rgba(0, 0, 0, 0.25)"
       borderRadius={navSize === "small" ? "15px" : "30px"}
       w={navSize === "small" ? "75px" : "275px"}
-      h={navSize === "small" ? "unset" : "600px"}
+      h={navSize === "small" ? "unset" : "590px"}
       flexDir="column"
       justifyContent="space-between"
       backgroundColor={useColorModeValue("neutral.50", "neutral.700")}
@@ -104,7 +104,7 @@ export default function Sidebar() {
         <IconButton
           background="none"
           mt={navSize === "small" ? 0 : 6}
-          _hover={{ background: "none" }}
+          _hover={{ backgroundColor:useColorModeValue("neutral.100", "neutral.800") }}
           icon={<FiMenu />}
           onClick={() => {
             if (navSize === "small") changeNavSize("large");
@@ -159,7 +159,7 @@ export default function Sidebar() {
           display={navIconDisplay}
           marginTop={30}
           onChange={onChange}
-          padding={"10px"}
+          // padding={"10px"}
           _hover={{ backgroundColor:useColorModeValue("neutral.100", "neutral.800") }}
           borderColor={useColorModeValue("neutral.50", "neutral.700")}
         >

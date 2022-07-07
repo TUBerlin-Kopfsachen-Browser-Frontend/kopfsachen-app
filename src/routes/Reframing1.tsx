@@ -15,80 +15,151 @@ import {
   Radio,
   Button,
   ButtonGroup,
+  SimpleGrid,
+  Container,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalBody,
+  IconButton,
+  useDisclosure,
 } from "@chakra-ui/react";
 
 import { useNavigate } from "react-router-dom";
+import { useEffect, useRef, useState, Suspense } from "react";
 import Sidebar from "../components/Sidebar";
-import { AspectRatio, useColorModeValue } from "@chakra-ui/react";
-import reframing from "../reframing.png"
+import Card from "../components/Cards";
+import { FiFrown, FiMeh, FiSmile } from "react-icons/fi";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { stringify } from "querystring";
-import { networkInterfaces } from "os";
+import { AspectRatio } from "@chakra-ui/react";
 import axios from "axios";
+import i18n, { t } from "i18next";
+import { initReactI18next, useTranslation } from "react-i18next";
 import { ContentWrapper, useMobile } from "../components/utils";
+import reframing from "../reframing.png"
 
-interface IReframingItem {
-  situations: string[];
+interface IResources {
+  feedback: boolean;
 }
 
-export default function New() {
-  const navigate = useNavigate();
+export default function ReframingText() {
+  const { title, text } = data;
+  const { title1, text1 } = data1;
+  const { title2, text2 } = data2;
+  const { title3, text3 } = data3;
   const mobile = useMobile();
-  const { register, handleSubmit, setValue } = useForm<IReframingItem>();
-  const onSubmit: SubmitHandler<IReframingItem> = (data) =>
+  const navigate = useNavigate();
+  const { register, handleSubmit, setValue } = useForm<IResources>();
+  const onSubmit: SubmitHandler<IResources> = (data) =>
     axios.post(`http://127.0.0.1:4010/safetyNet/1`, data);
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const { t } = useTranslation();
+  const [isNavReady, setIsNavReady] = useState(false);
 
   return (
     <ContentWrapper headerProps={{ text: 'Reframing', image: reframing }}>
-      <Flex flexDirection="column" alignItems='center'>
-        <Text fontSize={20} mb={10} textAlign='center'>
-          Which situation is bothering you at the moment? {"\n"}
-          Maybe there is more than one, we are going to go through each
-          situaion step by step.
-        </Text>
-        
-        <form onSubmit={handleSubmit(onSubmit)} style={{maxWidth: '100%'}}>
-          <Flex flexDirection='column'>
-          <Stack spacing={5}>
-            <Input
-              {...register(`situations.${0}`)}
-              placeholder="Situation 1"
-              focusBorderColor={useColorModeValue("neutral.400", "neutral.100")}
-              // size="lg"
-            />
-            <Input
-              {...register(`situations.${1}`)}
-              placeholder="Situation 2"
-              focusBorderColor={useColorModeValue("neutral.400", "neutral.100")}
-              // size="lg"
-            />
-            <Input
-              {...register(`situations.${2}`)}
-              placeholder="Situation 3"
-              focusBorderColor={useColorModeValue("neutral.400", "neutral.100")}
-              // size="lg"
-            />
-            <Input
-              {...register(`situations.${3}`)}
-              placeholder="Situation 4"
-              focusBorderColor={useColorModeValue("neutral.400", "neutral.100")}
-              // size="lg"
-            />
-          </Stack>
-          
-              <Button
-                mt={10}
-                colorScheme="success"
-                type="submit"
-                onClick={() => navigate("/resources/reframing2")}
-                whiteSpace={mobile ? 'initial' : 'unset'}
-              >
-                These are all the situations that are bothering me at the
-                moment
-              </Button>
-              </Flex>
-        </form>
-      </Flex>
+    <Flex direction="column" alignItems='center'>
+        <Flex direction="row" wrap='wrap'>
+            <Card title={title} text={text} width={mobile ? '100%' : '400px'}/>
+            <Card title={title1} text={text1} width={mobile ? '100%' : '400px'}/>
+            <Card title={title2} text={text2} width={mobile ? '100%' : '400px'}/>
+            <Card title={title3} text={text3} width={mobile ? '100%' : '400px'}/>
+        </Flex>
+      
+          <Button
+            onClick={onOpen}
+            mb='25px'
+            mt={3}
+            colorScheme="success"
+            whiteSpace={mobile ? 'initial' : 'unset'}
+          >
+            Ich bin zu einer neuen Bewertung der Situationen gekommen.
+          </Button>
+          <Modal isOpen={isOpen} onClose={onClose}>
+            <ModalOverlay>
+              <ModalContent>
+                <form onSubmit={handleSubmit(onSubmit)}>
+                  <ModalHeader fontSize="lg" fontWeight="bold"> How did you like this exercise? </ModalHeader>
+
+                  <ModalBody>
+                    <Stack direction="row" spacing={3}>
+                      <IconButton
+                        onClick={() => {
+                          setValue("feedback", true);
+                          setIsSubmitDisabled(false);
+                        }}
+                        aria-label="positive"
+                        variant="ghost"
+                        icon={<FiSmile size={30} color="green" />}
+                      />
+                      <IconButton
+                        onClick={() => {
+                          setValue("feedback", false);
+                          setIsSubmitDisabled(false);
+                        }}
+                        aria-label="negative"
+                        variant="ghost"
+                        icon={<FiFrown size={30} color="red" />}
+                      />
+                    </Stack>
+                  </ModalBody>
+
+                  <ModalFooter>
+                    <Button
+                      isDisabled={isSubmitDisabled}
+                      type="submit"
+                      mr={3}
+                      onClick={() => {
+                        onClose();
+                        navigate('/resources')
+                        setIsNavReady(true);
+                      }}
+                    >
+                      {t("submit")}
+                    </Button>
+                    <Button
+                      onClick={() => {
+                        onClose();
+                        setIsSubmitDisabled(true);
+                      }}
+                    >
+                      {t("cancel")}
+                    </Button>
+                  </ModalFooter>
+                </form>
+              </ModalContent>
+            </ModalOverlay>
+          </Modal>
+
+    </Flex>
     </ContentWrapper>
   );
 }
+
+const data = {
+  title: "1.",
+  text: "Nun geht es darum die Perspektive zu wechseln und die Situationen in einen neuen Rahmen zu stellen. Es ist dabei nicht zwingend nötig eine positive Interpretaion der Situation zu finden, auch eine neutrale Interpretation kann dir helfen, die negative Stimmung zu bessern.",
+};
+
+const data1 = {
+  title1:
+    "2. Geht es um eine bestimmte Handlung/ Verhalten, die du nicht ausführen möchtest, helfen dir die folgenden Fragen zu einer positiveren/ neutralen Bewertung zu kommen.",
+  text1:
+    "A) Kontext erweitern/ in einem anderen Kontext betrachten: Welchen Vorteil könnte eine ungeliebte Tätigkeit haben? B) Andere Bewertung anbieten:Wozu könnte ein gewisses Verhalten dienen? Welche Funktion könnte es haben? C) Perspektive ändern:Welche Bedeutung könnte es in 10 Jahren haben?",
+};
+
+const data2 = {
+  title2:
+    "3. Belastet dich aktuell das Verhalten einer anderen Person, denk über folgende Fragen nach:",
+  text2:
+    "1. Was sind mögliche Gründe für dieses Verhalten (die ggf. nichts mit dir zu tun haben)? 2. Welche Bedürfnisse der anderen Person könnten dahinter stehen? (Zugehörigkeit, Verständnis, Sicherheit etc.) 3. Was braucht diese Person mit diesem Bedürfnis? Was braucht sie anders als bisher? 4. Von wem braucht diese Person etwas? 5. Was braucht sie nicht? 6. Was konkret kannst du als nächstes tun?",
+};
+
+const data3 = {
+  title3: "4. ",
+  text3: "Gehe diese Fragen nun mit allen Situationen durch. ",
+};

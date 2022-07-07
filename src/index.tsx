@@ -12,17 +12,18 @@ import EmergencyNumbers from "./routes/EmergencyNumbers";
 import SafetyNet from "./routes/safetyNet";
 import Settings from "./routes/Settings";
 import NewResources from "./routes/NewResources";
+import ReframingPreview from "./routes/ReframingPreview";
 import Reframing from "./routes/Reframing";
 import Reframing1 from "./routes/Reframing1";
-import Reframing2 from "./routes/Reframing2";
 import Profile from "./routes/Profile";
 import Register from "./routes/Register";
 import Login from "./routes/Login";
+import SocialSupportPreview from "./routes/SocialSupportPreview";
 import SocialSupport from "./routes/SocialSupport";
+import OptimismPreview from "./routes/OptimismPreview";
+import OptimismX from "./routes/OptimismX";
 import Optimism from "./routes/Optimism";
 import Optimism1 from "./routes/Optimism1";
-import Optimism2 from "./routes/Optimism2";
-import Optimism3 from "./routes/Optimism3";
 
 import * as colors from "./color";
 const { theme } = colors;
@@ -39,21 +40,22 @@ ReactDOM.render(
           <Route path="wiki" element={<Wiki />} />
           <Route path="resources" element={<Resources />} />
           <Route path="/resources/safetynet" element={<SafetyNet />} />
+          <Route path="/resources/reframing-preview" element={<ReframingPreview />} />
           <Route path="/resources/reframing" element={<Reframing />} />
           <Route path="/resources/reframing1" element={<Reframing1 />} />
-          <Route path="/resources/reframing2" element={<Reframing2 />} />
           <Route path="/resources/new" element={<NewResources />} />
-          <Route path="/resources/optimism" element={<Optimism />} />
+          <Route path="/resources/optimism-preview" element={<OptimismPreview />} />
+          <Route path="/resources/optimismX" element={<OptimismX />} />
+          <Route path="/resources/optimism" element={<Optimism hours={0} minutes={10} seconds={0} />} />
           <Route path="/resources/optimism1" element={<Optimism1 />} />
-          <Route path="/resources/optimism2" element={<Optimism2 hours={0} minutes={10} seconds={0} />} />
-          <Route path="/resources/optimism3" element={<Optimism3 />} />
+          <Route path="/resources/socialsupport-preview" element={<SocialSupportPreview />} />
           <Route path="/resources/socialsupport" element={<SocialSupport />} />
           <Route path="emergencynumbers" element={<EmergencyNumbers />} />
           {/* <Route path="settings" element={<Settings />} /> */}
           <Route path="register" element={<Register />} />
           <Route path="login" element={<Login />} />
           <Route path="profile" element={<Profile />} />
-          <Route path="neutral1" element={<SocialSupport />} />
+          {/* <Route path="neutral1" element={<SocialSupport1 />} /> */}
         </Routes>
       </BrowserRouter>
     </ChakraProvider>

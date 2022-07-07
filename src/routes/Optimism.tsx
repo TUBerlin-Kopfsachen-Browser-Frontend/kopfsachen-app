@@ -3,20 +3,7 @@ import {
   ChakraProvider,
   Box,
   Text,
-  Link,
-  VStack,
   Stack,
-  Tabs, 
-  TabList,
-  TabPanels, 
-  Tab, 
-  TabPanel,
-  List,
-  ListItem,
-  ListIcon,
-  OrderedList,
-  Code,
-  Grid,
   Image,
   theme,
   Flex,
@@ -25,72 +12,99 @@ import {
   Button,
 } from "@chakra-ui/react"
 import Sidebar from "../components/Sidebar"
-import optimism from "../optimism.png"
+import thumbnail from "../thumbnail.png"
 import sun from "../sun.png"
-
-
-import { MdCheckCircle } from "react-icons/md";
-import { ChatIcon, EmailIcon, PhoneIcon } from "@chakra-ui/icons"
 import { useNavigate } from "react-router-dom";
-
-
-export default function Wiki() {
-     const navigate = useNavigate();
-
-    return (
-        <ChakraProvider theme={theme}>
-            
-                    <Box >
-                        <Sidebar />
-                    </Box>
-
-                <Box w='100%' h='600px'>
-                    <Box w='100%' h='200px'  bg='#F5F500'>
-                        <Text fontSize='40px' align='center' pt='50px' color='white'>Resources </Text>
-                            <Center>
-                                <Image src={optimism} alt="optimism" width='80px' /> 
-                            </Center>
-
-                            <Text fontSize={20} align='center' pt='50px' color={'gray.600'}> 
-                                Which one of the new resources do you want to try today? 
-                            </Text>
-                            
-                           <Box  width="100%" height={12}>
-                            <Center>
-                              <Image src={sun} alt="sun" pt='50px' />
-                             </Center>
-                            </Box>
-
-                            <Text pt={'160px'} fontSize={{ base: 'md', lg: '2xl' }} color={'gray.600'} align="center"  >
-                             Optimism means seeing the good in life, even if i t doesn't appeear that easy.
-                           </Text>
-                           <Center >
-            
-        <Button height='48px'
-                width='300px'    
-                textAlign="right" 
-                size='lg' 
-                bg={'#F5F500'}
-                top={8} 
-                onClick={() => navigate('/resources/optimism1')}
-                >
-                Let's go!
-        </Button>
-        </Center>
-                            
-                    </Box> 
-                    
-                    
+import { TimeIcon } from "@chakra-ui/icons"
+import { ContentWrapper } from "../components/utils"
 
 
 
-                </Box>
-
-
-
-
-                   
-            
-        </ChakraProvider>
-    );
+interface ICountdown {
+  hours: number;
+  minutes: number;
+  seconds: number;
 }
+
+const CountDownTimer = ({ hours = 0, minutes = 0, seconds = 60 }: ICountdown) => {
+
+
+  const [time, setTime] = React.useState<ICountdown>({ hours, minutes, seconds });
+  const navigate = useNavigate();
+
+
+
+  const tick = () => {
+
+    if (time.hours === 0 && time.minutes === 0 && time.seconds === 0)
+      reset()
+    else if (time.hours === 0 && time.minutes == 10 && time.seconds === 0) {
+      setTime({
+        hours: time.hours, minutes: 9, seconds: 59
+      });
+    } else if (time.seconds === 0) {
+      setTime({ hours: time.hours, minutes: time.minutes - 1, seconds: 59 });
+    } else {
+      setTime({ hours: time.hours, minutes: time.minutes, seconds: time.seconds - 1 });
+    }
+  };
+
+
+  const reset = () => setTime({ hours: time.hours, minutes: time.minutes, seconds: time.seconds });
+
+
+  React.useEffect(() => {
+    const timerId = setInterval(() => tick(), 1000);
+    return () => clearInterval(timerId);
+  });
+
+  const refreshPage = () => {
+    window.location.reload();
+  }
+
+  return (
+    <ContentWrapper headerProps={{ text: 'Optimism', image: sun }}>
+      <Flex flexDir='column'>
+        {/* <Button colorScheme='yellow' variant='ghost' pl='300px' onClick={() => navigate
+          ('/resources/optimism1')}>
+          ← Back
+        </Button> */}
+        <Box w='100%' h='800px'>
+          <Center>
+            <Text fontSize='5xl'>
+              {`${time.hours.toString().padStart(2, '0')}:${time.minutes
+                .toString()
+                .padStart(2, '0')}:${time.seconds.toString().padStart(2, '0')}`}
+            </Text>
+          </Center>
+          <Box pt='40px'>
+            <Center>
+              <Button
+                colorScheme='warning'
+                display={'inline-block'}
+                onClick={refreshPage}
+                leftIcon={<TimeIcon />}
+              > Reset  </Button>
+            </Center>
+            <Center>
+              <Box width="900px" p='20px' mt='40px' bg='yellow.200' borderRadius='lg'>
+                <Text fontSize='18px' color='black' textAlign='left'>If you want to practice optimism, the following task can help you: set a timer for 10 minutes. During this time, think about your best possible future self and write it down on a piece of paper. Prepare several pieces of paper for this exercise. Imagine your life the way you always imagined it. Imagine you did your best and achieved all the things you always wanted to achieve in life. Don't worry about grammar or spelling as you write. Just focus on expressing all your thoughts and emotions in a vivid way.
+                </Text>
+              </Box>
+            </Center>
+            <Box pt='40px'>
+              <Center>
+                <Button
+                  colorScheme='success'
+                  onClick={() => navigate('/resources/optimism1')}
+                  display={'inline-block'}
+                >Lets go! </Button>
+              </Center>
+            </Box>
+          </Box>
+        </Box>
+      </Flex>
+    </ContentWrapper>
+  );
+}
+export default CountDownTimer;

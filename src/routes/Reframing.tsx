@@ -2,6 +2,7 @@ import * as React from "react";
 import {
   Icon,
   ChakraProvider,
+  Input,
   Box,
   Text,
   theme,
@@ -14,53 +15,79 @@ import {
   Radio,
   Button,
   ButtonGroup,
-  Image,
 } from "@chakra-ui/react";
-import thumbnail from "../thumbnail.png"
+
 import { useNavigate } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
-import { AspectRatio } from "@chakra-ui/react";
-import { ContentWrapper, useMobile } from "../components/utils";
+import { AspectRatio, useColorModeValue } from "@chakra-ui/react";
 import reframing from "../reframing.png"
+import { useForm, SubmitHandler } from "react-hook-form";
+import { stringify } from "querystring";
+import { networkInterfaces } from "os";
+import axios from "axios";
+import { ContentWrapper, useMobile } from "../components/utils";
+
+interface IReframingItem {
+  situations: string[];
+}
 
 export default function New() {
   const navigate = useNavigate();
   const mobile = useMobile();
+  const { register, handleSubmit, setValue } = useForm<IReframingItem>();
+  const onSubmit: SubmitHandler<IReframingItem> = (data) =>
+    axios.post(`http://127.0.0.1:4010/safetyNet/1`, data);
+
   return (
-    <ContentWrapper headerProps={{ text: 'Resources' }}>
-      <Flex flexDirection='column' alignItems='center'>
-        <Flex alignItems='center' justifyContent='space-evenly' bg='red.200' width='300px' borderRadius='lg'>
-          <Text color='black' mr={3} fontSize='2xl' fontWeight='bold' fontStyle='oblique'> Reframing </Text>
-          <Image mt={3} mb={3} src={reframing} alt='mood barometer' width='120px'/>
-        </Flex>
-        <Text fontSize={20} mt={10} mb={5}>
-          Find out what's behind it!
+    <ContentWrapper headerProps={{ text: 'Reframing', image: reframing }}>
+      <Flex flexDirection="column" alignItems='center'>
+        <Text fontSize={20} mb={10} textAlign='center'>
+          Which situation is bothering you at the moment? {"\n"}
+          Maybe there is more than one, we are going to go through each
+          situaion step by step.
         </Text>
-        <Image src={thumbnail} alt="thumbnail" width='300px' />
-        {/* <Stack>
-        <AspectRatio
-          ratio={16/9}
-        >
-          <iframe
-            title="reframe"
-            src="https://www.youtube-nocookie.com/embed/sOwtIkAO3ZI"
-            allowFullScreen
-          />
-        </AspectRatio>
-      </Stack> */}
-        <Flex flexDirection="row" justifyContent='space-evenly'>
-          <Button colorScheme="warning" mr={3} mt={10} whiteSpace={mobile ? 'initial' : 'unset'}>
-            Choose another strategy
-          </Button>
-          <Button
-            colorScheme="success"
-            onClick={() => navigate("/resources/reframing1")}
-            whiteSpace={mobile ? 'initial' : 'unset'}
-            mt={10}
-          >
-            I want to practice that
-          </Button>
-        </Flex>
+        
+        <form onSubmit={handleSubmit(onSubmit)} style={{maxWidth: '100%'}}>
+          <Flex flexDirection='column'>
+          <Stack spacing={5}>
+            <Input
+              {...register(`situations.${0}`)}
+              placeholder="Situation 1"
+              focusBorderColor={useColorModeValue("neutral.400", "neutral.100")}
+              // size="lg"
+            />
+            <Input
+              {...register(`situations.${1}`)}
+              placeholder="Situation 2"
+              focusBorderColor={useColorModeValue("neutral.400", "neutral.100")}
+              // size="lg"
+            />
+            <Input
+              {...register(`situations.${2}`)}
+              placeholder="Situation 3"
+              focusBorderColor={useColorModeValue("neutral.400", "neutral.100")}
+              // size="lg"
+            />
+            <Input
+              {...register(`situations.${3}`)}
+              placeholder="Situation 4"
+              focusBorderColor={useColorModeValue("neutral.400", "neutral.100")}
+              // size="lg"
+            />
+          </Stack>
+          
+              <Button
+                mt={10}
+                colorScheme="success"
+                type="submit"
+                onClick={() => navigate("/resources/reframing1")}
+                whiteSpace={mobile ? 'initial' : 'unset'}
+              >
+                These are all the situations that are bothering me at the
+                moment
+              </Button>
+              </Flex>
+        </form>
       </Flex>
     </ContentWrapper>
   );

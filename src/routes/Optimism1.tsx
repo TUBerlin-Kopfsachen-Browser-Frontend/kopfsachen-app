@@ -1,68 +1,151 @@
 import * as React from "react"
 import {
+    Icon,
     ChakraProvider,
+    Input,
     Box,
-    Text,
-    Link,
-    VStack,
-    Stack,
-    Tabs,
-    TabList,
-    TabPanels,
-    Tab,
-    TabPanel,
-    List,
-    ListItem,
-    ListIcon,
-    OrderedList,
-    Code,
-    Grid,
     Image,
+    Text,
     theme,
     Flex,
     Center,
     Heading,
-    Button,
+    Stack,
+    RadioGroup,
+    HStack,
+    Radio,
+    Button, ButtonGroup,
+    SimpleGrid,
+    Container,
+    Modal,
+    ModalOverlay,
+    ModalContent,
+    ModalFooter,
+    ModalHeader,
+    ModalBody,
+    IconButton,
+    useDisclosure,
+    useColorModeValue
 } from "@chakra-ui/react"
-import Sidebar from "../components/Sidebar"
-import thumbnail from "../thumbnail.png"
 import sun from "../sun.png"
 
 
-import { MdCheckCircle } from "react-icons/md";
-import { ChatIcon, EmailIcon, PhoneIcon } from "@chakra-ui/icons"
 import { useNavigate } from "react-router-dom";
-import { ContentWrapper, useMobile } from "../components/utils"
+import { useEffect, useRef, useState, Suspense } from "react"
+import Sidebar from "../components/Sidebar"
+import Card from "../components/Cards"
+import { FiFrown, FiMeh, FiSmile } from "react-icons/fi"
+
+import { useForm, SubmitHandler } from "react-hook-form";
+import { AspectRatio } from '@chakra-ui/react'
+import axios from "axios"
+
+import i18n, { t } from "i18next";
+import { initReactI18next, useTranslation } from "react-i18next";
+import { ContentWrapper } from "../components/utils";
 
 
-export default function Wiki() {
+interface IResources {
+    feedback: boolean;
+    situations: string[];
+}
+
+export default function ReframingText() {
+
     const navigate = useNavigate();
-    const mobile = useMobile();
+
+    const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
+    const { isOpen, onOpen, onClose } = useDisclosure();
+
+
+    const { register, handleSubmit, setValue } = useForm<IResources>();
+    const onSubmit: SubmitHandler<IResources> = data => axios.post(`http://127.0.0.1:4010/safetyNet/1`, data)
+
+
+    const { t } = useTranslation();
+    const [isNavReady, setIsNavReady] = useState(false);
+
     return (
-        <ContentWrapper headerProps={{ text: 'Resources' }}>
-            <Flex flexDir='column' alignItems='center'>
-            <Flex alignItems='center' justifyContent='space-evenly' bg={'yellow.200'} width='300px' borderRadius='lg'>
-                <Text color='black' mr={3} fontSize='2xl'fontWeight='bold' fontStyle='oblique'> Optimism </Text>
-                <Image mt={3} mb={3} src={sun}alt='sun'/>
-            </Flex>
-                <Text fontSize={20} mt={10} mb={5}>
-                    Find out what's behind it!
-                </Text>
-                <Image src={thumbnail} alt="thumbnail" width='300px' />
-                <Flex flexDirection="row" justifyContent='space-evenly'>
-                    <Button colorScheme="warning" mr={3} mt={10} whiteSpace={mobile ? 'initial' : 'unset'}>
-                        Choose another strategy
-                    </Button>
-                    <Button
-                        colorScheme="success"
-                        onClick={() => navigate("/resources/optimism2")}
-                        whiteSpace={mobile ? 'initial' : 'unset'}
-                        mt={10}
-                    >
-                        I want to practice that
-                    </Button>
-                </Flex>
+        <ContentWrapper headerProps={{ text: 'Optimism', image: sun }}>
+            <Flex flexDir='column'>
+                <Container maxW="100rem" centerContent>
+                    <SimpleGrid>
+                        <Text fontSize={20} textAlign="center" color={'black'} mb={10}>
+                            Write down the thoughts that came up in these 10 minutes.
+                        </Text>
+                        <Stack spacing={5}>
+
+                            <Input {...register(`situations.${0}`)} placeholder='Thought 1' focusBorderColor={useColorModeValue("neutral.400", "neutral.100")}/>
+                            <Input {...register(`situations.${1}`)} placeholder='Thougt 2' focusBorderColor={useColorModeValue("neutral.400", "neutral.100")}/>
+                            <Input {...register(`situations.${2}`)} placeholder='Thought 3' focusBorderColor={useColorModeValue("neutral.400", "neutral.100")}/>
+                            <Input {...register(`situations.${2}`)} placeholder='Thought 4' focusBorderColor={useColorModeValue("neutral.400", "neutral.100")}/>
+
+                            <Center>
+                                <Button mt={5} onClick={onOpen} w={'30%'} display={'inline-block'} colorScheme='success'>Done</Button>
+                            </Center>
+                        </Stack>
+                        <Modal
+                            isOpen={isOpen}
+                            onClose={onClose}
+                        >
+                            <ModalOverlay>
+                                <ModalContent>
+                                    <form onSubmit={handleSubmit(onSubmit)}>
+                                        <ModalHeader fontSize='lg' fontWeight='bold'>
+                                            How did you like this exercise?
+                                        </ModalHeader>
+
+                                        <ModalBody>
+                                            <Stack direction='row' spacing={3}>
+                                                <Button
+                                                    onClick={() => {
+                                                        setValue('feedback', true);
+                                                        setIsSubmitDisabled(false);
+                                                    }}
+                                                    aria-label='celebrating emoji'
+                                                    variant='ghost'
+                                                    // icon={<FiSmile size={30} color='green' />}
+                                                > <Text fontSize={33}> 🥳 </Text> </Button>
+                                                <Button
+                                                    onClick={() => {
+                                                        setValue('feedback', false);
+                                                        setIsSubmitDisabled(false);
+                                                    }}
+                                                    aria-label='vomiting emoji'
+                                                    variant='ghost'
+                                                    // icon={<FiFrown size={30} color='red' />}
+                                                > <Text fontSize={33}> 🤮 </Text> </Button>
+
+                                            </Stack>
+                                        </ModalBody>
+                                        <ModalFooter>
+                                            <Button 
+                                                colorScheme='success'
+                                                isDisabled={isSubmitDisabled}
+                                                type='submit' mr={3}
+                                                onClick={() => {
+                                                    onClose();
+                                                    navigate('/resources')
+                                                    setIsNavReady(true);
+                                                }}>
+                                                {t('submit')}
+                                            </Button>
+                                            <Button colorScheme='warning' onClick={() => {
+                                                onClose();
+                                                setIsSubmitDisabled(true);
+                                            }}>
+                                                {t('cancel')}
+                                            </Button>
+                                        </ModalFooter>
+                                    </form>
+                                </ModalContent>
+                            </ModalOverlay>
+                        </Modal>
+                    </SimpleGrid>
+                </Container>
             </Flex>
         </ContentWrapper>
     );
+
 }
+
