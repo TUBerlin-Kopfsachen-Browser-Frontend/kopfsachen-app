@@ -38,7 +38,6 @@ import axios from "axios";
 import i18n, { t } from "i18next";
 import { initReactI18next, useTranslation } from "react-i18next";
 import { ContentWrapper, useMobile } from "../components/utils";
-import reframing from "../reframing.png"
 
 interface IResources {
   feedback: boolean;
@@ -61,83 +60,88 @@ export default function ReframingText() {
   const [isNavReady, setIsNavReady] = useState(false);
 
   return (
-    <ContentWrapper headerProps={{ text: 'Reframing', image: reframing }}>
-    <Flex direction="column">
-        <Flex direction="row" wrap='wrap'>
-            <Card title={title} text={text} width={mobile ? '100%' : '500px'}/>
-            <Card title={title1} text={text1} width={mobile ? '100%' : '500px'}/>
-            <Card title={title2} text={text2} width={mobile ? '100%' : '500px'}/>
-            <Card title={title3} text={text3} width={mobile ? '100%' : '500px'}/>
+    <ContentWrapper
+      headerProps={{ text: "Reframing", image: "/reframing.png" }}
+    >
+      <Flex direction="column">
+        <Flex direction="row" wrap="wrap">
+          <Card title={title} text={text} width={mobile ? "100%" : "500px"} />
+          <Card title={title1} text={text1} width={mobile ? "100%" : "500px"} />
+          <Card title={title2} text={text2} width={mobile ? "100%" : "500px"} />
+          <Card title={title3} text={text3} width={mobile ? "100%" : "500px"} />
         </Flex>
-      {/* <Flex justifyContent='center'> */}
-          <Button
-            onClick={onOpen}
-            mt={3} ml={mobile ? 'unset' : 4}
-            mb={mobile ? '25px' : 'unset'}
-            colorScheme="success"
-            whiteSpace={mobile ? 'initial' : 'unset'}
-            maxWidth='485px'
-          >
-            Ich bin zu einer neuen Bewertung der Situationen gekommen.
-          </Button>
-          {/* </Flex> */}
-          <Modal isOpen={isOpen} onClose={onClose}>
-            <ModalOverlay>
-              <ModalContent>
-                <form onSubmit={handleSubmit(onSubmit)}>
-                  <ModalHeader fontSize="lg" fontWeight="bold"> How did you like this exercise? </ModalHeader>
+        {/* <Flex justifyContent='center'> */}
+        <Button
+          onClick={onOpen}
+          mt={3}
+          ml={mobile ? "unset" : 4}
+          mb={mobile ? "25px" : "unset"}
+          colorScheme="success"
+          whiteSpace={mobile ? "initial" : "unset"}
+          maxWidth="485px"
+        >
+          Ich bin zu einer neuen Bewertung der Situationen gekommen.
+        </Button>
+        {/* </Flex> */}
+        <Modal isOpen={isOpen} onClose={onClose}>
+          <ModalOverlay>
+            <ModalContent>
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <ModalHeader fontSize="lg" fontWeight="bold">
+                  {" "}
+                  How did you like this exercise?{" "}
+                </ModalHeader>
 
-                  <ModalBody>
-                    <Stack direction="row" spacing={3}>
-                      <IconButton
-                        onClick={() => {
-                          setValue("feedback", true);
-                          setIsSubmitDisabled(false);
-                        }}
-                        aria-label="positive"
-                        variant="ghost"
-                        icon={<FiSmile size={30} color="green" />}
-                      />
-                      <IconButton
-                        onClick={() => {
-                          setValue("feedback", false);
-                          setIsSubmitDisabled(false);
-                        }}
-                        aria-label="negative"
-                        variant="ghost"
-                        icon={<FiFrown size={30} color="red" />}
-                      />
-                    </Stack>
-                  </ModalBody>
-
-                  <ModalFooter>
-                    <Button
-                      isDisabled={isSubmitDisabled}
-                      type="submit"
-                      mr={3}
+                <ModalBody>
+                  <Stack direction="row" spacing={3}>
+                    <IconButton
                       onClick={() => {
-                        onClose();
-                        navigate('/resources')
-                        setIsNavReady(true);
+                        setValue("feedback", true);
+                        setIsSubmitDisabled(false);
                       }}
-                    >
-                      {t("submit")}
-                    </Button>
-                    <Button
+                      aria-label="positive"
+                      variant="ghost"
+                      icon={<FiSmile size={30} color="green" />}
+                    />
+                    <IconButton
                       onClick={() => {
-                        onClose();
-                        setIsSubmitDisabled(true);
+                        setValue("feedback", false);
+                        setIsSubmitDisabled(false);
                       }}
-                    >
-                      {t("cancel")}
-                    </Button>
-                  </ModalFooter>
-                </form>
-              </ModalContent>
-            </ModalOverlay>
-          </Modal>
+                      aria-label="negative"
+                      variant="ghost"
+                      icon={<FiFrown size={30} color="red" />}
+                    />
+                  </Stack>
+                </ModalBody>
 
-    </Flex>
+                <ModalFooter>
+                  <Button
+                    isDisabled={isSubmitDisabled}
+                    type="submit"
+                    mr={3}
+                    onClick={() => {
+                      onClose();
+                      navigate("/resources");
+                      setIsNavReady(true);
+                    }}
+                  >
+                    {t("submit")}
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      onClose();
+                      setIsSubmitDisabled(true);
+                    }}
+                  >
+                    {t("cancel")}
+                  </Button>
+                </ModalFooter>
+              </form>
+            </ModalContent>
+          </ModalOverlay>
+        </Modal>
+      </Flex>
     </ContentWrapper>
   );
 }

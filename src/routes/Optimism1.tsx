@@ -29,7 +29,6 @@ import {
   useColorModeValue,
   Textarea,
 } from "@chakra-ui/react";
-import sun from "../sun.png";
 
 import { useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState, Suspense } from "react";
@@ -64,7 +63,7 @@ export default function ReframingText() {
   const [isNavReady, setIsNavReady] = useState(false);
 
   return (
-    <ContentWrapper headerProps={{ text: "Optimism", image: sun }}>
+    <ContentWrapper headerProps={{ text: "Optimism", image: "/sun.png" }}>
       <Flex flexDir="column">
         <Container maxW="100rem" centerContent>
           <SimpleGrid>

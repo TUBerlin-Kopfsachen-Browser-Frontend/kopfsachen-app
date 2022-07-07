@@ -25,8 +25,6 @@ import {
   Button,
 } from "@chakra-ui/react";
 import Sidebar from "../components/Sidebar";
-import optimism from "../optimism.png";
-import sun from "../sun.png";
 
 import { MdCheckCircle } from "react-icons/md";
 import { ChatIcon, EmailIcon, PhoneIcon } from "@chakra-ui/icons";
@@ -47,7 +45,7 @@ export default function Wiki() {
             Resources{" "}
           </Text>
           <Center>
-            <Image src={optimism} alt="optimism" width="80px" />
+            <Image src={"/optimism.png"} alt="optimism" width="80px" />
           </Center>
 
           <Text fontSize={20} align="center" pt="50px" color={"gray.600"}>
@@ -56,7 +54,7 @@ export default function Wiki() {
 
           <Box width="100%" height={12}>
             <Center>
-              <Image src={sun} alt="sun" pt="50px" />
+              <Image src={"/sun.png"} alt="sun" pt="50px" />
             </Center>
           </Box>
 

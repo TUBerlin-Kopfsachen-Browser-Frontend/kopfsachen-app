@@ -32,26 +32,29 @@ import nummergegenkummer from "../nummergegenkummer.png";
 
 import { MdCheckCircle } from "react-icons/md";
 import { ChatIcon, EmailIcon, PhoneIcon } from "@chakra-ui/icons";
-import { ContentWrapper, Header, useMobile } from '../components/utils';
+import { ContentWrapper, Header, useMobile } from "../components/utils";
 
 export default function EmergencyNumbers() {
   const mobile = useMobile();
   return (
-    <ContentWrapper headerProps={{ text: 'External Help' }}>
-      <Flex
-        direction="column" alignItems='center'
-      >
-        <Text fontSize={mobile ? 16 : 20} textAlign='center'>
+    <ContentWrapper headerProps={{ text: "External Help" }}>
+      <Flex direction="column" alignItems="center">
+        <Text fontSize={mobile ? 16 : 20} textAlign="center">
           If you just don't know what to do anymore, there are many external
           help offers that will support you in every situation.
         </Text>
 
         <List>
           {/* <Center> */}
-            <ListItem fontSize={mobile ? 20 : 30} color="black" fontWeight="semibold" pt="20px">
-              <ListIcon as={MdCheckCircle} color="success.500" />
-              Online Consultation
-            </ListItem>
+          <ListItem
+            fontSize={mobile ? 20 : 30}
+            color="black"
+            fontWeight="semibold"
+            pt="20px"
+          >
+            <ListIcon as={MdCheckCircle} color="success.500" />
+            Online Consultation
+          </ListItem>
           {/* </Center> */}
         </List>
 
@@ -64,17 +67,19 @@ export default function EmergencyNumbers() {
           <TabPanels>
             <TabPanel>
               <Center>
-                <Stack direction="column" wrap='wrap' alignItems='center'>
+                <Stack direction="column" wrap="wrap" alignItems="center">
                   <Link href="https://jugendnotmail.de/">
-                    <Image src={jugendemail} alt="jugendnotmail" width={250} />
+                    <Image
+                      src={"/jugendemail.png"}
+                      alt="jugendnotmail"
+                      width={250}
+                    />
                   </Link>
 
                   <Stack pt="20px" spacing="15px">
                     <Button height="60px" width="300px">
                       <Stack>
-                        <Text fontWeight="bold">
-                          Individual Consultation{" "}
-                        </Text>
+                        <Text fontWeight="bold">Individual Consultation </Text>
                         <Text> Tuesdays to Fridays from 18 to 21 Uhr </Text>
                       </Stack>
                     </Button>
@@ -112,14 +117,14 @@ export default function EmergencyNumbers() {
 
             <TabPanel>
               <Center>
-                <Stack direction="column" wrap='wrap' alignItems='center'>
+                <Stack direction="column" wrap="wrap" alignItems="center">
                   <Link href="https://krisenchat.de/">
                     <Image
-                      src={krisenchat}
+                      src={"/krisenchat.png"}
                       alt="krisenchat"
                       width="220px"
                       pt="70 px"
-                      pr={mobile ? 'unset' : '30px'}
+                      pr={mobile ? "unset" : "30px"}
                     />
                   </Link>
 
@@ -157,9 +162,13 @@ export default function EmergencyNumbers() {
 
             <TabPanel>
               <Center>
-                <Stack direction="column" wrap='wrap' alignItems='center'>
+                <Stack direction="column" wrap="wrap" alignItems="center">
                   <Link href="https://www.nummergegenkummer.de/">
-                    <Image src={nummergegenkummer} alt="nummergegenkummer" width={200} />
+                    <Image
+                      src={"/nummergegenkummer.png"}
+                      alt="nummergegenkummer"
+                      width={200}
+                    />
                   </Link>
 
                   <Stack pt="10px" spacing="20px">

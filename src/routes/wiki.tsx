@@ -17,7 +17,6 @@ import {
 } from "@chakra-ui/react";
 import { ArrowBackIcon, SearchIcon } from "@chakra-ui/icons";
 import Sidebar from "../components/Sidebar";
-import bookshelf from "../bookshelf.png";
 import { ContentWrapper, Header, useMobile } from "../components/utils";
 
 // api response format as interface
@@ -40,7 +39,11 @@ interface IEntryPageProps {
 //     content: string;
 // }
 
-const renderContentElement = (contentElement: string, index: number, contents: string[]) => {
+const renderContentElement = (
+  contentElement: string,
+  index: number,
+  contents: string[]
+) => {
   // if (contentElement.type === 'text') {
   //     return (
   //         <Link href={contents[index].content} color='teal.500' isExternal>
@@ -48,23 +51,20 @@ const renderContentElement = (contentElement: string, index: number, contents: s
   //         </Link>
   //     );
   // }
-  return contents[index].concat(' ');
-}
-
+  return contents[index].concat(" ");
+};
 
 // should display entry that has been clicked
 function EntryPage(props: IEntryPageProps) {
   return (
-    <Flex flexDirection='column'>
-      <img src={bookshelf} alt='book shelf' width='400px'></img>
+    <Flex flexDirection="column">
+      <img src={"/bookshelf.png"} alt="book shelf" width="400px"></img>
       <Flex>
-        <Heading marginBottom={5} fontSize='3xl'>
+        <Heading marginBottom={5} fontSize="3xl">
           {props.entry.title}
         </Heading>
       </Flex>
-      <Text>
-        {(props.entry.content).map(renderContentElement)}
-      </Text>
+      <Text>{props.entry.content.map(renderContentElement)}</Text>
     </Flex>
   );
 }
@@ -76,10 +76,13 @@ const sortEntriesByTitle = (x: IEntry, y: IEntry) => {
 function FrontPage() {
   const [entryToDisplay, setEntryToDisplay] = useState<IEntry>();
   const [entries, setEntries] = useState<IEntry[]>([]);
-  const [searchInput, setSearchInput] = useState<string>('');
+  const [searchInput, setSearchInput] = useState<string>("");
   const [searchIsActive, setSearchIsActive] = useState(false);
   const mobile = useMobile();
-  const focusBorderColorScheme = useColorModeValue("neutral.400", "neutral.100");
+  const focusBorderColorScheme = useColorModeValue(
+    "neutral.400",
+    "neutral.100"
+  );
 
   // to fetch data everytime the front page is loaded
   useEffect(() => {
@@ -95,7 +98,7 @@ function FrontPage() {
       } else {
         console.log("Failed to fetch wiki entries.");
       }
-    }
+    };
     fetchEntriesWrapper();
   }, []);
 
@@ -107,7 +110,7 @@ function FrontPage() {
     let displayInitial =
       index === 0 ||
       entries[index - 1].title[0]?.toLowerCase() !==
-      entries[index].title[0]?.toLowerCase();
+        entries[index].title[0]?.toLowerCase();
     return (
       <Flex key={entry.title[0].concat(`${index}`)} flexDirection="column">
         <Heading marginTop={4} size="I">
@@ -139,12 +142,8 @@ function FrontPage() {
     let filteredEntries = entries.filter(filterEntry).map(renderEntry);
     return (
       <Flex direction={"row"}>
-        <Flex
-          flexDirection="column"
-          maxWidth="800px"
-          margin='auto'
-        >
-          <img src={bookshelf} alt="book shelf" width="400px"></img>
+        <Flex flexDirection="column" maxWidth="800px" margin="auto">
+          <img src={"/bookshelf.png"} alt="book shelf" width="400px"></img>
           <InputGroup>
             <InputLeftElement
               pointerEvents="none"
@@ -186,7 +185,8 @@ function FrontPage() {
     // entry page
     return (
       <Flex>
-          {!mobile && <Button
+        {!mobile && (
+          <Button
             variant="ghost"
             flexShrink={0}
             marginRight={5}
@@ -195,26 +195,31 @@ function FrontPage() {
             onClick={() => setEntryToDisplay(undefined)}
           >
             Back
-          </Button>}
-          <EntryPage entry={entryToDisplay} />
-        
-        {mobile && <Button
-          variant="ghost"
-          flexShrink={0}
-          marginRight={5}
-          colorScheme="blackAlpha"
-          leftIcon={<ArrowBackIcon />}
-          onClick={() => setEntryToDisplay(undefined)}
-        >
-          Back
-        </Button>}
+          </Button>
+        )}
+        <EntryPage entry={entryToDisplay} />
+
+        {mobile && (
+          <Button
+            variant="ghost"
+            flexShrink={0}
+            marginRight={5}
+            colorScheme="blackAlpha"
+            leftIcon={<ArrowBackIcon />}
+            onClick={() => setEntryToDisplay(undefined)}
+          >
+            Back
+          </Button>
+        )}
       </Flex>
     );
   }
 }
 
 export default function Wiki() {
-  return <ContentWrapper headerProps={{ text: 'Wiki' }}>
-    <FrontPage />
-  </ContentWrapper>
+  return (
+    <ContentWrapper headerProps={{ text: "Wiki" }}>
+      <FrontPage />
+    </ContentWrapper>
+  );
 }
