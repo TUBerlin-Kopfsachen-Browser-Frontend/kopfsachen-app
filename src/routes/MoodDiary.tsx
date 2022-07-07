@@ -36,9 +36,10 @@ import { ContentWrapper, Header } from "../components/utils";
 import { AddIcon } from "@chakra-ui/icons";
 
 interface IEntry {
-  type: string;
-  descripton: string;
-  timestamp: string;
+  id: string;
+  mood_day: string;
+  mood_descr: string;
+  mood_type: string;
 }
 
 interface IEntryPageProps {
@@ -46,15 +47,17 @@ interface IEntryPageProps {
 }
 
 const sortEntriesByDate = (x: IEntry, y: IEntry) => {
-  return x.timestamp.localeCompare(y.timestamp);
+  return x.mood_day.localeCompare(y.mood_day);
 };
 async function onSubmit(values: FieldValues) {
   const baseUrl = "http://127.0.0.1:4010"; // localhost + port as base url
-  const userId = 2; // random entry iid
-  const response = await fetch(`${baseUrl}/diary/${userId}`, {
+  const response = await fetch(`${baseUrl}/diary`, {
     method: "POST",
     body: JSON.stringify(values, null, 2),
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer test",
+    },
   });
   if (response.ok) {
     console.log("Submitted diary entry!");
@@ -71,7 +74,7 @@ function SetMood({ onSubmit }: { onSubmit: (values: FieldValues) => void }) {
         onClick={onOpen}
         // size={"lg"}
         // height="70px"
-        colorScheme='primary'
+        colorScheme="primary"
         color="white"
         leftIcon={<AddIcon />}
       >
@@ -99,9 +102,10 @@ function SetMood({ onSubmit }: { onSubmit: (values: FieldValues) => void }) {
 
 const fetchEntriesWrapper = async () => {
   const baseUrl = "http://127.0.0.1:4010"; // localhost + port as base url
-  const userId = 1; // random entry iid
 
-  const fetchEntries = await fetch(`${baseUrl}/diary/${userId}`);
+  const fetchEntries = await fetch(`${baseUrl}/diary`, {
+    headers: { Authorization: "Bearer test" },
+  });
   if (fetchEntries.ok) {
     const entriesData = await fetchEntries.json();
     if (entriesData.length > 0) {
@@ -141,13 +145,14 @@ var ReactCalendar = () => {
             }}
             tileContent={({ date }) => {
               for (let cur_entry of entries) {
+                console.log(cur_entry);
                 if (
-                  cur_entry.timestamp.split("T")[0] ===
+                  cur_entry.mood_day.split("T")[0] ===
                   moment(date).format("YYYY-MM-DD")
                 ) {
-                  if (cur_entry.type === "positive") {
+                  if (cur_entry.mood_type === "positive") {
                     return <p>😄</p>;
-                  } else if (cur_entry.type === "neutral") {
+                  } else if (cur_entry.mood_type === "neutral") {
                     return <p>😐</p>;
                   } else {
                     return <p>😞</p>;
@@ -157,9 +162,7 @@ var ReactCalendar = () => {
               return null;
             }}
             prevLabel={<Icon as={MdChevronLeft} w="24px" h="24px" mt="4px" />}
-            nextLabel={
-              <Icon as={MdChevronRight} w="24px" h="24px" mt="4px" />
-            }
+            nextLabel={<Icon as={MdChevronRight} w="24px" h="24px" mt="4px" />}
           />
 
           <SetMood
@@ -180,7 +183,7 @@ var ReactCalendar = () => {
 
 export default function MoodDiary() {
   return (
-    <ContentWrapper headerProps={{text: 'Mood Diary'}}>
+    <ContentWrapper headerProps={{ text: "Mood Diary" }}>
       <ReactCalendar />
     </ContentWrapper>
   );
