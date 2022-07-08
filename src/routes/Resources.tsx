@@ -67,7 +67,7 @@ export default function Resources() {
             image="/socialsupport.png" //TODO
             emoji={"🎮"}
             emojiaria="controller"
-            link="/resources/socialsupport" //TODO
+            link="/resources/situationcontrol-preview" //TODO
           />
         </Wrap>
       </Center>

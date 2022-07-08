@@ -23,6 +23,7 @@ export default function ResourceCard({ title, emoji, emojiaria, link, image }) {
           rounded={"lg"}
           pos={"relative"}
           zIndex={1}
+          _hover={{ backgroundColor:useColorModeValue("neutral.100", "neutral.800") }}
         >
           {/* <Box
           rounded={"lg"}
@@ -78,7 +79,7 @@ export default function ResourceCard({ title, emoji, emojiaria, link, image }) {
               },
             }}
           >
-            <Text role="img" aria-label={emojiaria} fontSize="8xl" textAlign='center'>
+            <Text pt={5} role="img" aria-label={emojiaria} fontSize="8xl" textAlign='center'>
               {emoji}
             </Text>
           </Box>

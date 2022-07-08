@@ -43,10 +43,10 @@ export default function OptimismPreview() {
           bg={"yellow.200"}
           width="300px"
           borderRadius="lg"
+          boxShadow='md'
         >
           <Text
             color="black"
-            mr={3}
             fontSize="2xl"
             fontWeight="bold"
             fontStyle="oblique"

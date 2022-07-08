@@ -24,6 +24,7 @@ import OptimismPreview from "./routes/OptimismPreview";
 import OptimismX from "./routes/OptimismX";
 import Optimism from "./routes/Optimism";
 import Optimism1 from "./routes/Optimism1";
+import SituationControlPreview from "./routes/SituationControlPreview";
 
 import * as colors from "./color";
 const { theme } = colors;
@@ -49,6 +50,7 @@ ReactDOM.render(
           <Route path="/resources/optimism" element={<Optimism hours={0} minutes={10} seconds={0} />} />
           <Route path="/resources/optimism1" element={<Optimism1 />} />
           <Route path="/resources/socialsupport-preview" element={<SocialSupportPreview />} />
+          <Route path="/resources/situationcontrol-preview" element={<SituationControlPreview />} />
           <Route path="/resources/socialsupport" element={<SocialSupport />} />
           <Route path="emergencynumbers" element={<EmergencyNumbers />} />
           {/* <Route path="settings" element={<Settings />} /> */}

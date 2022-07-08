@@ -21,7 +21,7 @@ import Sidebar from "../components/Sidebar";
 import { AspectRatio } from "@chakra-ui/react";
 import { ContentWrapper, useMobile } from "../components/utils";
 
-export default function New() {
+export default function ReframingPreview() {
   const navigate = useNavigate();
   const mobile = useMobile();
   return (
@@ -33,10 +33,10 @@ export default function New() {
           bg="blue.100"
           width="300px"
           borderRadius="lg"
+          boxShadow='md'
         >
           <Text
             color="black"
-            mr={3}
             fontSize="2xl"
             fontWeight="bold"
             fontStyle="oblique"
