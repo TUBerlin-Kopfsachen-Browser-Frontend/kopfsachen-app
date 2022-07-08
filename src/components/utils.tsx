@@ -32,7 +32,7 @@ export function useWindowDimensions() {
 
 export function useMobile() {
   const { width, height } = useWindowDimensions();
-  return width <= 815 || height <= 815;
+  return width <= 815 || height <= 650;
 }
 
 export interface IHeaderProps {

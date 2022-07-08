@@ -152,6 +152,7 @@ function FrontPage() {
             placeholder="Search for entries"
             focusBorderColor={focusBorderColorScheme}
             onChange={handleInput}
+            maxWidth='400px'
           />
         </InputGroup>
         <Flex

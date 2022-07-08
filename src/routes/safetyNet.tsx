@@ -397,35 +397,6 @@ function FrontPage() {
                 paddingBottom={5}
               >
                 <ul className="circle-container">
-                  {/* <li>
-                    {displayIcon("relaxation") && (
-                      <Popover>
-                        <PopoverTrigger>
-                          <button className="btn">
-                            <Text fontSize={40}>🦥</Text>
-                          </button>
-                        </PopoverTrigger>
-                        <Portal>
-                          <PopoverContent bg="tomato" color="white">
-                            <PopoverArrow bg="tomato" />
-                            <PopoverCloseButton />
-                            <PopoverHeader fontWeight="semibold">
-                              Relaxation
-                            </PopoverHeader>
-                            <PopoverBody>
-                              <Text>
-                                {items
-                                  .filter(
-                                    (item) => item.type === "relaxation"
-                                  )
-                                  .map(renderItem)}
-                              </Text>
-                            </PopoverBody>
-                          </PopoverContent>
-                        </Portal>
-                      </Popover>
-                    )}
-                  </li> */}
                    <li>
                     {displayIcon("other") && (
                       <Popover>
@@ -526,6 +497,35 @@ function FrontPage() {
                       </Popover>
                     )}
                   </li>
+                  {/* <li>
+                    {displayIcon("relaxation") && (
+                      <Popover>
+                        <PopoverTrigger>
+                          <button className="btn">
+                            <Text fontSize={40}>🦥</Text>
+                          </button>
+                        </PopoverTrigger>
+                        <Portal>
+                          <PopoverContent bg="tomato" color="white">
+                            <PopoverArrow bg="tomato" />
+                            <PopoverCloseButton />
+                            <PopoverHeader fontWeight="semibold">
+                              Relaxation
+                            </PopoverHeader>
+                            <PopoverBody>
+                              <Text>
+                                {items
+                                  .filter(
+                                    (item) => item.type === "relaxation"
+                                  )
+                                  .map(renderItem)}
+                              </Text>
+                            </PopoverBody>
+                          </PopoverContent>
+                        </Portal>
+                      </Popover>
+                    )}
+                  </li> */}
                   {/* <li>
                     {displayIcon("situationControl") && (
                       <Popover>

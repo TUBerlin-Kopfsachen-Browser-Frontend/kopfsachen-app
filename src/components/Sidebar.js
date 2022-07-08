@@ -26,7 +26,7 @@ import {
 } from "react-icons/fi";
 import NavItem from "../components/NavItem";
 import { ColorModeSwitcher } from "../components/ColorModeSwitcher";
-
+import { useMobile } from "../components/utils";
 import i18n from "i18next";
 import { initReactI18next, useTranslation } from "react-i18next";
 import {
@@ -52,21 +52,13 @@ i18n.use(initReactI18next).init({
 });
 
 export default function Sidebar() {
-  const [navSize, changeNavSize] = useState("large");
+  const mobile = useMobile();
+  const [navSize, changeNavSize] = useState(mobile ? 'small' : 'large');
   const { t } = useTranslation();
 
   useEffect(() => {
-    if (window.innerWidth <= 815) {
-      changeNavSize("small");
-    }
-    window.addEventListener("resize", () => {
-      if (window.innerWidth <= 815) {
-        changeNavSize("small");
-      } else {
-        changeNavSize("large");
-      }
-    });
-  }, []);
+    changeNavSize(mobile ? 'small' : 'large');
+  }, [mobile, changeNavSize]);
 
   const onChange = (event) => {
     i18n.changeLanguage(event.target.value);
