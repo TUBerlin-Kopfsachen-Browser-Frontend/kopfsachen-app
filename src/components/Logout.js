@@ -19,7 +19,7 @@ export default function LogoutButton(props) {
     <Button
       colorScheme='warning'
       leftIcon={<FiLogOut/>}
-      rightIcon={<FiChevronRight />}
+      // rightIcon={<FiChevronRight />}
       onClick={() => {
         fetch(`self-service/logout/browser`, {
           headers: { Accept: "application/json" },

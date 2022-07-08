@@ -32,7 +32,8 @@ export default function Profile() {
         <Stack direction="column" spacing={3}>
           <Link>
             <Button
-              colorScheme='primary'
+              // colorScheme='primary'
+              size='lg'
               width={200}
               leftIcon={<FiUser />}
               rightIcon={<FiChevronRight />}
@@ -43,7 +44,8 @@ export default function Profile() {
           </Link>
           <Link href="mooddiary">
             <Button
-              colorScheme='primary'
+              // colorScheme='primary'
+              size='lg'
               width={200}
               leftIcon={<FiCalendar />}
               rightIcon={<FiChevronRight />}
@@ -54,7 +56,8 @@ export default function Profile() {
           </Link>
           <Link>
             <Button
-              colorScheme='primary'
+              // colorScheme='primary'
+              size='lg'
               width={200}
               leftIcon={<FiMail />}
               rightIcon={<FiChevronRight />}
@@ -65,7 +68,8 @@ export default function Profile() {
           </Link>
           <Link>
             <Button
-              colorScheme='warning'
+              // colorScheme='warning'
+              size='lg'
               width={200}
               leftIcon={<FiShield />}
               rightIcon={<FiChevronRight />}
