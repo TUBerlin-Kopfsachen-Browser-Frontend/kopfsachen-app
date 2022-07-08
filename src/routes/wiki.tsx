@@ -83,7 +83,7 @@ function FrontPage() {
 
   // to fetch data everytime the front page is loaded
   useEffect(() => {
-    const baseUrl = "http://127.0.0.1:4010"; // localhost + port as base url
+    const baseUrl = "https://wiki.api.live.mindtastic.lol"; // localhost + port as base url
     const fetchEntriesWrapper = async () => {
       const fetchEntries = await fetch(`${baseUrl}/wiki?limit=20&offset=0&with_content=true`);
       if (fetchEntries.ok) {

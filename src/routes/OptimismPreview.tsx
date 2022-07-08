@@ -54,12 +54,12 @@ export default function OptimismPreview() {
             {" "}
             Optimism{" "}
           </Text>
-          <Image mt={3} mb={3} src={"sun.png"} alt="sun" />
+          <Image mt={3} mb={3} src={"/sun.png"} alt="sun" />
         </Flex>
         <Text fontSize={20} mt={10} mb={5}>
           Find out what's behind it!
         </Text>
-        <Image src={"thumbnail.png"} alt="thumbnail" width="300px" />
+        <Image src={"/thumbnail.png"} alt="thumbnail" width="300px" />
         <Flex flexDirection="row" justifyContent="space-evenly">
           <Button
             colorScheme="warning"
