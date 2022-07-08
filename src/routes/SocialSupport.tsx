@@ -107,7 +107,7 @@ export default function SocialSupport1() {
 
   return (
     <ContentWrapper
-      headerProps={{ text: "Social Support", image: "../socialsupport.png" }}
+      headerProps={{ text: "Social Support 🫂", }}
     >
       <Flex direction="column">
         {/* <Box>

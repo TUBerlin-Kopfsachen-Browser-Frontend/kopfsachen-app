@@ -39,7 +39,7 @@ export default function New() {
 
   return (
     <ContentWrapper
-      headerProps={{ text: "Reframing", image: "/reframing.png" }}
+      headerProps={{ text: "Reframing 🪞" }}
     >
       <Flex flexDirection="column" alignItems="center">
         <Text fontSize={20} mb={10} textAlign="center">

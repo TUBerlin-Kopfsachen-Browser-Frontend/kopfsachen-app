@@ -70,7 +70,7 @@ const CountDownTimer = ({
   };
 
   return (
-    <ContentWrapper headerProps={{ text: "Optimism", image: "/sun.png" }}>
+    <ContentWrapper headerProps={{ text: "Optimism 🌻" }}>
       <Flex flexDir="column">
         {/* <Button colorScheme='yellow' variant='ghost' pl='300px' onClick={() => navigate
           ('/resources/optimism1')}>

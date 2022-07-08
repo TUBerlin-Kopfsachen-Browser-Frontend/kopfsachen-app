@@ -59,7 +59,7 @@ export default function ResourceCard({ title, emoji, emojiaria, link, image }) {
             rounded={"lg"}
             mt={-12}
             pos={"relative"}
-            height={"230px"}
+            height={"130px"}
             _after={{
               transition: "all .3s ease",
               content: '""',
@@ -78,7 +78,7 @@ export default function ResourceCard({ title, emoji, emojiaria, link, image }) {
               },
             }}
           >
-            <Text role="img" aria-label={emojiaria} fontSize="9xl">
+            <Text role="img" aria-label={emojiaria} fontSize="8xl" textAlign='center'>
               {emoji}
             </Text>
           </Box>
@@ -87,10 +87,11 @@ export default function ResourceCard({ title, emoji, emojiaria, link, image }) {
               color={"gray.500"}
               fontSize={"sm"}
               textTransform={"uppercase"}
+              fontStyle='italic'
             >
               Exercise
             </Text>
-            <Heading fontSize={"2xl"} fontFamily={"body"} fontWeight={500}>
+            <Heading fontSize={"xl"} fontFamily={"body"} fontWeight={500}>
               {title}
             </Heading>
           </Stack>

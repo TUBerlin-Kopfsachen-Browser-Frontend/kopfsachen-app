@@ -37,15 +37,15 @@ export default function Resources() {
           <ResourceCard
             title="Saftey Net"
             image="/net_large.png"
-            emoji={"🥅"}
-            emojiaria="net"
+            emoji={"🕸️"}
+            emojiaria="spider web"
             link="/resources/safetynet"
           />
           <ResourceCard
             title="Optimism"
             image="/sun_large.png"
-            emoji={"🌞"}
-            emojiaria="sun"
+            emoji={"🌻"}
+            emojiaria="sunflower"
             link="/resources/optimism-preview"
           />
           <ResourceCard
@@ -59,14 +59,14 @@ export default function Resources() {
             title="Social Support"
             image="/socialsupport.png"
             emoji={"🫂"}
-            emojiaria="hug"
+            emojiaria="people hugging"
             link="/resources/socialsupport-preview"
           />
           <ResourceCard
             title="Situation Control"
             image="/socialsupport.png" //TODO
-            emoji={"🎛️"}
-            emojiaria="control panel"
+            emoji={"🎮"}
+            emojiaria="controller"
             link="/resources/socialsupport" //TODO
           />
         </Wrap>

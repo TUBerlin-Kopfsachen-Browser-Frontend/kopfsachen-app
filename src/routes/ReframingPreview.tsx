@@ -30,7 +30,7 @@ export default function New() {
         <Flex
           alignItems="center"
           justifyContent="space-evenly"
-          bg="red.200"
+          bg="blue.100"
           width="300px"
           borderRadius="lg"
         >
@@ -44,13 +44,16 @@ export default function New() {
             {" "}
             Reframing{" "}
           </Text>
-          <Image
+          <Text role="img" aria-label='mirror' fontSize="8xl" textAlign='center'>
+              🪞
+            </Text>
+          {/* <Image
             mt={3}
             mb={3}
             src={"/reframing.png"}
             alt="mood barometer"
             width="120px"
-          />
+          /> */}
         </Flex>
         <Text fontSize={20} mt={10} mb={5}>
           Find out what's behind it!

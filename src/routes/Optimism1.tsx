@@ -62,7 +62,7 @@ export default function ReframingText() {
   const [isNavReady, setIsNavReady] = useState(false);
 
   return (
-    <ContentWrapper headerProps={{ text: "Optimism", image: "/sun.png" }}>
+    <ContentWrapper headerProps={{ text: "Optimism 🌻" }}>
       <Flex flexDir="column">
         <Container maxW="100rem" centerContent>
           <SimpleGrid>

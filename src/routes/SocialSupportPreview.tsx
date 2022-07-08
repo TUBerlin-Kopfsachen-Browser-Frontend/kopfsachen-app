@@ -50,12 +50,15 @@ export default function SocialSupport() {
             {" "}
             Social Support{" "}
           </Text>
-          <Image
+          <Text role="img" aria-label='hugging people' fontSize="8xl" textAlign='center'>
+            🫂
+          </Text>
+          {/* <Image
             mt={3}
             mb={3}
             src={"/socialsupport.png"}
             alt="supporting hands"
-          />
+          /> */}
         </Flex>
         <Text fontSize={20} mt={10} mb={5}>
           Find out what's behind it!

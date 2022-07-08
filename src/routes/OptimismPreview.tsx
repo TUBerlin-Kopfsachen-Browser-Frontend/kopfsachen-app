@@ -54,7 +54,10 @@ export default function OptimismPreview() {
             {" "}
             Optimism{" "}
           </Text>
-          <Image mt={3} mb={3} src={"/sun.png"} alt="sun" />
+          <Text role="img" aria-label='sunflower' fontSize="8xl" textAlign='center'>
+            🌻
+          </Text>
+          {/* <Image mt={3} mb={3} src={"/sun.png"} alt="sun" /> */}
         </Flex>
         <Text fontSize={20} mt={10} mb={5}>
           Find out what's behind it!

@@ -61,7 +61,7 @@ export default function ReframingText() {
 
   return (
     <ContentWrapper
-      headerProps={{ text: "Reframing", image: "/reframing.png" }}
+      headerProps={{ text: "Reframing 🪞" }}
     >
       <Flex direction="column">
         <Flex direction="row" wrap="wrap">
