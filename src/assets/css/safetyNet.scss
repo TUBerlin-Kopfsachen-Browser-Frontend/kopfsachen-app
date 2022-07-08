@@ -54,3 +54,10 @@
     border-radius: 50%;
   }
 }
+
+.circle-container.dark{
+  filter: invert(1);
+  > * {
+    filter: invert(1);
+  }
+}
