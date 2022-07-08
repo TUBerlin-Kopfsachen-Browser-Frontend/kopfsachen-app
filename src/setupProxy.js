@@ -8,4 +8,11 @@ module.exports = function (app) {
       changeOrigin: true,
     })
   );
+  app.use(
+    "/wiki",
+    createProxyMiddleware({
+      target: "https://wiki.api.dev.mindtastic.lol",
+      changeOrigin: true,
+    })
+  );
 };
