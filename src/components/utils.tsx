@@ -71,6 +71,7 @@ export function Header(props: IHeaderProps) {
             pl={mobile ? "80px" : "unset"}
             mr={mobile ? "unset" : "10px"}
             color="white"
+            // fontWeight='semibold'
           >
             {props.text}
           </Text>
@@ -103,7 +104,8 @@ export function ContentWrapper(props: IContentProps) {
       <Header {...props.headerProps} />
       <Box
         ml={mobile ? "25px" : "425px"}
-        mr="25px"
+        mr={mobile ? "25px" : "100px"}
+        mb={mobile ?  "25px" : "100px"}
         width={mobile ? "calc(100vw - 50px)" : "fit-content"}
       >
         {props.children}

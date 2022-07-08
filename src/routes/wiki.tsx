@@ -34,6 +34,8 @@ interface IEntryPageProps {
   entry: IEntry;
   mobileBackClick: () => void;
 }
+const baseUrl = "https://wiki.api.dev.mindtastic.lol"; // localhost + port as base url
+
 
 // should display entry that has been clicked
 function EntryPage(props: IEntryPageProps) {
@@ -55,12 +57,12 @@ function EntryPage(props: IEntryPageProps) {
       }
       </Flex>
       <Flex>
-        <Heading marginBottom={5} fontSize='lg'>
+        <Heading marginBottom={5} fontSize='22px' fontStyle='oblique'>
           {props.entry.title}
         </Heading>
       </Flex>
       <ReactMarkdown>
-          {(props.entry.content)}
+          {(props.entry.content.replaceAll('kopfsachen:', baseUrl))}
       </ReactMarkdown>
     </Flex>
   );
