@@ -75,7 +75,7 @@ function SetMood({ onSubmit }: { onSubmit: (values: FieldValues) => void }) {
         // size={"lg"}
         // height="70px"
         colorScheme="primary"
-        color="white"
+        // color="white"
         leftIcon={<AddIcon />}
         maxWidth="345px"
       >

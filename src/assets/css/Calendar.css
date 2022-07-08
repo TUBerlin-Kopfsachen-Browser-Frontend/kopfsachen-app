@@ -180,7 +180,7 @@ body.chakra-ui-dark .react-calendar__tile--rangeStart,
 body.chakra-ui-dark .react-calendar__tile--rangeStart:enabled:hover,
 body.chakra-ui-dark .react-calendar__tile--rangeStart:enabled:focus {
   background: #8ABBFF;
-  /* color: white; */
+  color: black;
 }
 
 body.chakra-ui-dark .react-calendar__tile--rangeEnd,
