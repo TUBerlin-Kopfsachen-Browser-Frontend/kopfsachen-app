@@ -27,6 +27,9 @@ export const translationsEn = {
   emergencyNumbers: "Emergency Numbers",
   settings: "Settings",
   username: "Username",
+
+  //Social Support------------------------
+  socialSupport1: "Type the name you want to add:"
 };
 
 export const translationsTr = {
@@ -57,6 +60,9 @@ export const translationsTr = {
   emergencyNumbers: "Acil durum numaraları",
   settings: "Ayarlar",
   username: "Kullanıcı Adı",
+
+  //Social Support------------------------
+  socialSupport1: "Type the name you want to add:"
 };
 
 export const translationsAl = {
@@ -85,6 +91,9 @@ export const translationsAl = {
   emergencyNumbers: "Numra emergjence",
   settings: "Paramtrat",
   username: "Emri i përdoruesit",
+
+  //Social Support------------------------
+  socialSupport1: "Type the name you want to add:"
 };
 
 export const translationsDe = {
@@ -114,4 +123,7 @@ export const translationsDe = {
   emergencyNumbers: "Emergency Numbers",
   settings: "Settings",
   username: "username",
+
+  //Social Support------------------------
+  socialSupport1: "Type the name you want to add:"
 };

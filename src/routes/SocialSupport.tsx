@@ -101,6 +101,7 @@ export default function SocialSupport1() {
   const [strategyInput1, setStrategyInput1] = useState<string>("");
   const [strategyInput2, setStrategyInput2] = useState<string>("");
   const [strategyInput3, setStrategyInput3] = useState<string>("");
+  const { t } = useTranslation();
   //   const handleItemInput = (e: React.ChangeEvent<HTMLInputElement>) => {
   //     setNameInput(e.target.value);
   // };
@@ -181,6 +182,8 @@ export default function SocialSupport1() {
                   <ModalHeader fontSize="lg" fontWeight="bold"></ModalHeader>
 
                   <ModalBody>
+                  <Text>{t("socialSupport1")}</Text>
+                  <br></br>
                     <Stack direction="row" spacing={3}>
                       <Input
                         onChange={(e: any) => {
