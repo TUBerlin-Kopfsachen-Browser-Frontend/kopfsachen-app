@@ -77,6 +77,7 @@ export default function ReframingPreview() {
             mr={3}
             mt={10}
             whiteSpace={mobile ? "initial" : "unset"}
+            onClick={() => navigate("/resources")}
           >
             Choose another strategy
           </Button>

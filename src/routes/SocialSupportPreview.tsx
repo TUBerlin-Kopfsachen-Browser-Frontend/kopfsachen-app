@@ -71,6 +71,7 @@ export default function SocialSupport() {
             mt={10}
             pb={mobile ? 1 : "unset"}
             whiteSpace={mobile ? "initial" : "unset"}
+            onClick={() => navigate("/resources")}
           >
             Choose another strategy
           </Button>

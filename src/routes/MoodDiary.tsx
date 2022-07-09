@@ -86,7 +86,7 @@ function SetMood({ onSubmit }: { onSubmit: (values: FieldValues) => void }) {
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>How are you feeling today?</ModalHeader>
-          <ModalCloseButton />
+          <ModalCloseButton/>
           <ModalBody>
             <ChooseMoodForm
               onSubmit={(values: FieldValues) => {

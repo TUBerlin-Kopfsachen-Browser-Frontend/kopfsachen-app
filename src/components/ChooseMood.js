@@ -10,6 +10,7 @@ import {
   RadioGroup,
   Stack,
   Textarea,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import { m } from "framer-motion";
 
@@ -30,6 +31,7 @@ export default function ChooseMoodForm({ onSubmit }) {
               {...register("mood_type", { required: true })}
               value="positive"
               size="md"
+              colorScheme='success'
             >
               😄 Positive
             </Radio>
@@ -37,6 +39,7 @@ export default function ChooseMoodForm({ onSubmit }) {
               {...register("mood_type", { required: true })}
               value="neutral"
               size="md"
+              colorScheme='success'
             >
               😐 Neutral
             </Radio>
@@ -44,13 +47,15 @@ export default function ChooseMoodForm({ onSubmit }) {
               {...register("mood_type", { required: true })}
               value="negative"
               size="md"
+              colorScheme='success'
             >
               😞 Negative
             </Radio>
           </Stack>
         </RadioGroup>
-        <FormLabel htmlFor="mood_type">Enter more detail here:</FormLabel>
+        <FormLabel htmlFor="mood_type">You can enter more detail here:</FormLabel>
         <Textarea
+          focusBorderColor={useColorModeValue("neutral.400", "neutral.100" )}
           id="description"
           placeholder="description"
           {...register("mood_descr", {
@@ -63,9 +68,10 @@ export default function ChooseMoodForm({ onSubmit }) {
       </FormControl>
       <Button
         mt={4}
+        mb={3}
         isLoading={isSubmitting}
         type="submit"
-        colorScheme="primary"
+        colorScheme="success"
       >
         Submit
       </Button>

@@ -8,16 +8,17 @@ import {
   Image,
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
+import { useMobile } from "../components/utils"
 
 export default function ResourceCard({ title, emoji, emojiaria, link, image }) {
+  const mobile = useMobile();
   return (
     <Link to={link}>
       <Center py={12}>
         <Box
           role={"group"}
           p={6}
-          maxW={"330px"}
-          w={"full"}
+          width={mobile ? '130px' :'200px'}
           bg={useColorModeValue("white", "gray.800")}
           boxShadow={"2xl"}
           rounded={"lg"}
@@ -79,7 +80,7 @@ export default function ResourceCard({ title, emoji, emojiaria, link, image }) {
               },
             }}
           >
-            <Text pt={5} role="img" aria-label={emojiaria} fontSize="8xl" textAlign='center'>
+            <Text pt={5} role="img" aria-label={emojiaria} fontSize={mobile ? "7xl" : "8xl"} textAlign='center'>
               {emoji}
             </Text>
           </Box>
@@ -92,7 +93,7 @@ export default function ResourceCard({ title, emoji, emojiaria, link, image }) {
             >
               Exercise
             </Text>
-            <Heading fontSize={"xl"} fontFamily={"body"} fontWeight={500}>
+            <Heading fontSize={mobile ? "lg" : "xl"} fontFamily={"body"} fontWeight={500}>
               {title}
             </Heading>
           </Stack>

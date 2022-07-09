@@ -77,12 +77,12 @@ export default function SituationControlPreview() {
                         mr={3}
                         mt={10}
                         whiteSpace={mobile ? "initial" : "unset"}
+                        onClick={() => navigate("/resources")}
                     >
                         Choose another strategy
                     </Button>
                     <Button
                         colorScheme="success"
-                        onClick={() => navigate("/resources/reframing")}
                         whiteSpace={mobile ? "initial" : "unset"}
                         pb={mobile ? 1 : "unset"}
                         mt={10}
