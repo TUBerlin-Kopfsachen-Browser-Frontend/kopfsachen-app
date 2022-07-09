@@ -197,7 +197,7 @@ function AddItemView() {
       >
         <Text fontSize={20} marginTop={2} marginBottom={5}>
           {" "}
-          {t("chooseWays")}{" "}
+          {t("chooseWays")} {nameInput} {t("chooseWays2")}{" "}
         </Text>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Stack spacing={3}>
