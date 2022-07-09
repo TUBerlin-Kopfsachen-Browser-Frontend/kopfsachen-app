@@ -58,7 +58,11 @@ export default function ReframingText() {
 
   const { t } = useTranslation();
   const [isNavReady, setIsNavReady] = useState(false);
-
+  const [itHelped, setItHelped] = useState<boolean | undefined>();
+  const onModalClose = () => {
+    onClose();
+    setItHelped(undefined);
+  };
   return (
     <ContentWrapper
       headerProps={{ text: "Reframing 🪞" }}
@@ -94,34 +98,37 @@ export default function ReframingText() {
 
                 <ModalBody>
                   <Stack direction="row" spacing={3}>
-                    <IconButton
+                    <Button
                       onClick={() => {
                         setValue("feedback", true);
                         setIsSubmitDisabled(false);
+                        setItHelped(true);
                       }}
                       aria-label="positive"
-                      variant="ghost"
-                      icon={<FiSmile size={30} color="green" />}
-                    />
-                    <IconButton
+                      variant={itHelped === true ? "solid" : "ghost"}
+                      colorScheme={itHelped === true ? 'yellow' : 'unset'}
+                    > <Text fontSize={33}> 🥳 </Text> </Button>
+                    <Button
                       onClick={() => {
                         setValue("feedback", false);
                         setIsSubmitDisabled(false);
+                        setItHelped(false);
                       }}
                       aria-label="negative"
-                      variant="ghost"
-                      icon={<FiFrown size={30} color="red" />}
-                    />
+                      variant={itHelped === false ? "solid" : "ghost"}
+                      colorScheme={itHelped === false ? 'yellow' : 'unset'}
+                    > <Text fontSize={33}> 🤮 </Text> </Button>
                   </Stack>
                 </ModalBody>
 
                 <ModalFooter>
                   <Button
+                    colorScheme='success'
                     isDisabled={isSubmitDisabled}
                     type="submit"
                     mr={3}
                     onClick={() => {
-                      onClose();
+                      onModalClose();
                       navigate("/resources");
                       setIsNavReady(true);
                     }}
@@ -129,8 +136,9 @@ export default function ReframingText() {
                     {t("submit")}
                   </Button>
                   <Button
+                    colorScheme='warning'
                     onClick={() => {
-                      onClose();
+                      onModalClose();
                       setIsSubmitDisabled(true);
                     }}
                   >
@@ -142,7 +150,7 @@ export default function ReframingText() {
           </ModalOverlay>
         </Modal>
       </Flex>
-    </ContentWrapper>
+    </ContentWrapper >
   );
 }
 

@@ -60,19 +60,24 @@ export default function ReframingText() {
 
   const { t } = useTranslation();
   const [isNavReady, setIsNavReady] = useState(false);
+  const [itHelped, setItHelped] = useState<boolean | undefined>();
+  const onModalClose = () => {
+    onClose();
+    setItHelped(undefined);
+  };
 
   return (
     <ContentWrapper headerProps={{ text: "Optimism 🌻" }}>
       <Flex flexDir="column">
         <Container maxW="100rem" centerContent>
           <SimpleGrid>
-            <Text fontSize={20} textAlign="center" color={"black"} mb={10}>
+            <Text fontSize={20} textAlign="center" mb={10}>
               Write down the thoughts that came up in these 10 minutes.
             </Text>
             <Stack spacing={5}>
               <Textarea
                 {...register(`situations.${0}`)}
-                placeholder="Thought 1"
+                placeholder="Room for thoughts 1"
                 focusBorderColor={useColorModeValue(
                   "neutral.400",
                   "neutral.100"
@@ -80,7 +85,7 @@ export default function ReframingText() {
               />
               <Textarea
                 {...register(`situations.${1}`)}
-                placeholder="Thougt 2"
+                placeholder="Room for thougts 2"
                 focusBorderColor={useColorModeValue(
                   "neutral.400",
                   "neutral.100"
@@ -88,21 +93,12 @@ export default function ReframingText() {
               />
               <Textarea
                 {...register(`situations.${2}`)}
-                placeholder="Thought 3"
+                placeholder="Room for thoughts 3"
                 focusBorderColor={useColorModeValue(
                   "neutral.400",
                   "neutral.100"
                 )}
               />
-              <Textarea
-                {...register(`situations.${2}`)}
-                placeholder="Thought 4"
-                focusBorderColor={useColorModeValue(
-                  "neutral.400",
-                  "neutral.100"
-                )}
-              />
-
               <Center>
                 <Button
                   mt={5}
@@ -129,10 +125,11 @@ export default function ReframingText() {
                           onClick={() => {
                             setValue("feedback", true);
                             setIsSubmitDisabled(false);
+                            setItHelped(true);
                           }}
                           aria-label="celebrating emoji"
-                          variant="ghost"
-                          // icon={<FiSmile size={30} color='green' />}
+                          variant={itHelped === true ? "solid" : "ghost"}
+                          colorScheme={itHelped === true ? 'yellow' : 'unset'}
                         >
                           {" "}
                           <Text fontSize={33}> 🥳 </Text>{" "}
@@ -141,10 +138,12 @@ export default function ReframingText() {
                           onClick={() => {
                             setValue("feedback", false);
                             setIsSubmitDisabled(false);
+                            setItHelped(false);
                           }}
                           aria-label="vomiting emoji"
-                          variant="ghost"
-                          // icon={<FiFrown size={30} color='red' />}
+                          variant={itHelped === false ? "solid" : "ghost"}
+                          colorScheme={itHelped === false ? 'yellow' : 'unset'}
+                         
                         >
                           {" "}
                           <Text fontSize={33}> 🤮 </Text>{" "}
@@ -158,7 +157,7 @@ export default function ReframingText() {
                         type="submit"
                         mr={3}
                         onClick={() => {
-                          onClose();
+                          onModalClose();
                           navigate("/resources");
                           setIsNavReady(true);
                         }}
@@ -168,7 +167,7 @@ export default function ReframingText() {
                       <Button
                         colorScheme="warning"
                         onClick={() => {
-                          onClose();
+                          onModalClose();
                           setIsSubmitDisabled(true);
                         }}
                       >
