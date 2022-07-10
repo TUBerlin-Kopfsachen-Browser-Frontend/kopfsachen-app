@@ -1,3 +1,4 @@
+import { fixRequestBody } from "http-proxy-middleware";
 import SafetyNet from "../routes/safetyNet";
 
 export const translationsEn = {
@@ -18,6 +19,9 @@ export const translationsEn = {
   pets: "Pets",
   other: "Other",
   safetyNet: "Safety Net",
+  first: "first",
+  second: "second",
+  third: "third",
 
   // Sidebar------------------------------
   home: "Home",
@@ -51,6 +55,9 @@ export const translationsTr = {
   pets: "Evcil Hayvan",
   other: "Diğer",
   safetyNet: "Emniyet ağı",
+  first: "birinci",
+  second: "ikinci",
+  third: "üçüncü",
 
   // Sidebar------------------------------
   home: "Anasayfa",
@@ -82,6 +89,9 @@ export const translationsAl = {
   pets: "Kafshë shtëpiake",
   other: "Të tjera",
   safetyNet: "Rrjeti i sigurisë",
+  first: "e para",
+  second: "e dyta",
+  third: "e treta",
 
   // Sidebar------------------------------
   home: "Rreth nesh",
@@ -114,6 +124,9 @@ export const translationsDe = {
   pets: "TODO",
   other: "TODO",
   safetyNet: "Safety Net",
+  first: "erste",
+  second: "zweite",
+  third: "dritte",
 
   // Sidebar------------------------------
   home: "Home",

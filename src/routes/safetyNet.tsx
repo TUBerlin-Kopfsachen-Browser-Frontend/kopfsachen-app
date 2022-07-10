@@ -203,21 +203,21 @@ function AddItemView() {
           <Stack spacing={3}>
             <Input
               {...register(`strategies.0`)}
-              placeholder="first"
+              placeholder={t("first")}
               focusBorderColor={useColorModeValue("neutral.400", "neutral.100")}
               value={strategyInput1}
               onChange={(e: any) => setStrategyInput1(e.target.value)}
             />
             <Input
               {...register(`strategies.1`)}
-              placeholder="second"
+              placeholder={t("second")}
               focusBorderColor={useColorModeValue("neutral.400", "neutral.100")}
               value={strategyInput2}
               onChange={(e: any) => setStrategyInput2(e.target.value)}
             />
             <Input
               {...register(`strategies.2`)}
-              placeholder="third"
+              placeholder={t("third")}
               focusBorderColor={useColorModeValue("neutral.400", "neutral.100")}
               value={strategyInput3}
               onChange={(e: any) => setStrategyInput3(e.target.value)}
