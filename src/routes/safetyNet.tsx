@@ -156,11 +156,11 @@ function AddItemView() {
         >
           <Flex direction="row" wrap='wrap' justifyContent='space-around'>
             <Radio {...register("type")} value="people" ml={2.5} mr={2.5} width='100px'>
-              People
+            {t("people")}
               <Text fontSize={40}>👩‍👦</Text>{" "}
             </Radio>
             <Radio {...register("type")} value="activities" ml={2.5} mr={2.5} width='100px'>
-              Activities
+            {t("activities")}
               <Text fontSize={40}>🤾🏾</Text>{" "}
             </Radio>
             <Radio {...register("type")} value="pets" ml={2.5} mr={2.5} width='100px'>
@@ -168,7 +168,7 @@ function AddItemView() {
               <Text fontSize={40}>🐾</Text>{" "}
             </Radio>
             <Radio {...register("type")} value="personalStrengths" ml={2.5} mr={2.5} width='100px'>
-              Personal strengths
+            {t("personalStrengths")}
               <Text fontSize={40}>💪🏽</Text>{" "}
             </Radio>
             <Radio {...register("type")} value="other" ml={2.5} mr={2.5} width='100px'>
