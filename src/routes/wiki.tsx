@@ -156,6 +156,7 @@ function FrontPage() {
             focusBorderColor={focusBorderColorScheme}
             onChange={handleInput}
             maxWidth='400px'
+            aria-label='Search for entries'
           />
         </InputGroup>
         <Flex

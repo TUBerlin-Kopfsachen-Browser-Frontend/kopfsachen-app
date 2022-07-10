@@ -38,6 +38,7 @@ import axios from "axios";
 import i18n, { t } from "i18next";
 import { initReactI18next, useTranslation } from "react-i18next";
 import { ContentWrapper, useMobile } from "../components/utils";
+import { CheckIcon } from "@chakra-ui/icons";
 
 interface IResources {
   feedback: boolean;
@@ -83,8 +84,9 @@ export default function ReframingText() {
           colorScheme="success"
           whiteSpace={mobile ? "initial" : "unset"}
           maxWidth="485px"
+          // rightIcon={<CheckIcon/>}
         >
-          Ich bin zu einer neuen Bewertung der Situationen gekommen.
+          Ich bin zu einer neuen Bewertung der Situationen gekommen
         </Button>
         {/* </Flex> */}
         <Modal isOpen={isOpen} onClose={onClose}>

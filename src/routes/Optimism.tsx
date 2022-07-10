@@ -13,8 +13,12 @@ import {
 } from "@chakra-ui/react";
 import Sidebar from "../components/Sidebar";
 import { useNavigate } from "react-router-dom";
-import { TimeIcon } from "@chakra-ui/icons";
+import { VscDebugStart, VscDebugRestart } from "react-icons/vsc";
+import { MdDone } from "react-icons/md";
 import { ContentWrapper } from "../components/utils";
+import { useState } from "react";
+import { FiCheck } from "react-icons/fi";
+import { CheckIcon, RepeatClockIcon } from "@chakra-ui/icons";
 
 interface ICountdown {
   hours: number;
@@ -27,29 +31,32 @@ const CountDownTimer = ({
   minutes = 0,
   seconds = 60,
 }: ICountdown) => {
-  const [time, setTime] = React.useState<ICountdown>({
+  const [time, setTime] = useState<ICountdown>({
     hours,
     minutes,
     seconds,
   });
   const navigate = useNavigate();
+  const [startClicked, setStartClicked] = useState(false);
 
   const tick = () => {
-    if (time.hours === 0 && time.minutes === 0 && time.seconds === 0) reset();
-    else if (time.hours === 0 && time.minutes == 10 && time.seconds === 0) {
-      setTime({
-        hours: time.hours,
-        minutes: 9,
-        seconds: 59,
-      });
-    } else if (time.seconds === 0) {
-      setTime({ hours: time.hours, minutes: time.minutes - 1, seconds: 59 });
-    } else {
-      setTime({
-        hours: time.hours,
-        minutes: time.minutes,
-        seconds: time.seconds - 1,
-      });
+    if (startClicked) {
+      if (time.hours === 0 && time.minutes === 0 && time.seconds === 0) reset();
+      // else if (time.hours === 0 && time.minutes === 10 && time.seconds === 0) {
+      //   setTime({
+      //     hours: time.hours,
+      //     minutes: 9,
+      //     seconds: 59,
+      //   });}
+      else if (time.seconds === 0) {
+        setTime({ hours: time.hours, minutes: time.minutes - 1, seconds: 59 });
+      } else {
+        setTime({
+          hours: time.hours,
+          minutes: time.minutes,
+          seconds: time.seconds - 1,
+        });
+      }
     }
   };
 
@@ -84,13 +91,28 @@ const CountDownTimer = ({
                 .padStart(2, "0")}:${time.seconds.toString().padStart(2, "0")}`}
             </Text>
           </Center>
-          <Box pt="40px">
+          <Box mt="40px">
             <Center>
               <Button
+                colorScheme="primary"
+                // display={"inline-block"}
+                onClick={() => setStartClicked(true)}
+                leftIcon={<VscDebugStart />}
+                mr={3}
+              >
+                {" "}
+                Start{" "}
+              </Button>
+              <Button
                 colorScheme="warning"
-                display={"inline-block"}
-                onClick={refreshPage}
-                leftIcon={<TimeIcon />}
+                // display={"inline-block"}
+                onClick={ () => {
+                  setStartClicked(false);
+                  reset();
+                  setTime({ hours: 0, minutes: 10, seconds: 0 });
+
+                }}
+                leftIcon={<RepeatClockIcon />}
               >
                 {" "}
                 Reset{" "}
@@ -105,9 +127,10 @@ const CountDownTimer = ({
                 borderRadius="lg"
                 boxShadow={"xl"}
               >
+                <Text fontSize='24px' textAlign='center'> 💭💡📝🌈</Text>
                 <Text fontSize="18px" color="black" textAlign="left">
                   If you want to practice optimism, the following task can help
-                  you: set a timer for 10 minutes. During this time, think about
+                  you: Set a timer for 10 minutes. During this time, think about
                   your best possible future self and write it down on a piece of
                   paper. Prepare several pieces of paper for this exercise.
                   Imagine your life the way you always imagined it. Imagine you
@@ -123,9 +146,10 @@ const CountDownTimer = ({
                 <Button
                   colorScheme="success"
                   onClick={() => navigate("/resources/optimism1")}
-                  display={"inline-block"}
+                  rightIcon={<CheckIcon/>}
+                  // display={"inline-block"}
                 >
-                  Lets go!{" "}
+                  Done{" "}
                 </Button>
               </Center>
             </Box>

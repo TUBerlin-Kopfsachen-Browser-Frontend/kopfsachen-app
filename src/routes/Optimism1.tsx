@@ -33,7 +33,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState, Suspense } from "react";
 import Sidebar from "../components/Sidebar";
-import { FiFrown, FiMeh, FiSmile } from "react-icons/fi";
+import { FiCheck, FiFrown, FiMeh, FiSmile } from "react-icons/fi";
 
 import { useForm, SubmitHandler } from "react-hook-form";
 import { AspectRatio } from "@chakra-ui/react";
@@ -42,6 +42,8 @@ import axios from "axios";
 import i18n, { t } from "i18next";
 import { initReactI18next, useTranslation } from "react-i18next";
 import { ContentWrapper } from "../components/utils";
+import { MdDone } from "react-icons/md";
+import { CheckIcon } from "@chakra-ui/icons";
 
 interface IResources {
   feedback: boolean;
@@ -75,6 +77,8 @@ export default function ReframingText() {
               Write down the thoughts that came up in these 10 minutes.
             </Text>
             <Stack spacing={5}>
+              <Flex alignItems='center'>
+              <Text fontSize='26' mr={3}>💡</Text>
               <Textarea
                 {...register(`situations.${0}`)}
                 placeholder="Room for thoughts 1"
@@ -83,6 +87,9 @@ export default function ReframingText() {
                   "neutral.100"
                 )}
               />
+              </Flex>
+              <Flex alignItems='center'>
+              <Text fontSize='26' mr={3}>💡</Text>
               <Textarea
                 {...register(`situations.${1}`)}
                 placeholder="Room for thougts 2"
@@ -91,6 +98,9 @@ export default function ReframingText() {
                   "neutral.100"
                 )}
               />
+              </Flex>
+              <Flex alignItems='center'>
+              <Text fontSize='26' mr={3}>💡</Text>
               <Textarea
                 {...register(`situations.${2}`)}
                 placeholder="Room for thoughts 3"
@@ -99,13 +109,14 @@ export default function ReframingText() {
                   "neutral.100"
                 )}
               />
+              </Flex>
               <Center>
                 <Button
                   mt={5}
                   onClick={onOpen}
-                  w={"30%"}
-                  display={"inline-block"}
+                  // display={"inline-block"}
                   colorScheme="success"
+                  rightIcon={<CheckIcon/>}
                 >
                   Done
                 </Button>

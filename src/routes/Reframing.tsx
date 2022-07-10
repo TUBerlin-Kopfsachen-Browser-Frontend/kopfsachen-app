@@ -25,6 +25,7 @@ import { stringify } from "querystring";
 import { networkInterfaces } from "os";
 import axios from "axios";
 import { ContentWrapper, useMobile } from "../components/utils";
+import { CheckIcon } from "@chakra-ui/icons";
 
 interface IReframingItem {
   situations: string[];
@@ -51,6 +52,8 @@ export default function New() {
         <form onSubmit={handleSubmit(onSubmit)} style={{ maxWidth: "100%" }}>
           <Flex flexDirection="column">
             <Stack spacing={5}>
+              <Flex>
+              <Text fontSize='26' mr={3}>💭</Text>
               <Input
                 {...register(`situations.${0}`)}
                 placeholder="Situation 1"
@@ -58,8 +61,11 @@ export default function New() {
                   "neutral.400",
                   "neutral.100"
                 )}
-                // size="lg"
+              // size="lg"
               />
+              </Flex>
+              <Flex>
+              <Text fontSize='26' mr={3}>💭</Text>
               <Input
                 {...register(`situations.${1}`)}
                 placeholder="Situation 2"
@@ -67,8 +73,11 @@ export default function New() {
                   "neutral.400",
                   "neutral.100"
                 )}
-                // size="lg"
+              // size="lg"
               />
+              </Flex>
+              <Flex>
+              <Text fontSize='26' mr={3}>💭</Text>
               <Input
                 {...register(`situations.${2}`)}
                 placeholder="Situation 3"
@@ -76,8 +85,11 @@ export default function New() {
                   "neutral.400",
                   "neutral.100"
                 )}
-                // size="lg"
+              // size="lg"
               />
+              </Flex>
+              <Flex>
+              <Text fontSize='26' mr={3}>💭</Text>
               <Input
                 {...register(`situations.${3}`)}
                 placeholder="Situation 4"
@@ -85,8 +97,9 @@ export default function New() {
                   "neutral.400",
                   "neutral.100"
                 )}
-                // size="lg"
+              // size="lg"
               />
+              </Flex>
             </Stack>
 
             <Button
@@ -95,8 +108,9 @@ export default function New() {
               type="submit"
               onClick={() => navigate("/resources/reframing1")}
               whiteSpace={mobile ? "initial" : "unset"}
+            // rightIcon={<CheckIcon/>}
             >
-              These are all the situations that are bothering me at the moment
+              These are all situations bothering me at the moment
             </Button>
           </Flex>
         </form>

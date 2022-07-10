@@ -26,7 +26,7 @@ export default function App() {
   const mobile = useMobile();
   return <ContentWrapper headerProps={{ text: 'Home' }}>
     <Flex flexDirection='column' alignItems='center' mt='150px'>
-      <Image src="/header.png" width={["200px", "400px"]} />
+      <Image src="/header.png" width={["200px", "400px"]} alt='Kopfsachen logo'/>
       <Text fontSize={["16", "20"]}>Welcome to the Kopfsachen Web App!</Text>
       <Stack spacing={4} direction="row" align="center">
         <a href="/login">
