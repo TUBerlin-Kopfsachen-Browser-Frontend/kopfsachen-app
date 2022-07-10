@@ -41,7 +41,7 @@ import { stringify } from "querystring";
 import { networkInterfaces } from "os";
 import axios from "axios";
 import { Button, IconButton } from "@chakra-ui/button";
-import { AddIcon } from "@chakra-ui/icons";
+import { AddIcon, CheckIcon } from "@chakra-ui/icons";
 import { RadioGroup } from "@chakra-ui/react";
 import { Radio } from "@chakra-ui/react";
 import { FiFrown, FiMeh, FiSmile } from "react-icons/fi";
@@ -195,6 +195,7 @@ export default function SocialSupport1() {
 
                   <ModalFooter>
                     <Button
+                    colorScheme='success'
                       onClick={() => {
                         onClose();
                         // setNameInput1(strategyInput1);
@@ -208,6 +209,7 @@ export default function SocialSupport1() {
                       Submit
                     </Button>
                     <Button
+                    colorScheme='warning'
                       onClick={() => {
                         onClose();
                         setIsSubmitDisabled(true);
@@ -241,6 +243,7 @@ export default function SocialSupport1() {
 
                   <ModalFooter>
                     <Button
+                    colorScheme='success'
                       onClick={() => {
                         onClose1();
                         setNameInput2(strategyInput2);
@@ -253,6 +256,7 @@ export default function SocialSupport1() {
                       Submit
                     </Button>
                     <Button
+                    colorScheme='warning'
                       onClick={() => {
                         onClose1();
                         setIsSubmitDisabled(true);
@@ -287,6 +291,7 @@ export default function SocialSupport1() {
 
                   <ModalFooter>
                     <Button
+                    colorScheme='success'
                       onClick={() => {
                         onClose2();
                         setNameInput3(strategyInput3);
@@ -299,6 +304,7 @@ export default function SocialSupport1() {
                       Submit
                     </Button>
                     <Button
+                    colorScheme='warning'
                       onClick={() => {
                         onClose2();
                         setIsSubmitDisabled(true);
@@ -316,12 +322,14 @@ export default function SocialSupport1() {
         {isFertigButton && (
           <Button
             width={"140px"}
-            backgroundColor={"#F3803E"}
+            // backgroundColor={"#F3803E"}
+            colorScheme='success'
             marginTop={"20px"}
             marginLeft={"38%"}
             onClick={onOpenFeedback}
+            rightIcon={<CheckIcon/>}
           >
-            Done!
+            Done
           </Button>
         )}
         <Modal isOpen={isOpenFeedback} onClose={onModalClose}>
@@ -329,7 +337,7 @@ export default function SocialSupport1() {
             <ModalContent>
               <form onSubmit={handleSubmit(onSubmit)}>
                 <ModalHeader fontSize="lg" fontWeight="bold">
-                  Feedback
+                  How did you like this exercise?
                 </ModalHeader>
 
                 <ModalBody>
@@ -357,6 +365,7 @@ export default function SocialSupport1() {
 
                 <ModalFooter>
                   <Button
+                  colorScheme='success'
                     onClick={() => {
                       onModalClose();
                       // prevent react from clearing the inputs before the form submit is handled
@@ -371,7 +380,7 @@ export default function SocialSupport1() {
                   >
                     Submit
                   </Button>
-                  <Button onClick={onModalClose}>Cancel</Button>
+                  <Button colorScheme='warning' onClick={onModalClose}>Cancel</Button>
                 </ModalFooter>
               </form>
             </ModalContent>
