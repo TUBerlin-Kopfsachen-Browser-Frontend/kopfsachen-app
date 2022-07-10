@@ -43,7 +43,7 @@ import { stringify } from "querystring";
 import { networkInterfaces } from "os";
 import axios from "axios";
 import { Button, IconButton } from "@chakra-ui/button";
-import { AddIcon, CheckIcon } from "@chakra-ui/icons";
+import { AddIcon, ArrowForwardIcon, CheckIcon } from "@chakra-ui/icons";
 import { RadioGroup } from "@chakra-ui/react";
 import { Radio } from "@chakra-ui/react";
 import { FiCornerDownRight } from "react-icons/fi";
@@ -186,7 +186,8 @@ function AddItemView() {
             colorScheme="success"
             onClick={() => setContinueClicked(true)}
             isDisabled={nameInput.trim() === ""}
-            leftIcon={<FiCornerDownRight/>}
+            // leftIcon={<FiCornerDownRight/>}
+            rightIcon={<ArrowForwardIcon/>}
           >
             {t("continue")}
           </Button>

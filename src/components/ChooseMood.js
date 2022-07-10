@@ -11,6 +11,8 @@ import {
   Stack,
   Textarea,
   useColorModeValue,
+  Text,
+  Flex
 } from "@chakra-ui/react";
 import { m } from "framer-motion";
 
@@ -27,13 +29,13 @@ export default function ChooseMoodForm({ onSubmit }) {
         <FormLabel htmlFor="mood_type">Please enter your mood here:</FormLabel>
         <RadioGroup>
           <Stack m={10}>
-            <Radio
+          <Radio
               {...register("mood_type", { required: true })}
-              value="positive"
+              value="negative"
               size="md"
               colorScheme='success'
             >
-              😄 Positive
+            <Flex alignItems='center'> <Text fontSize='24px' mr={1}> 😞</Text> <Text fontStyle='italic' ml={1}> (angry, sad, anxious...) </Text> </Flex>
             </Radio>
             <Radio
               {...register("mood_type", { required: true })}
@@ -41,15 +43,15 @@ export default function ChooseMoodForm({ onSubmit }) {
               size="md"
               colorScheme='success'
             >
-              😐 Neutral
+            <Flex alignItems='center'> <Text fontSize='24px' mr={1}>😐</Text> <Text fontStyle='italic' ml={1}> (unmotivated, tired, indifferent...) </Text></Flex>
             </Radio>
             <Radio
               {...register("mood_type", { required: true })}
-              value="negative"
+              value="positive"
               size="md"
               colorScheme='success'
             >
-              😞 Negative
+              <Flex alignItems='center'> <Text fontSize='24px' mr={1}>😄</Text> <Text fontStyle='italic' ml={1}> (happy, excited, relaxed...) </Text> </Flex>
             </Radio>
           </Stack>
         </RadioGroup>
