@@ -25,19 +25,21 @@ import {
   Button,
   useColorModePreference,
   useColorModeValue,
+  useColorMode,
 } from "@chakra-ui/react";
 import Sidebar from "../components/Sidebar";
 import externhelp from "../externhelp.png";
 import jugendemail from "../jugendemail.png";
 import krisenchat from "../krisenchat.png";
 import nummergegenkummer from "../nummergegenkummer.png";
-
 import { MdCheckCircle } from "react-icons/md";
 import { ChatIcon, EmailIcon, PhoneIcon } from "@chakra-ui/icons";
 import { ContentWrapper, Header, useMobile } from "../components/utils";
+import "../assets/css/emergencyNum.css";
 
 export default function EmergencyNumbers() {
   const mobile = useMobile();
+  const { colorMode, toggleColorMode } = useColorMode();
   return (
     <ContentWrapper headerProps={{ text: "External Help" }}>
       <Flex direction="column" alignItems="center">
@@ -94,7 +96,7 @@ export default function EmergencyNumbers() {
                         size="md"
                         height="48px"
                         width="300px"
-                        // border="2px"
+                      // border="2px"
                       >
                         Email
                       </Button>
@@ -107,7 +109,7 @@ export default function EmergencyNumbers() {
                         variant="solid"
                         height="48px"
                         width="300px"
-                        // border="2px"
+                      // border="2px"
                       >
                         Chat 24/7
                       </Button>
@@ -122,6 +124,7 @@ export default function EmergencyNumbers() {
                 <Stack direction="column" wrap="wrap" alignItems="center">
                   <Link href="https://krisenchat.de/">
                     <Image
+                      className={colorMode === 'dark' ? 'revert-image-color' : ''}
                       src={"/krisenchat.png"}
                       alt="krisenchat"
                       width="220px"
@@ -139,7 +142,7 @@ export default function EmergencyNumbers() {
                         size="md"
                         height="48px"
                         width="300px"
-                        // border="2px"
+                      // border="2px"
                       >
                         Whatsapp
                       </Button>
@@ -152,7 +155,7 @@ export default function EmergencyNumbers() {
                         variant="solid"
                         height="48px"
                         width="300px"
-                        // border="2px"
+                      // border="2px"
                       >
                         Email
                       </Button>
@@ -167,6 +170,7 @@ export default function EmergencyNumbers() {
                 <Stack direction="column" wrap="wrap" alignItems="center">
                   <Link href="https://www.nummergegenkummer.de/">
                     <Image
+                      className={colorMode === 'dark' ? 'revert-image-color' : ''}
                       src={"/nummergegenkummer.png"}
                       alt="nummergegenkummer"
                       width={200}
@@ -182,7 +186,7 @@ export default function EmergencyNumbers() {
                         size="md"
                         height="48px"
                         width="300px"
-                        // border="2px"
+                      // border="2px"
                       >
                         Contact per Mail or Chat
                       </Button>
@@ -195,7 +199,7 @@ export default function EmergencyNumbers() {
                         variant="solid"
                         height="48px"
                         width="300px"
-                        // border="2px"
+                      // border="2px"
                       >
                         Call
                       </Button>
