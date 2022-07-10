@@ -108,7 +108,7 @@ export default function New() {
               type="submit"
               onClick={() => navigate("/resources/reframing1")}
               whiteSpace={mobile ? "initial" : "unset"}
-            // rightIcon={<CheckIcon/>}
+            rightIcon={<CheckIcon/>}
             >
               These are all situations bothering me at the moment
             </Button>

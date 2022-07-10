@@ -84,9 +84,9 @@ export default function ReframingText() {
           colorScheme="success"
           whiteSpace={mobile ? "initial" : "unset"}
           maxWidth="485px"
-          // rightIcon={<CheckIcon/>}
+          rightIcon={<CheckIcon/>}
         >
-          Ich bin zu einer neuen Bewertung der Situationen gekommen
+          I have come to a new assessment of the situations
         </Button>
         {/* </Flex> */}
         <Modal isOpen={isOpen} onClose={onClose}>
@@ -158,24 +158,27 @@ export default function ReframingText() {
 
 const data = {
   title: "1.",
-  text: "Nun geht es darum die Perspektive zu wechseln und die Situationen in einen neuen Rahmen zu stellen. Es ist dabei nicht zwingend nötig eine positive Interpretaion der Situation zu finden, auch eine neutrale Interpretation kann dir helfen, die negative Stimmung zu bessern.",
+  text: "Now it is about changing the perspective and putting the situation into a new framing. It is not necessary to find a positive interpretation of the situation, a neutral interpretation can also help you to improve the negative mood.",
 };
 
 const data1 = {
   title1:
-    "2. Geht es um eine bestimmte Handlung/ Verhalten, die du nicht ausführen möchtest, helfen dir die folgenden Fragen zu einer positiveren/ neutralen Bewertung zu kommen.",
+    "2. If it is a particular action/behaviour that you do not want to do, the following questions will help you to come to a more positive/neutral assessment.",
   text1:
-    "A) Kontext erweitern/ in einem anderen Kontext betrachten: Welchen Vorteil könnte eine ungeliebte Tätigkeit haben?\nB) Andere Bewertung anbieten:Wozu könnte ein gewisses Verhalten dienen? Welche Funktion könnte es haben?\nC) Perspektive ändern:Welche Bedeutung könnte es in 10 Jahren haben?",
+    `A) Broaden the context/ look at it in a different context:
+    What advantage could an unloved activity have?\nB) Offer a different evaluation:
+    What could a certain behaviour be useful for?\nC) Change the perspective:
+    What meaning could it have in 10 years?`,
 };
 
 const data2 = {
   title2:
-    "3. Belastet dich aktuell das Verhalten einer anderen Person, denk über folgende Fragen nach:",
+    "3. If someone's behaviour is currently bothering you, think about the following questions:",
   text2:
-    "1. Was sind mögliche Gründe für dieses Verhalten (die ggf. nichts mit dir zu tun haben)?\n2. Welche Bedürfnisse der anderen Person könnten dahinter stehen? (Zugehörigkeit, Verständnis, Sicherheit etc.)\n3. Was braucht diese Person mit diesem Bedürfnis? Was braucht sie anders als bisher?\n4. Von wem braucht diese Person etwas?\n5. Was braucht sie nicht?\n6. Was konkret kannst du als nächstes tun?",
+    `1. What are the possible reasons for this behaviour (which may have nothing to do with you)?\n2. What needs of the other person could be behind it? (Belonging, understanding, security, etc.)\n3. What does this person need with this need? What do they need differently than before?\n4. Who does this person need something from? 5. What do they not need?\n6. What, in particular, can you do next?`
 };
 
 const data3 = {
   title3: "4. ",
-  text3: "Gehe diese Fragen nun mit allen Situationen durch. ",
+  text3: "Now go through these questions with all the situations.",
 };
