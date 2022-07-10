@@ -14,11 +14,11 @@ export default function ResourceCard({ title, emoji, emojiaria, link, image }) {
   const mobile = useMobile();
   return (
     <Link to={link}>
-      <Center py={12}>
+      <Center py={3}>
         <Box
           role={"group"}
           p={6}
-          width={mobile ? '130px' :'200px'}
+          width={mobile ? '140px' :'200px'}
           bg={useColorModeValue("white", "gray.800")}
           boxShadow={"2xl"}
           rounded={"lg"}
@@ -62,27 +62,17 @@ export default function ResourceCard({ title, emoji, emojiaria, link, image }) {
             mt={-12}
             pos={"relative"}
             height={"130px"}
-            _after={{
-              transition: "all .3s ease",
-              content: '""',
-              w: "full",
-              h: "full",
-              pos: "absolute",
-              top: 5,
-              left: 0,
-              // backgroundImage: `url(${image})`,
-              filter: "blur(15px)",
-              zIndex: -1,
-            }}
             _groupHover={{
               _after: {
                 filter: "blur(20px)",
               },
             }}
           >
+            <Center>
             <Text pt={5} role="img" aria-label={emojiaria} fontSize={mobile ? "7xl" : "8xl"} textAlign='center'>
               {emoji}
             </Text>
+            </Center>
           </Box>
           <Stack pt={10} align={"center"}>
             <Text
