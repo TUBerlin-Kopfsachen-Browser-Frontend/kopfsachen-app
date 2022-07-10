@@ -34,7 +34,7 @@
   position: absolute;
   display: flex;
   top: 23%;
-  left: 112%;
+  left: 104%;
   transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
   background-color: rgb(255, 255, 255);
@@ -52,7 +52,7 @@
   position: absolute;
   display: flex;
   top: 58%;
-  left: 140%;
+  left: 155%;
   transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
   background-color: rgb(255, 255, 255);
@@ -70,7 +70,7 @@
   position: absolute;
   display: flex;
   top: 52.8%;
-  left: 124.8%;
+  left: 128%;
   transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
   color: rgb(0, 0, 0);
@@ -100,7 +100,7 @@
   position: absolute;
   display: flex;
   top: 25%;
-  left: 138%;
+  left: 152%;
   transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
   color: rgb(0, 0, 0);
@@ -113,7 +113,7 @@
   position: absolute;
   display: flex;
   top: 54%;
-  left: 145%;
+  left: 163%;
   transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
   color: rgb(0, 0, 0);
@@ -125,7 +125,7 @@
 .container .text13{
   position: absolute;
   display: flex;
-  top: 92%;
+  top: 94%;
   left: 129%;
   transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
@@ -139,7 +139,7 @@
   position: absolute;
   display: flex;
   top: 80%;
-  left: 110%;
+  left: 101%;
   transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
   color: rgb(0, 0, 0);
@@ -152,7 +152,7 @@
   position: absolute;
   display: flex;
   top: 55%;
-  left: 105%;
+  left: 92%;
   transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
   color: rgb(0, 0, 0);
@@ -165,7 +165,7 @@
 .container .text2{
   position: absolute;
   display: flex;
-  top: 30%;
+  top: 28%;
   left: 132%;
   transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);

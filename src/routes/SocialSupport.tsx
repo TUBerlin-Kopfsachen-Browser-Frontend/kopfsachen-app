@@ -123,30 +123,28 @@ export default function SocialSupport1() {
         <Image src={"/socialsupport.png"} alt="socialsupport" />
         </Center> */}
         <Text maxW={"90%"}>
-          Um dir diesen Starkmacher genauer anzuschauen, überlege dir erst
-          einmal welche Menschen es überhaupt alles in deinem Umfeld gibt –
-          immerhin, wer weiß, wer von ihnen dir in Zukunft vielleicht einmal in
-          irgendeiner Form unterstützend zur Seite stehen kann? Skizziere dazu
-          dein persönliches Netzwerk in folgendem Schema mit dir selbst als
-          gedachtem Mittelpunkt:
+        In order to take a closer look at this strong-maker, first think about all
+        the people in your environment - after all, who knows who of them might be
+        able to support you in some way in the future? To do this, sketch out your
+        personal network in the following diagram with yourself as the imaginary center:
         </Text>
         <br></br>
         <Text maxW={"90%"}>
           <span className="innereText">
-            <b>Der innere Kreis</b>
+            <b>The inner circle</b>
           </span>{" "}
-          – Trage hier die wichtigsten Menschen in deinem Leben ein.{" "}
+          – Enter the most important people in your life here.{" "}
           <span className="mittlereText">
-            <b>Der mittlere Kreis</b>
+            <b>The middle circle</b>
           </span>{" "}
-          – Trage hier Personen ein, die dir noch nahe stehen und/oder mit denen
-          du regelmäßig Zeit verbringst.{" "}
+          – Enter people who are still close to you and/or with whom you regularly
+          spend time. {" "}
           <span className="ausereText">
-            <b>Der äußere Kreis</b>
+            <b>The outer circle</b>
           </span>{" "}
-          – Trage hier Bekannte und eher entferntere Personen ein, mit denen du
-          aber auch ab und zu zu tun hast. Klicke einfach auf das plus-Symbol,
-          um Personen dem jeweiligen Kreis hinzuzufügen.
+          – Enter here acquaintances and more distant people, with whom you also 
+          have to do from time to time. Simply click on the plus symbol to add 
+          people to the respective circle.
         </Text>
         <br></br>
 
@@ -163,7 +161,7 @@ export default function SocialSupport1() {
             +
           </Button>
 
-          <Text className="ich">ICH</Text>
+          <Text className="ich">ME</Text>
 
           <Text className="text10">{nameInput1[0]}</Text>
           <Text className="text11">{nameInput1[1]}</Text>
@@ -320,7 +318,7 @@ export default function SocialSupport1() {
             width={"140px"}
             backgroundColor={"#F3803E"}
             marginTop={"20px"}
-            marginLeft={"45.5%"}
+            marginLeft={"38%"}
             onClick={onOpenFeedback}
           >
             Done!

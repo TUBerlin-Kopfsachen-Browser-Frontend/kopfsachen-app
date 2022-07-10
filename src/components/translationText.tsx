@@ -5,7 +5,7 @@ export const translationsEn = {
     "Which person or what activity can make you happy and give you drive in your everyday life?",
   happyMaker: "This is what makes me happy:",
   chooseCategory: "To which category does this resource belong?",
-  chooseWays: "Think about three ways in which",
+  chooseWays: "Think about three ways in which ",
   chooseWays2: " can help you right now:",
   addResource: "Add another resource",
   allResources: "These are all resources",
