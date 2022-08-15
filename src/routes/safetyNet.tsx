@@ -1,290 +1,451 @@
-import { useEffect, useRef, useState, Suspense } from "react"
+import { useEffect, useRef, useState, Suspense } from "react";
 import {
-    ChakraProvider, Text, theme, Flex, Heading, Input, Stack, HStack, AlertDialog, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, AlertDialogBody, AlertDialogFooter, useDisclosure, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Box, Select
-} from "@chakra-ui/react"
-import Sidebar from "../components/Sidebar"
+  ChakraProvider,
+  Text,
+  theme,
+  Flex,
+  Heading,
+  Input,
+  Stack,
+  HStack,
+  AlertDialog,
+  AlertDialogOverlay,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogBody,
+  AlertDialogFooter,
+  useDisclosure,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Box,
+  Select,
+  Link,
+  Center,
+  Portal,
+  useColorModeValue,
+} from "@chakra-ui/react";
+import Sidebar from "../components/Sidebar";
 
-import {translationsEn, translationsTr, translationsDe, translationsAl} from "../components/translationText"
-
+import {
+  translationsEn,
+  translationsTr,
+  translationsDe,
+  translationsAl,
+} from "../components/translationText";
+import { useNavigate } from "react-router-dom";
 
 import { useForm, SubmitHandler } from "react-hook-form";
-import { stringify } from "querystring"
-import { networkInterfaces } from "os"
-import axios from "axios"
-import { Button, IconButton } from "@chakra-ui/button"
-import { AddIcon } from "@chakra-ui/icons"
-import { RadioGroup } from "@chakra-ui/react"
-import { Radio } from "@chakra-ui/react"
-import { FiFrown, FiMeh, FiSmile } from "react-icons/fi"
-import React from "react"
+import { stringify } from "querystring";
+import { networkInterfaces } from "os";
+import axios from "axios";
+import { Button, IconButton } from "@chakra-ui/button";
+import { AddIcon, ArrowForwardIcon, CheckIcon } from "@chakra-ui/icons";
+import { RadioGroup } from "@chakra-ui/react";
+import { Radio } from "@chakra-ui/react";
+import { FiCornerDownRight } from "react-icons/fi";
+import { FiCheck } from "react-icons/fi";
+import React from "react";
+
+import {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverHeader,
+  PopoverBody,
+  PopoverFooter,
+  PopoverArrow,
+  PopoverCloseButton,
+  PopoverAnchor,
+} from "@chakra-ui/react";
+import { ContentWrapper, useMobile } from '../components/utils';
 
 import i18n, { t } from "i18next";
 import { initReactI18next, useTranslation } from "react-i18next";
 
+// import safetyNet from "../safetyNet.png";
+import "../assets/css/safetyNet.scss";
+import { resourceUsage } from "process";
+import PopoverSafetyNet from "../components/PopoverSafetyNet";
 
-i18n
-    .use(initReactI18next)
-    .init({
-        resources: {
-            en: {translation: translationsEn},
-            tr: {translation: translationsTr},
-            de: {translation: translationsDe},
-            al: {translation: translationsAl}
-        },
-        lng: "en",
-        fallbackLng: "en",
-        interpolation: {escapeValue: false},
-    });
-// api get/post request format
-interface ISafteyNetItem {
-    name: string;
-    type: string;
-    strategies: string[];
-    feedback?: {
-        timestamp: string;
-        itHelped: boolean;
-        comment: string;
-    }[];
+i18n.use(initReactI18next).init({
+  resources: {
+    en: { translation: translationsEn },
+    tr: { translation: translationsTr },
+    de: { translation: translationsDe },
+    al: { translation: translationsAl },
+  },
+  lng: "en",
+  fallbackLng: "en",
+  interpolation: { escapeValue: false },
+});
+
+interface ISafetyNetItem {
+  id: number;
+  name: string;
+  type: string;
+  strategies: string[];
+  feedback?: {
+    itHelped: boolean;
+    comment: string;
+    timestamp: string;
+  }[];
 }
 
 function AddItemView() {
-    const [nameInput, setNameInput] = useState<string>('');
-    const [strategyInput1, setStrategyInput1] = useState<string>('');
-    const [strategyInput2, setStrategyInput2] = useState<string>('');
-    const [strategyInput3, setStrategyInput3] = useState<string>('');
-    const [categoryInput, setCategoryInput] = useState('situationControl');
-    const [continueClicked, setContinueClicked] = useState(false);
-    const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
-    const handleItemInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setNameInput(e.target.value);
-    };
+  const [nameInput, setNameInput] = useState<string>("");
+  const [strategyInput1, setStrategyInput1] = useState<string>("");
+  const [strategyInput2, setStrategyInput2] = useState<string>("");
+  const [strategyInput3, setStrategyInput3] = useState<string>("");
+  const [categoryInput, setCategoryInput] = useState("people");
+  const [continueClicked, setContinueClicked] = useState(false);
+  const [itHelped, setItHelped] = useState<boolean | undefined>();
+  const navigate = useNavigate();
+  const { register, handleSubmit, setValue, reset } = useForm<ISafetyNetItem>();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { t } = useTranslation();
+  const mobile = useMobile();
 
-    const { t } = useTranslation();
+  const handleItemInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNameInput(e.target.value);
+  };
+  const onSubmit: SubmitHandler<ISafetyNetItem> = (data) => {
+    console.log("submitting", data);
+    axios.post(`http://127.0.0.1:4010/safetyNet`, data);
+  };
+  const onModalClose = () => {
+    onClose();
+    setItHelped(undefined);
+  };
+  const clearInputs = () => {
+    reset();
+    setValue("type", "people");
+    setNameInput("");
+    setStrategyInput1("");
+    setStrategyInput2("");
+    setStrategyInput3("");
+    setCategoryInput("people");
+    setContinueClicked(false);
+  };
 
-    const { register, handleSubmit, setValue } = useForm<ISafteyNetItem>();
-    const onSubmit: SubmitHandler<ISafteyNetItem> = data => axios.post(`http://127.0.0.1:4010/safetyNet/1`, data)
-    const { isOpen, onOpen, onClose } = useDisclosure();
-    return (
-        <Flex flexDirection='column' width={500}>
-            <Text marginTop={12} marginBottom={5}> {t('happyMaker')} </Text>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <Input
-                    focusBorderColor="green.400"
-                    {...register('name')}
-                    onChange={handleItemInput}
-                    isDisabled={continueClicked}
-                />
-                <Text marginTop={7} marginBottom={5}> {t('chooseCategory')} </Text>
-                <RadioGroup onChange={setCategoryInput} value={categoryInput} colorScheme='green' isDisabled={continueClicked}>
-                    <Stack direction='row'>
-                        <Radio {...register('type')} value='situationControl'>{t('situationControl')}</Radio>
-                        <Radio {...register('type')} value='relaxation'>{t('relaxation')}</Radio>
-                        <Radio {...register('type')} value='pet'>{t('pets')}</Radio>
-                        <Radio {...register('type')} value='other'>{t('other')}</Radio>
-                    </Stack>
-                </RadioGroup>
+  return (
+    <Flex direction="column">
+      <Text fontSize={20} marginBottom={5}>
+        {" "}
+        {t("happyMaker")}{" "}
+      </Text>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Input
+          focusBorderColor={useColorModeValue("neutral.400", "neutral.100")}
+          {...register("name")}
+          onChange={handleItemInput}
+          value={nameInput}
+          isDisabled={continueClicked}
+        />
+        <Text fontSize={20} marginTop={7} marginBottom={5}>
+          {" "}
+          {t("chooseCategory")}{" "}
+        </Text>
+        <RadioGroup
+          onChange={setCategoryInput}
+          value={categoryInput}
+          colorScheme="neutral"
+          isDisabled={continueClicked}
+        >
+          <Flex direction="row" wrap='wrap' justifyContent='space-around'>
+            <Radio {...register("type")} value="people" ml={2.5} mr={2.5} width='100px'>
+            {t("people")}
+              <Text fontSize={40}>👩‍👦</Text>{" "}
+            </Radio>
+            <Radio {...register("type")} value="activities" ml={2.5} mr={2.5} width='100px'>
+            {t("activities")}
+              <Text fontSize={40}>🤾🏾</Text>{" "}
+            </Radio>
+            <Radio {...register("type")} value="pets" ml={2.5} mr={2.5} width='100px'>
+              {t("pets")}
+              <Text fontSize={40}>🐾</Text>{" "}
+            </Radio>
+            <Radio {...register("type")} value="personalStrengths" ml={2.5} mr={2.5} width='100px'>
+            {t("personalStrengths")}
+              <Text fontSize={40}>💪🏽</Text>{" "}
+            </Radio>
+            <Radio {...register("type")} value="other" ml={2.5} mr={2.5} width='100px'>
+              {t("other")}
+              <Text fontSize={40}>💭</Text>
+            </Radio>
+          </Flex>
+        </RadioGroup>
 
-                {!continueClicked && <Button
-                    marginTop={7}
-                    marginBottom={5}
-                    colorScheme='green'
-                    width={20} size='xs'
-                    onClick={() => setContinueClicked(true)}
-                    isDisabled={nameInput.trim() === ''}
-                >
-                    {t('continue')}
-                </Button>}
-            </form>
-            {continueClicked && <Flex flexDirection='column' mt={5}>
-                <Text marginTop={2} marginBottom={5}> {t('chooseWays')} </Text>
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <Stack spacing={3}>
-                        <Input
-                            {...register(`strategies.${0}`)}
-                            placeholder='first'
-                            focusBorderColor="green.400"
-                            onChange={(e: any) => setStrategyInput1(e.target.value)}
-                        />
-                        <Input
-                            {...register(`strategies.${1}`)}
-                            placeholder='second'
-                            focusBorderColor="green.400"
-                            onChange={(e: any) => setStrategyInput2(e.target.value)}
-                        />
-                        <Input
-                            {...register(`strategies.${2}`)}
-                            placeholder='third'
-                            focusBorderColor="green.400"
-                            onChange={(e: any) => setStrategyInput3(e.target.value)}
-                        />
-                    </Stack>
-                </form>
-                <Flex marginTop={10}>
-                    <Button
-                        marginRight={3}
-                        colorScheme='green'
-                        isDisabled={(strategyInput1.trim() === '') || (strategyInput2.trim() === '') || (strategyInput3.trim() === '')}
-                    >
-                        {t('addResource')}
-                    </Button>
-                    <Button
-                        onClick={onOpen}
-                        marginRight={3}
-                        colorScheme='green'
-                        isDisabled={(strategyInput1.trim() === '') || (strategyInput2.trim() === '') || (strategyInput3.trim() === '')}
-                    >
-                        {t('allResources')}
-                    </Button>
-                    <Modal
-                        isOpen={isOpen}
-                        onClose={onClose}
-                    >
-                        <ModalOverlay>
-                            <ModalContent>
-                                <form onSubmit={handleSubmit(onSubmit)}>
-                                    <ModalHeader fontSize='lg' fontWeight='bold'>
-                                        {t('feedback')}
-                                    </ModalHeader>
-
-                                    <ModalBody>
-                                        <Stack direction='row' spacing={3}>
-                                            <IconButton
-                                                onClick={() => {
-                                                    setValue(`feedback.${0}.itHelped`, true);
-                                                    setIsSubmitDisabled(false);
-                                                }}
-                                                aria-label='positive'
-                                                variant='ghost'
-                                                icon={<FiSmile size={30} color='green' />}
-                                            />
-                                            <IconButton
-                                                onClick={() => {
-                                                    setValue(`feedback.${0}.itHelped`, false);
-                                                    setIsSubmitDisabled(false);
-                                                }}
-                                                aria-label='negative'
-                                                variant='ghost'
-                                                icon={<FiFrown size={30} color='red' />}
-                                            />
-                                        </Stack>
-                                    </ModalBody>
-
-                                    <ModalFooter>
-                                        <Button onClick={onClose} type='submit' isDisabled={isSubmitDisabled} mr={3} >
-                                            {t('submit')}
-                                        </Button>
-                                        <Button onClick={() => {
-                                            onClose();
-                                            setIsSubmitDisabled(true);
-                                        }}>
-                                            {t('cancel')}
-                                        </Button>
-                                    </ModalFooter>
-                                </form>
-                            </ModalContent>
-                        </ModalOverlay>
-                    </Modal>
-                </Flex>
-            </Flex>
+        {!continueClicked && (
+          <Button
+            marginTop={10}
+            marginBottom={5}
+            colorScheme="success"
+            onClick={() => setContinueClicked(true)}
+            isDisabled={nameInput.trim() === ""}
+            // leftIcon={<FiCornerDownRight/>}
+            rightIcon={<ArrowForwardIcon/>}
+          >
+            {t("continue")}
+          </Button>
+        )}
+      </form>
+      <Flex
+        direction="column"
+        mt={5}
+        display={continueClicked ? undefined : "none"}
+      >
+        <Text fontSize={20} marginTop={2} marginBottom={5}>
+          {" "}
+          {t("chooseWays")} {nameInput} {t("chooseWays2")}{" "}
+        </Text>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Stack spacing={3}>
+            <Input
+              {...register(`strategies.0`)}
+              placeholder={t("first")}
+              focusBorderColor={useColorModeValue("neutral.400", "neutral.100")}
+              value={strategyInput1}
+              onChange={(e: any) => setStrategyInput1(e.target.value)}
+            />
+            <Input
+              {...register(`strategies.1`)}
+              placeholder={t("second")}
+              focusBorderColor={useColorModeValue("neutral.400", "neutral.100")}
+              value={strategyInput2}
+              onChange={(e: any) => setStrategyInput2(e.target.value)}
+            />
+            <Input
+              {...register(`strategies.2`)}
+              placeholder={t("third")}
+              focusBorderColor={useColorModeValue("neutral.400", "neutral.100")}
+              value={strategyInput3}
+              onChange={(e: any) => setStrategyInput3(e.target.value)}
+            />
+          </Stack>
+        </form>
+        <Flex marginTop={5} justifyContent='space-evenly'>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <Button
+              type="submit"
+              onClick={() => {
+                // prevent react from clearing the inputs before the form submit is handled
+                setTimeout(() => {
+                  clearInputs();
+                }, 0);
+              }}
+              marginRight={3}
+              marginBottom={mobile ? '25px' : 'unset'}
+              colorScheme="primary"
+              whiteSpace={mobile ? 'initial' : 'unset'}
+              isDisabled={
+                strategyInput1.trim() === "" ||
+                strategyInput2.trim() === "" ||
+                strategyInput3.trim() === ""
+              }
+              leftIcon={<AddIcon/>}
+            >
+              {t("addResource")}
+            </Button>
+          </form>
+          <Button
+            onClick={onOpen}
+            marginRight={3}
+            marginBottom={mobile ? '25px' : 'unset'}
+            colorScheme="success"
+            whiteSpace={mobile ? 'initial' : 'unset'}
+            isDisabled={
+              strategyInput1.trim() === "" ||
+              strategyInput2.trim() === "" ||
+              strategyInput3.trim() === ""
             }
+            leftIcon={<CheckIcon/>}
+          >
+            {t("allResources")}
+          </Button>
         </Flex>
-    )
+        <Modal isOpen={isOpen} onClose={onModalClose}>
+          <ModalOverlay>
+            <ModalContent width={mobile ? 'calc(100vw - 40px)' : 'unset'}>
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <ModalHeader fontSize="lg" fontWeight="bold">
+                  {t("feedback")}
+                </ModalHeader>
+                <ModalBody>
+                  <Stack direction="row" spacing={3}>
+                    <Button
+                      onClick={() => {
+                        setValue(`feedback.${0}.itHelped`, true);
+                        setItHelped(true);
+                      }}
+                      aria-label="positive"
+                      variant={itHelped === true ? "solid" : "ghost"}
+                      colorScheme={itHelped === true ? 'yellow' : 'unset'}
+                    // icon={<FiSmile size={30} color="green" />}
+                    >
+                      <Text fontSize={33}> 🥳 </Text>
+                    </Button>
+                    <Button
+                      onClick={() => {
+                        setValue(`feedback.${0}.itHelped`, false);
+                        setItHelped(false);
+                      }}
+                      aria-label="negative"
+                      variant={itHelped === false ? 'solid' : "ghost"}
+                      colorScheme={itHelped === false ? 'yellow' : 'unset'}
+                    // icon={<FiFrown size={30} color="red" />}
+                    >
+                      <Text fontSize={33}> 🤮 </Text>
+                    </Button>
+                  </Stack>
+                </ModalBody>
+                <ModalFooter>
+                  <Button
+                    colorScheme='success'
+                    onClick={() => {
+                      onModalClose();
+                      // prevent react from clearing the inputs before the form submit is handled
+                      setTimeout(() => {
+                        clearInputs();
+                        navigate("/resources");
+                      }, 0);
+                      // props.onBackClick();
+                    }}
+                    type="submit"
+                    isDisabled={typeof itHelped === "undefined"}
+                    mr={3}
+                  >
+                    {t("submit")}
+                  </Button>
+                  <Button colorScheme='warning' onClick={onModalClose}>{t("cancel")}</Button>
+                </ModalFooter>
+              </form>
+            </ModalContent>
+          </ModalOverlay>
+        </Modal>
+      </Flex>
+    </Flex>
+  );
 }
 
 function FrontPage() {
-    const [addItemClicked, setAddItemClicked] = useState(false);
-    const [items, setItems] = useState<ISafteyNetItem[]>([]);
+  const [addItemClicked, setAddItemClicked] = useState(false);
+  const [items, setItems] = useState<ISafetyNetItem[]>([]);
+  const mobile = useMobile();
+  const coloModeDependentClassName = useColorModeValue("circle-container", "circle-container dark");
+  const { t } = useTranslation();
+  const displayIcon = (iconType: string) => {
+    return items.some((item) => {
+      if (item.type === iconType) {
+        return true;
+      }
+      return false;
+    });
+  };
 
-    const { t } = useTranslation();
-    // to fetch data everytime the front page is loaded
-    useEffect(() => {
-        const baseUrl = "http://127.0.0.1:4010"; // localhost + port as base url
-        const userId = 1; // random user id
-        const fetchItemsWrapper = async () => {
-            const fetchItems = await fetch(`${baseUrl}/safetyNet/${userId}`);
-            if (fetchItems.ok) {
-                const itemsData = await fetchItems.json();
-                if (itemsData.length > 0) {
-                    setItems(itemsData);
-                }
-            } else {
-                console.log("Failed to fetch safety net items.");
-            }
+  // to fetch data everytime the front page is loaded
+  useEffect(() => {
+    const baseUrl = "http://127.0.0.1:4010"; // localhost + port as base url
+    const fetchItemsWrapper = async () => {
+      const fetchItems = await fetch(`${baseUrl}/safetyNet`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer test",
+        },
+      });
+      // const fetchItems = await fetch('https://motivator.api.live.mindtastic.lol/safetyNet')
+      if (fetchItems.ok) {
+        console.log("Entered first if");
+        const responseData: ISafetyNetItem[] = await fetchItems.json();
+        console.log(responseData);
+        if (responseData.length > 0) {
+          console.log("Entered second if");
+          setItems(responseData);
         }
-        fetchItemsWrapper();
+      } else {
+        console.log("Failed to fetch safety net items.");
+      }
+    };
+    fetchItemsWrapper();
+  }, []);
 
-
-    }, []);
-
- 
-
-    if (items) {
-        return (
-            <Suspense fallback="Loading...">
-            <Flex>
-                
-                <Flex
-                    flexDirection='column'
-                    position='absolute'
-                    top='10vh'
-                    left='50vw'
-                    transform="translate(-50%, -0%)"
-                    maxWidth='800px'
-                >
-                   
-                    
-                    {!addItemClicked && <Text pt ={'80px'} align={'center'} marginBottom={5}>
-                        {t('welcome')}
-                    </Text>}
-                    {!addItemClicked && <Text fontSize={11} marginBottom={5}>
-                        {items.map((item: ISafteyNetItem, index, items: ISafteyNetItem[]) => <li key={item.name}> {items[index].name} </li>)}
-                    </Text>}
-                    {!addItemClicked &&
-                        <IconButton
-                            colorScheme='green'
-                            aria-label='Add item'
-                            icon={<AddIcon />}
-                            width={20}
-                            onClick={() => setAddItemClicked(true)}
-                        />
-
+  if (items) {
+    return (
+      <Suspense fallback="Loading...">
+        <Flex direction="column" alignItems='center'>
+          {!addItemClicked && (
+            <Text fontSize={20} marginBottom={5} textAlign='center'>
+              {t("welcome")}
+            </Text>
+          )}
+          {!addItemClicked && (
+            <>
+              <Flex paddingBottom={5}>
+                <ul className={coloModeDependentClassName}>
+                  <li>
+                    {displayIcon("people") &&
+                      (<PopoverSafetyNet popoverProps={{ icon: '👩‍👦', type: 'people', items: items }} />)
                     }
-                    {addItemClicked && <AddItemView />}
-                </Flex>
-            </Flex>
-            </Suspense>
-        );
-    }
-    else {
-        console.log("NO ENTRIES");
-        return (
-            <Flex>
-                <Sidebar />
-            </Flex>
-        )
-    }
-
+                  </li>
+                  <li>
+                    {displayIcon("activities") &&
+                      (<PopoverSafetyNet popoverProps={{ icon: '🤾🏾', type: 'activities', items: items }} />)
+                    }
+                  </li>
+                  <li>
+                    {displayIcon("pets") &&
+                      (<PopoverSafetyNet popoverProps={{ icon: '🐾', type: 'pets', items: items }} />)
+                    }
+                  </li>
+                  <li>
+                    {displayIcon("personalStrengths") &&
+                      (<PopoverSafetyNet popoverProps={{ icon: '💪🏽', type: 'personalStrengths', items: items }} />)
+                    }
+                  </li>
+                  <li>
+                    {displayIcon("other") &&
+                      (<PopoverSafetyNet popoverProps={{ icon: '💭', type: 'other', items: items }} />)
+                    }
+                  </li>
+                </ul>
+              </Flex>
+              {!addItemClicked && (
+                <Button
+                  mt={5}
+                  mb={mobile ? '25px' : 'unset'}
+                  colorScheme="primary"
+                  aria-label="Add item"
+                  leftIcon={<AddIcon />}
+                  onClick={() => setAddItemClicked(true)}
+                >
+                  Add item
+                </Button>
+              )}
+            </>
+          )}
+          {addItemClicked && (
+            <AddItemView />
+          )}
+        </Flex>
+      </Suspense>
+    );
+  } else {
+    console.log("NO ENTRIES");
+    return (
+      <Flex>
+        <Sidebar />
+      </Flex>
+    );
+  }
 }
 
 export default function SafetyNet() {
-    const { t } = useTranslation();
-    return (
-        <ChakraProvider theme={theme}>
-            
-            <Stack direction={['row']} spacing='275px'>
-                    <Box >
-                        <Sidebar />
-                    </Box>
+  const { t } = useTranslation();
+  return <ContentWrapper headerProps={{ text: t('safetyNet') }}>
+    <FrontPage />
+  </ContentWrapper>
 
-                    <Box w='100%' h='120px'  bg='green.400'>
-                        <Text fontSize='40px' align='center' pt='50px' color='white'>{t('safetyNet')} </Text>
-                    </Box>
-                    
-            </Stack>
-            <FrontPage />
-        </ChakraProvider>
-            
-
-        
-    );
 }

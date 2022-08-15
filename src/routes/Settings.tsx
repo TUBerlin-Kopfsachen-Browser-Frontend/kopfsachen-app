@@ -10,10 +10,16 @@ import {
     theme,
     Flex,
     Center,
+    Button,
+    Stack,
+    Avatar,
+    Heading,
 } from "@chakra-ui/react"
 import Sidebar from "../components/Sidebar"
+import { FiChevronRight, FiSettings, FiUser } from "react-icons/fi";
+import { ColorModeSwitcher } from "../ColorModeSwitcher";
 
-export default function Wiki() {
+export default function Settings() {
     return (
         <ChakraProvider theme={theme}>
             <Flex>
@@ -21,21 +27,25 @@ export default function Wiki() {
                 <Flex
                     flexDirection='column'
                     position='absolute'
-                    top='5vh'
+                    top='10vh'
                     left='50vw'
-                    transform="translate(-50%, -10%)"
+                    transform="translate(-50%, -0%)"
                     maxWidth='800px'
                 >
-                    <Grid minH="50vh" p={300}>
-                        <VStack spacing={8}>
-                            <Text>
-                                The Settings will be here!
-                            </Text>
-                        </VStack>
-                    </Grid>
-                
-                </Flex>  
-            </Flex>
+                    <Center>
+                        <Heading> Settings </Heading>
+                    </Center>
+                    <Center>
+                        <Avatar size='xl' margin={7} icon={<FiSettings/>}/>
+                    </Center>
+                    <Stack direction='column'spacing={3}>
+                        <ColorModeSwitcher justifySelf="flex-end" />
+                        {/* <Link>
+                            <Button width={200} leftIcon={<FiUser/>} rightIcon={<FiChevronRight/>}> Account </Button>
+                        </Link> */}
+                    </Stack>
+                </Flex>
+            </Flex>  
         </ChakraProvider>
     );
 }

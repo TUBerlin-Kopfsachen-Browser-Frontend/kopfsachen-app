@@ -1,100 +1,120 @@
-import * as React from "react"
+import * as React from "react";
 import {
-Icon,
-ChakraProvider,
-Box,
-Text,
-theme,
-Flex,
-Center,
-Heading,
-Stack,
-RadioGroup,
-HStack,
-Radio,
-Button, ButtonGroup
-} from "@chakra-ui/react"
+  Icon,
+  ChakraProvider,
+  Input,
+  Box,
+  Text,
+  theme,
+  Flex,
+  Center,
+  Heading,
+  Stack,
+  RadioGroup,
+  HStack,
+  Radio,
+  Button,
+  ButtonGroup,
+} from "@chakra-ui/react";
 
 import { useNavigate } from "react-router-dom";
-import Sidebar from "../components/Sidebar"
-import { AspectRatio } from '@chakra-ui/react'
+import Sidebar from "../components/Sidebar";
+import { AspectRatio, useColorModeValue } from "@chakra-ui/react";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { stringify } from "querystring";
+import { networkInterfaces } from "os";
+import axios from "axios";
+import { ContentWrapper, useMobile } from "../components/utils";
+import { CheckIcon } from "@chakra-ui/icons";
 
-
-
+interface IReframingItem {
+  situations: string[];
+}
 
 export default function New() {
-        const navigate = useNavigate();
+  const navigate = useNavigate();
+  const mobile = useMobile();
+  const { register, handleSubmit, setValue } = useForm<IReframingItem>();
+  const onSubmit: SubmitHandler<IReframingItem> = (data) =>
+    axios.post(`http://127.0.0.1:4010/safetyNet/1`, data);
 
-    return (
-        <ChakraProvider theme={theme}>
-            <Flex>
-                <Sidebar />
+  return (
+    <ContentWrapper
+      headerProps={{ text: "Reframing 🪞" }}
+    >
+      <Flex flexDirection="column" alignItems="center">
+        <Text fontSize={20} mb={10} textAlign="center">
+          Which situation is bothering you at the moment? {"\n"}
+          Maybe there is more than one, we are going to go through each situaion
+          step by step.
+        </Text>
 
-                  <Button  marginLeft={270} colorScheme='teal' variant='ghost' onClick={() => navigate('/newresources')}>
-                  ← Back 
-                    </Button>
+        <form onSubmit={handleSubmit(onSubmit)} style={{ maxWidth: "100%" }}>
+          <Flex flexDirection="column">
+            <Stack spacing={5}>
+              <Flex>
+              <Text fontSize='26' mr={3}>💭</Text>
+              <Input
+                {...register(`situations.${0}`)}
+                placeholder="Situation 1"
+                focusBorderColor={useColorModeValue(
+                  "neutral.400",
+                  "neutral.100"
+                )}
+              // size="lg"
+              />
+              </Flex>
+              <Flex>
+              <Text fontSize='26' mr={3}>💭</Text>
+              <Input
+                {...register(`situations.${1}`)}
+                placeholder="Situation 2"
+                focusBorderColor={useColorModeValue(
+                  "neutral.400",
+                  "neutral.100"
+                )}
+              // size="lg"
+              />
+              </Flex>
+              <Flex>
+              <Text fontSize='26' mr={3}>💭</Text>
+              <Input
+                {...register(`situations.${2}`)}
+                placeholder="Situation 3"
+                focusBorderColor={useColorModeValue(
+                  "neutral.400",
+                  "neutral.100"
+                )}
+              // size="lg"
+              />
+              </Flex>
+              <Flex>
+              <Text fontSize='26' mr={3}>💭</Text>
+              <Input
+                {...register(`situations.${3}`)}
+                placeholder="Situation 4"
+                focusBorderColor={useColorModeValue(
+                  "neutral.400",
+                  "neutral.100"
+                )}
+              // size="lg"
+              />
+              </Flex>
+            </Stack>
 
-                <Flex
-                    flexDirection='column'
-                    position='absolute'
-                    top='5vh'
-                    left='50vw'
-                    transform="translate(-50%, -10%)"
-                    maxWidth='800px'
-                >
-
-                
-                
-                        <Stack>
-                            <Box >
-                                <Heading fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}  >
-                                    <Text color={'green.400'}  pl={'370px'} pt={'80px'}  >
-                                
-                                        Reframing
-                                
-                                    </Text>
-                                </Heading>
-                            
-                                    <Text fontSize={{ base: 'md', lg: '4xl' }} color={'white'} pt={'90px'} pl={'300px'}>
-                                        Find out what's behind it!
-                                    </Text>
-                            </Box>
-
-                            <Stack>
-
-                <AspectRatio maxW='560px' ratio={1} pt={'200px'} ml={'230px'}  pr={'580px'}>
-                
-  <iframe 
-    title='reframe'
-    src='https://www.youtube-nocookie.com/embed/sOwtIkAO3ZI'
-    allowFullScreen
-  />         
-    
-
-    </AspectRatio>
-      </Stack>
-        
-        <Stack spacing={8} direction='row' align='center'></Stack>
-        <Center >
-            
-        <Stack direction='row' spacing={20} pl={'180px'} pt={'80px'}>
-  <Button colorScheme='teal' variant='solid' size='lg'>
-    Choose another strategy
-
-  </Button>
-  <Button colorScheme='teal' variant='outline' size='lg'
-            onClick={() => navigate('/reframing1')}>
-    I want to practice that
-  </Button>
-        
-      </Stack>
-        </Center>
-
-</Stack>
-
-            </Flex>
-            </Flex>
-            
-        </ChakraProvider>
-    );
-    }
+            <Button
+              mt={10}
+              colorScheme="success"
+              type="submit"
+              onClick={() => navigate("/resources/reframing1")}
+              whiteSpace={mobile ? "initial" : "unset"}
+            rightIcon={<CheckIcon/>}
+            >
+              These are all situations bothering me at the moment
+            </Button>
+          </Flex>
+        </form>
+      </Flex>
+    </ContentWrapper>
+  );
+}

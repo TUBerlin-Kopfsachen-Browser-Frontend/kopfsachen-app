@@ -1,5 +1,4 @@
-
-import * as React from "react"
+import * as React from "react";
 import {
   ChakraProvider,
   Box,
@@ -13,33 +12,42 @@ import {
   Center,
   Heading,
   Image,
-} from "@chakra-ui/react"
+  Button,
+  Stack,
+} from "@chakra-ui/react";
 // import { Logo } from "./Logo"
-import Sidebar from "./components/Sidebar"
+import Sidebar from "./components/Sidebar";
+import { useStore } from "../src/store/isLoggedIn";
+import { useEffect, useState } from "react";
+import { ContentWrapper, useMobile } from "./components/utils";
 
-export const App = () => (
-  <ChakraProvider theme={theme}>
-    <Flex>
-      <Sidebar />
 
-      <Flex
-                    flexDirection='column'
-                    position='absolute'
-                    top='5vh'
-                    left='50vw'
-                    transform="translate(-50%, -10%)"
-                    maxWidth='800px'
-                >
-        <Grid minH="50vh" p={200}>
-          <VStack spacing={8}>
-            {/* <Logo h="40vmin" pointerEvents="none" /> */}
-            <Image src='/header.png' />
-            <Text fontSize="20">Welcome to the Kopsachen Web App!</Text>
-          </VStack>
-        </Grid>
-      </Flex>
-
+export default function App() {
+  const mobile = useMobile();
+  return <ContentWrapper headerProps={{ text: 'Home' }}>
+    <Flex flexDirection='column' alignItems='center' mt='150px'>
+      <Image src="/header.png" width={["200px", "400px"]} alt='Kopfsachen logo'/>
+      <Text fontSize={["16", "20"]}>Welcome to the Kopfsachen Web App!</Text>
+      <Stack spacing={4} direction="row" align="center">
+        <a href="/login">
+          <Button
+            display={useStore((state) => state.isLoggedIn) ? "none" : ""}
+            colorScheme="success"
+            mt={3}
+          >
+            Login
+          </Button>
+        </a>
+        <a href="/register">
+          <Button
+            display={useStore((state) => state.isLoggedIn) ? "none" : ""}
+            colorScheme="primary"
+            mt={3}
+          >
+            Register
+          </Button>
+        </a>
+      </Stack>
     </Flex>
-    
-  </ChakraProvider>
-)
+  </ContentWrapper>
+}
